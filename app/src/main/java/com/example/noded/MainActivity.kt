@@ -11,6 +11,10 @@ import androidx.databinding.DataBindingUtil
 import kotlinx.android.synthetic.main.activity_main.*
 import com.example.noded.databinding.ContentMainBinding
 import com.example.noded.databinding.ActivityMainBinding
+import io.noties.markwon.Markwon
+import io.noties.markwon.editor.MarkwonEditor
+import io.noties.markwon.editor.MarkwonEditorTextWatcher
+import java.util.concurrent.Executors
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,6 +31,15 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         bindingAct.fab.setOnClickListener { saveNote() }
+
+        // Make the EditText update live
+        val markwon: Markwon = Markwon.create(this)
+        val editor: MarkwonEditor = MarkwonEditor.create(markwon)
+        bindingCont.newNoteBody.addTextChangedListener(MarkwonEditorTextWatcher.withPreRender(
+            editor,
+            Executors.newCachedThreadPool(),
+            bindingCont.newNoteBody))
+
     }
 
     private fun saveNote() {
