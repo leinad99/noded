@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 import me.spryn.noded.R
 import me.spryn.noded.databinding.FragmentNotebookBinding
+import me.spryn.noded.models.NotebookModel
 
 /**
  * A simple [Fragment] subclass.
@@ -20,12 +21,16 @@ class NotebookFragment : Fragment() {
 
     lateinit var notebookRecyclerView: RecyclerView
     lateinit var notebookListAdapter: NotebookListAdapter
+    lateinit var notebookList: ArrayList<NotebookModel>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        notebookListAdapter = NotebookListAdapter(context, inflater)
+        notebookList = ArrayList<NotebookModel>()
+        notebookList.add(NotebookModel(title = "Skool", color = "#ff0000"))
+        notebookList.add(NotebookModel(title = "Personal", color = "#00ff00"))
+        notebookListAdapter = NotebookListAdapter(notebookList, context, inflater)
 
         val binding: FragmentNotebookBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_notebook, container, false)

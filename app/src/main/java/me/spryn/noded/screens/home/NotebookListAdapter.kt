@@ -8,11 +8,10 @@ import me.spryn.noded.R
 import me.spryn.noded.models.NotebookModel
 
 class NotebookListAdapter(
+    private var notebooks: List<NotebookModel>,
     context: Context?,
     private val inflater: LayoutInflater = LayoutInflater.from(context)
 ) : RecyclerView.Adapter<NotebookViewHolder>() {
-
-    private var notebooks: List<NotebookModel> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotebookViewHolder {
         val view = inflater.inflate(R.layout.notebook_list_item_view, parent, false)
