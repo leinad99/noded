@@ -13,7 +13,7 @@
             android:padding="10dp">
 
             <RelativeLayout
-                android:id="@+id/create_notebook"
+                android:id="@+id/create_note"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/main_login_layout">
@@ -66,7 +66,7 @@
                     android:layout_marginLeft="50dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="50dp"
-                    android:background="@color/white"
+                    android:background="@color/save_green"
                     android:padding="15dp"
                     android:shadowColor="@color/light_blue"
                     android:text="@string/create_notebook" />

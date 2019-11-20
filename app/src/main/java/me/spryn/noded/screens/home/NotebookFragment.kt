@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -39,6 +40,11 @@ class NotebookFragment : Fragment() {
 
         notebookRecyclerView.adapter = notebookListAdapter
         notebookRecyclerView.layoutManager = LinearLayoutManager(context)
+
+        binding.createNotebookButton.setOnClickListener(){
+                view?.findNavController()
+                    ?.navigate(R.id.action_notebookFragment_to_createNotebookFragment)
+        }
 
         return binding.root
     }
