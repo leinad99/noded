@@ -8,4 +8,43 @@
     <color name="white">#ffffff</color>
     <color name="light_blue">#cadaff</color>
     <color name="dark_blue">#70798e</color>
+
+    <color name="red_500">#F44336</color>
+    <color name="pink_500">#E91E63</color>
+    <color name="purple_500">#9C27B0</color>
+    <color name="deep_purple_500">#673AB7</color>
+    <color name="indigo_500">#3F51B5</color>
+    <color name="blue_600">#1E88E5</color>
+    <color name="light_blue_700">#0288D1</color>
+    <color name="cyan_700">#0097A7</color>
+    <color name="teal_500">#009688</color>
+    <color name="green_600">#43A047</color>
+    <color name="light_green_800">#558B2F</color>
+    <color name="lime_900">#827717</color>
+    <color name="orange_900">#E65100</color>
+    <color name="deep_orange_600">#F4511E</color>
+    <color name="brown_500">#795548</color>
+    <color name="gray_600">#757575</color>
+    <color name="blue_gray_500">#607D8B</color>
+    <color name="black">#000000</color>
+
+    <array name="notebook_colors">
+        <item>@color/red_500</item>
+        <item>@color/pink_500</item>
+        <item>@color/purple_500</item>
+        <item>@color/deep_purple_500</item>
+        <item>@color/indigo_500</item>
+        <item>@color/blue_600</item>
+        <item>@color/light_blue</item>
+        <item>@color/cyan_700</item>
+        <item>@color/teal_500</item>
+        <item>@color/green_600</item>
+        <item>@color/light_green_800</item>
+        <item>@color/lime_900</item>
+        <item>@color/orange_900</item>
+        <item>@color/deep_orange_600</item>
+        <item>@color/brown_500</item>
+        <item>@color/blue_gray_500</item>
+        <item>@color/black</item>
+    </array>
 </resources>
