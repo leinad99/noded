@@ -1,3 +1,11 @@
 package me.spryn.noded.models
 
-class NotebookModel(val title: String, val color: String)
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "notebook_table")
+data class NotebookModel(
+    @PrimaryKey val title: String,
+    val color: String,
+    var lastModified: Long
+)
