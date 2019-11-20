@@ -6,12 +6,24 @@
     app:startDestination="@id/createNotebookFragment">
 
     <fragment
+        android:id="@+id/createNotebookFragment"
+        android:name="me.spryn.noded.screens.createNotebook.CreateNotebookFragment"
+        android:label="CreateNotebookFragment" >
+        <action
+            android:id="@+id/action_createNotebookFragment_to_createNoteFragment"
+            app:destination="@id/createNoteFragment" />
+    </fragment>
+    <fragment
         android:id="@+id/notebookFragment"
         android:name="me.spryn.noded.screens.home.NotebookFragment"
         android:label="fragment_notebook"
         tools:layout="@layout/fragment_notebook" />
     <fragment
-        android:id="@+id/createNotebookFragment"
-        android:name="me.spryn.noded.screens.createNotebook.CreateNotebookFragment"
-        android:label="CreateNotebookFragment" />
+        android:id="@+id/createNoteFragment"
+        android:name="me.spryn.noded.screens.createNote.CreateNoteFragment"
+        android:label="CreateNoteFragment" >
+        <action
+            android:id="@+id/action_createNoteFragment_to_notebookFragment"
+            app:destination="@id/notebookFragment" />
+    </fragment>
 </navigation>
