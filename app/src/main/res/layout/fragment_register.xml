@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout>
 
-    <ScrollView
-        android:layout_height="match_parent"
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:fillViewport="true">
 
         <RelativeLayout
@@ -17,7 +17,8 @@
             <RelativeLayout
                 android:id="@+id/register_header_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/main_register_layout">
 
                 <LinearLayout
                     android:layout_width="match_parent"

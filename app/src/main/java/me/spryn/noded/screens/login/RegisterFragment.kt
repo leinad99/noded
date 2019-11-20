@@ -6,6 +6,7 @@ import android.content.Intent
 import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -97,6 +98,7 @@ class RegisterFragment : Fragment() {
                     val userID = fAuth.currentUser!!.uid
                     val currentUserDb = fUsersDatabase.child(userID)
                     Toast.makeText(context, "Success creating account!", Toast.LENGTH_SHORT).show()
+                    view?.findNavController()?.navigate(R.id.action_registerActivity_to_notebookFragment)
                 } else {
                     registerButton.isEnabled = true
                     Toast.makeText(context, "ERROR: ${task.exception}", Toast.LENGTH_SHORT).show()
@@ -128,7 +130,7 @@ class RegisterFragment : Fragment() {
         //password
         if (password.isEmpty() || password.length < 6 || !strongPassword()) {
             passwordField.error =
-                "Password Must be at least 6 characters long, at least 1 capital, 1 lowercase, and 1 number"
+                "Password Must be at least 6 characters long, and contain the following: a capital, a lowercase, a number, a special character, and no spaces."
             isValid = false
         } else {
             passwordField.error = null
@@ -138,11 +140,6 @@ class RegisterFragment : Fragment() {
     }
 
     private fun strongPassword(): Boolean {
-        val pattern = "^(?=.*[0-9])(?=.*[a-z])$"
-        return password.matches(pattern.toRegex())
-    }
-
-    private fun onSignUpFailed() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return true //TODO Implement API to check
     }
 }

@@ -82,10 +82,12 @@ class LoginFragment : Fragment() {
         loginButton.isEnabled = false
         fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                loginButton.isEnabled = false
+                loginButton.isEnabled = true
+                progressBar.hide()
                 view?.findNavController()?.navigate(R.id.action_loginActivity_to_notebookFragment)
             } else {
                 loginButton.isEnabled = true
+                progressBar.hide()
                 Toast.makeText(context, "ERROR: ${task.exception}", Toast.LENGTH_SHORT).show()
             }
         }
