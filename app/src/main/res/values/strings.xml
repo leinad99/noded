@@ -7,6 +7,6 @@
     <string name="notebook_title_hint">Notebook Title</string>
     <string name="notebook_color_hint">Hex color of the notebook. Ex. #FF0000 for red</string>
     <string name="note_title_hint">Title</string>
-    <string name="body_note_hint">Body</string>
+    <string name="body_note_hint">Note</string>
     <string name="save_note_button">Save Note</string>
 </resources>
