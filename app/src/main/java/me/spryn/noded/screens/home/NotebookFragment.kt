@@ -27,7 +27,7 @@ class NotebookFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        notebookList = ArrayList<NotebookModel>()
+        notebookList = ArrayList()
         notebookList.add(NotebookModel(title = "Skool", color = "#ff0000", lastModified = 1))
         notebookList.add(NotebookModel(title = "Personal", color = "#00ff00", lastModified = 2))
         notebookListAdapter = NotebookListAdapter(notebookList, context, inflater)
