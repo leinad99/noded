@@ -33,9 +33,19 @@
         <action
             android:id="@+id/action_loginActivity_to_registerActivity"
             app:destination="@id/registerActivity" />
+        <action
+            android:id="@+id/action_loginActivity_to_notebookFragment"
+            app:destination="@id/notebookFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerActivity"
         android:name="me.spryn.noded.screens.login.RegisterFragment"
-        android:label="RegisterActivity" />
+        android:label="RegisterActivity" >
+        <action
+            android:id="@+id/action_registerActivity_to_loginActivity"
+            app:destination="@id/loginActivity" />
+        <action
+            android:id="@+id/action_registerActivity_to_notebookFragment"
+            app:destination="@id/notebookFragment" />
+    </fragment>
 </navigation>

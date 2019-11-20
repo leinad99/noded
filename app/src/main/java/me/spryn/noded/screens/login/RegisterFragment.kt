@@ -8,12 +8,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ProgressBar
-import android.widget.Toast
+import android.widget.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
@@ -27,10 +25,21 @@ import me.spryn.noded.databinding.FragmentRegisterBinding
 class RegisterFragment : Fragment() {
 
     private lateinit var registerButton: Button
-    private lateinit var fAuth: FirebaseAuth
-    private lateinit var fUsersDatabase: DatabaseReference
+
+    private var fAuth = FirebaseAuth.getInstance()
+    private var fUsersDatabase = FirebaseDatabase.getInstance().reference.child("Users")
 
     private lateinit var progressBar: ProgressDialog
+
+    private lateinit var nameField: EditText
+    private lateinit var emailField: EditText
+    private lateinit var passwordField: EditText
+
+    private lateinit var login: TextView
+
+    private lateinit var name: String
+    private lateinit var email: String
+    private lateinit var password: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,40 +49,88 @@ class RegisterFragment : Fragment() {
             inflater, R.layout.fragment_register, container, false
         )
 
-        fAuth = FirebaseAuth.getInstance()
-        fUsersDatabase = FirebaseDatabase.getInstance().reference.child("Users")
 
         progressBar = ProgressDialog(context)
 
+        nameField = binding.nameInput
+        emailField = binding.emailInput
+        passwordField = binding.passwordInput
+
+        login = binding.loginText
+        login.setOnClickListener { login() }
+
         registerButton = binding.registerButton
         registerButton.setOnClickListener {
-            registerUser(
-                binding.nameInput.text.toString().trim(),
-                binding.emailInput.text.toString().trim(),
-                binding.passwordInput.text.toString()
-            )
+            name = nameField.text.toString().trim()
+            email = emailField.text.toString().trim()
+            password = passwordField.text.toString()
+            registerUser()
         }
 
         return binding.root
     }
 
-    private fun registerUser(name: String, email: String, password: String) {
-        if (name.isEmpty() || email.isEmpty() || password.isEmpty()) {
-            Toast.makeText(context, "Please fill enter all fields", Toast.LENGTH_LONG).show()
-        } else {
-            progressBar.show()
-            fAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener { task ->
-                    progressBar.hide()
-                    if (task.isSuccessful) {
-                        val userID = fAuth.currentUser!!.uid
-                        val currentUserDb = fUsersDatabase.child(userID)
-                        Toast.makeText(context, "Success creating account!", Toast.LENGTH_SHORT).show()
-                    } else {
-                        Toast.makeText(context, "ERROR: ${task.exception}", Toast.LENGTH_SHORT)
-                            .show()
-                    }
-                }
+    private fun login() {
+        view?.findNavController()?.navigate((R.id.action_registerActivity_to_loginActivity))
+    }
+
+    private fun registerUser() {
+
+        if (!validate()) {
+            onSignUpFailed()
+            return
         }
+        progressBar.show()
+        fAuth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                progressBar.hide()
+                if (task.isSuccessful) {
+                    val userID = fAuth.currentUser!!.uid
+                    val currentUserDb = fUsersDatabase.child(userID)
+                    Toast.makeText(context, "Success creating account!", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(context, "ERROR: ${task.exception}", Toast.LENGTH_SHORT).show()
+                }
+            }
+    }
+
+    private fun validate(): Boolean {
+        var isValid = true
+
+        //name
+        if (name.isEmpty() || name.length < 3) {
+            nameField.error = "at least 3 characters"
+            isValid = false
+        } else {
+            nameField.error = null
+        }
+
+        //email
+        if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            emailField.error = "enter a valid email address"
+            isValid = false
+        } else {
+            emailField.error = null
+        }
+
+        //password
+        if (password.isEmpty() || password.length < 6 || !strongPassword()) {
+            passwordField.error =
+                "Password Must be at least 6 characters long, at least 1 capital, 1 lowercase, and 1 number"
+            isValid = false
+        } else {
+            passwordField.error = null
+        }
+
+        return isValid
+    }
+
+    private fun strongPassword(): Boolean {
+        val pattern = "^(?=.*[0-9])(?=.*[a-z])$"
+        return password.matches(pattern.toRegex())
+    }
+
+    private fun onSignUpFailed() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
