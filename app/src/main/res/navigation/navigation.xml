@@ -17,15 +17,15 @@
         android:id="@+id/notebookFragment"
         android:name="me.spryn.noded.screens.home.NotebookFragment"
         android:label="fragment_notebook"
-        tools:layout="@layout/fragment_notebook" />
+        tools:layout="@layout/fragment_notebook" >
+        <action
+            android:id="@+id/action_notebookFragment_to_createNotebookFragment"
+            app:destination="@id/createNotebookFragment" />
+    </fragment>
     <fragment
         android:id="@+id/createNoteFragment"
         android:name="me.spryn.noded.screens.createNote.CreateNoteFragment"
-        android:label="CreateNoteFragment" >
-        <action
-            android:id="@+id/action_createNoteFragment_to_notebookFragment"
-            app:destination="@id/notebookFragment" />
-    </fragment>
+        android:label="CreateNoteFragment" />
     <fragment
         android:id="@+id/loginActivity"
         android:name="me.spryn.noded.screens.login.LoginFragment"
