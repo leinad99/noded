@@ -33,6 +33,7 @@
                         android:hint="@string/note_hint"
                         android:inputType="textMultiLine"
                         android:maxHeight="500dp"
+                        android:minHeight="200dp"
                         app:backgroundTint="@color/white" />
                 </LinearLayout>
             </ScrollView>
@@ -44,10 +45,11 @@
                 android:layout_marginLeft="50dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="50dp"
-                android:background="@color/save_green"
+                android:background="@drawable/curved_button_green"
                 android:padding="15dp"
                 android:shadowColor="@color/light_blue"
-                android:text="@string/save_note_button" />
+                android:text="@string/save_note_button"
+                />
 
         </LinearLayout>
 </layout>
