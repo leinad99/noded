@@ -11,8 +11,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".screens.login.RegisterFragment"></activity>
-        <activity android:name=".screens.login.LoginFragment" />
+        <activity
+            android:name=".screens.login.RegisterFragment"
+            android:windowSoftInputMode="stateVisible|adjustPan"></activity>
+        <activity
+            android:name=".screens.login.LoginFragment"
+            android:windowSoftInputMode="stateVisible|adjustPan" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

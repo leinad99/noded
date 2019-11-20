@@ -7,10 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -41,11 +38,11 @@ class LoginFragment : Fragment() {
     private lateinit var email: String
     private lateinit var password: String
 
-    var fAuth = FirebaseAuth.getInstance()
+    private var fAuth = FirebaseAuth.getInstance()
 
-    val RC_SIGN_IN: Int = 1
-    lateinit var mGoogleSignInClient: GoogleSignInClient
-    lateinit var mGoogleSignInOptions: GoogleSignInOptions
+    private val RC_SIGN_IN: Int = 1
+    private lateinit var mGoogleSignInClient: GoogleSignInClient
+    private lateinit var mGoogleSignInOptions: GoogleSignInOptions
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -79,11 +76,16 @@ class LoginFragment : Fragment() {
 
 
     private fun login() {
+        progressBar.isIndeterminate = true
+        progressBar.setMessage("Logging in")
         progressBar.show()
+        loginButton.isEnabled = false
         fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
             if (task.isSuccessful) {
+                loginButton.isEnabled = false
                 view?.findNavController()?.navigate(R.id.action_loginActivity_to_notebookFragment)
             } else {
+                loginButton.isEnabled = true
                 Toast.makeText(context, "ERROR: ${task.exception}", Toast.LENGTH_SHORT).show()
             }
         }

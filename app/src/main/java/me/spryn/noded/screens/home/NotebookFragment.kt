@@ -28,8 +28,8 @@ class NotebookFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         notebookList = ArrayList<NotebookModel>()
-        notebookList.add(NotebookModel(title = "Skool", color = "#ff0000"))
-        notebookList.add(NotebookModel(title = "Personal", color = "#00ff00"))
+        notebookList.add(NotebookModel(title = "Skool", color = "#ff0000", lastModified = 1))
+        notebookList.add(NotebookModel(title = "Personal", color = "#00ff00", lastModified = 2))
         notebookListAdapter = NotebookListAdapter(notebookList, context, inflater)
 
         val binding: FragmentNotebookBinding = DataBindingUtil.inflate(

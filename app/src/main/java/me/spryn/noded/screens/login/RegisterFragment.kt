@@ -1,5 +1,6 @@
 package me.spryn.noded.screens.login
 
+import android.app.Activity
 import android.app.ProgressDialog
 import android.content.Intent
 import android.opengl.Visibility
@@ -8,6 +9,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -75,20 +77,28 @@ class RegisterFragment : Fragment() {
     }
 
     private fun registerUser() {
+        registerButton.isEnabled = false
 
         if (!validate()) {
-            onSignUpFailed()
+            registerButton.isEnabled = true
             return
         }
+
+        progressBar.isIndeterminate = true
+        progressBar.setMessage("Creating Account...")
+        progressBar.setCanceledOnTouchOutside(false)
         progressBar.show()
+
         fAuth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 progressBar.hide()
                 if (task.isSuccessful) {
+                    registerButton.isEnabled = true
                     val userID = fAuth.currentUser!!.uid
                     val currentUserDb = fUsersDatabase.child(userID)
                     Toast.makeText(context, "Success creating account!", Toast.LENGTH_SHORT).show()
                 } else {
+                    registerButton.isEnabled = true
                     Toast.makeText(context, "ERROR: ${task.exception}", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -96,6 +106,8 @@ class RegisterFragment : Fragment() {
 
     private fun validate(): Boolean {
         var isValid = true
+
+        registerButton.isEnabled = false
 
         //name
         if (name.isEmpty() || name.length < 3) {

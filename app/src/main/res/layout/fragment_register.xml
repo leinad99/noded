@@ -1,75 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
+    <ScrollView
         android:layout_height="match_parent"
-        android:background="@drawable/nodes"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        tools:context=".screens.login.RegisterFragment">
+        android:layout_width="match_parent"
+        android:fillViewport="true">
 
-
-        <LinearLayout
-            android:layout_width="350dp"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="85dp"
-            android:layout_gravity="center_horizontal"
-            android:orientation="vertical">
+            android:background="@color/colorPrimary"
+            android:orientation="vertical"
+            android:padding="10dp">
 
-            <TextView
-                style="@style/AppTitle"
+            <RelativeLayout
+                android:id="@+id/register_header_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:gravity="center_horizontal">
+
+                    <TextView
+                        style="@style/AppTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/app_name"
+                        android:textAlignment="center" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:id="@+id/main_register_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/app_name"
-                android:textAlignment="center" />
+                android:layout_centerVertical="true"
+                android:orientation="vertical">
 
 
-            <EditText
-                android:id="@+id/name_input"
-                style="@style/AccountInputField"
-                android:autofillHints="name"
-                android:hint="@string/name"
-                android:inputType="textCapWords"
-                app:backgroundTint="@color/white" />
+                <EditText
+                    android:id="@+id/name_input"
+                    style="@style/AccountInputField"
+                    android:autofillHints="name"
+                    android:hint="@string/name"
+                    android:inputType="textCapWords"
+                    app:backgroundTint="@color/white" />
 
-            <EditText
-                android:id="@+id/email_input"
-                style="@style/AccountInputField"
-                android:autofillHints="emailAddress"
-                android:hint="@string/email"
-                android:inputType="textEmailAddress"
-                app:backgroundTint="@color/white" />
+                <EditText
+                    android:id="@+id/email_input"
+                    style="@style/AccountInputField"
+                    android:autofillHints="emailAddress"
+                    android:hint="@string/email"
+                    android:inputType="textEmailAddress"
+                    app:backgroundTint="@color/white" />
 
-            <EditText
-                android:id="@+id/password_input"
-                style="@style/AccountInputField"
-                android:hint="@string/password"
-                android:inputType="textPassword"
-                app:backgroundTint="@color/white" />
+                <EditText
+                    android:id="@+id/password_input"
+                    style="@style/AccountInputField"
+                    android:hint="@string/password"
+                    android:inputType="textPassword"
+                    app:backgroundTint="@color/white" />
 
-            <Button
-                android:id="@+id/register_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="50dp"
-                android:layout_marginTop="10dp"
-                android:background="@color/light_blue"
-                android:padding="15dp"
-                android:shadowColor="@color/light_blue"
-                android:text="@string/register" />
+                <Button
+                    android:id="@+id/register_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="50dp"
+                    android:background="@color/white"
+                    android:padding="15dp"
+                    android:shadowColor="@color/light_blue"
+                    android:text="@string/register" />
 
-            <TextView
-                android:id="@+id/login_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@string/already_have_account"
-                android:textAlignment="center"
-                android:textColor="@color/white" />
-        </LinearLayout>
-    </RelativeLayout>
+                <TextView
+                    android:id="@+id/login_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/already_have_account"
+                    android:textAlignment="center"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
 </layout>
