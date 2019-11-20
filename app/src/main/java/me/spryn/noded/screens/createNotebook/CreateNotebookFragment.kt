@@ -27,7 +27,7 @@ class CreateNotebookFragment : Fragment() {
             inflater, R.layout.fragment_create_notebook, container, false)
 
         binding.createNotebookButton.setOnClickListener { view: View ->
-            view.findNavController().navigate(R.id.action_createNotebookFragment_to_createNoteFragment)
+            view.findNavController().navigate(R.id.action_createNotebookFragment_to_noteFragment)
         }
 
         return binding.root
