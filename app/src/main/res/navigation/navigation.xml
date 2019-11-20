@@ -3,11 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/notebookFragment">
+    app:startDestination="@id/createNotebookFragment">
 
     <fragment
         android:id="@+id/notebookFragment"
         android:name="me.spryn.noded.screens.home.NotebookFragment"
         android:label="fragment_notebook"
         tools:layout="@layout/fragment_notebook" />
+    <fragment
+        android:id="@+id/createNotebookFragment"
+        android:name="me.spryn.noded.screens.createNotebook.CreateNotebookFragment"
+        android:label="CreateNotebookFragment" />
 </navigation>
