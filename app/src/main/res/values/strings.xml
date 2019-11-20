@@ -4,4 +4,10 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="your_notebooks">Your Notebooks</string>
+    <string name="create_notebook_button">Create Notebook</string>
+    <string name="notebook_title_hint">Notebook Title</string>
+    <string name="notebook_color_hint">Hex color of the notebook. Ex. #FF0000 for red</string>
+    <string name="note_title_hint">Title</string>
+    <string name="body_note_hint">Note</string>
+    <string name="save_note_button">Save Note</string>
 </resources>
