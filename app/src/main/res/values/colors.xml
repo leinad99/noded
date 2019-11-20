@@ -4,4 +4,8 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="save_green">#36CC00</color>
+    <color name="off_white">#efefef</color>
+    <color name="white">#ffffff</color>
+    <color name="light_blue">#cadaff</color>
+    <color name="dark_blue">#70798e</color>
 </resources>

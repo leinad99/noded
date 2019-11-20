@@ -8,4 +8,19 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTitle">
+        <item name="android:layout_marginBottom">100dp</item>
+        <item name="android:fontFamily">@font/quicksand_regular</item>
+        <item name="android:textColor">@color/off_white</item>
+        <item name="android:textSize">50sp</item>
+    </style>
+
+    <style name="AccountInputField">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/quicksand_regular</item>
+        <item name="android:textColor">@color/light_blue</item>
+        <item name="android:textColorHint">@color/dark_blue</item>
+    </style>
+
 </resources>

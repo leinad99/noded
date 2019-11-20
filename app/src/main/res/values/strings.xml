@@ -10,4 +10,10 @@
     <string name="note_title_hint">Title</string>
     <string name="body_note_hint">Note</string>
     <string name="save_note_button">Save Note</string>
+    <string name="already_have_account">Already have account</string>
+    <string name="create_new_account">Create new account</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="register">Register</string>
 </resources>

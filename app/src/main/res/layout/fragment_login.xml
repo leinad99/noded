@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/nodes"
+        android:gravity="center"
+        android:orientation="vertical"
+        tools:context=".screens.login.LoginFragment">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            style="@style/AppTitle" />
+
+        <Button
+            android:id="@+id/existing_account_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@color/light_blue"
+            android:padding="15dp"
+            android:shadowColor="@color/light_blue"
+            android:text="@string/already_have_account" />
+
+        <Button
+            android:id="@+id/new_account_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@color/light_blue"
+            android:padding="15dp"
+            android:shadowColor="@color/light_blue"
+            android:text="@string/create_new_account" />
+
+
+    </LinearLayout>
+</layout>
