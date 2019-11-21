@@ -6,12 +6,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.forEach
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import me.spryn.noded.R
+import me.spryn.noded.database.DataManager.loadNotebooks
 import me.spryn.noded.databinding.FragmentNotebookBinding
 import me.spryn.noded.models.NotebookModel
 import java.util.*
@@ -39,6 +41,7 @@ class NotebookFragment : Fragment() {
 //            }
 //            notebookListAdapter = NotebookListAdapter(notebookList, context, inflater)
 //        }
+        //notebookList = loadNotebooks(context)
         notebookList = ArrayList()
         notebookList.add(NotebookModel(title = "Skool", color = "#ff0000", lastModified = 1))
         notebookList.add(NotebookModel(title = "Personal", color = "#00ff00", lastModified = 2))
@@ -52,11 +55,16 @@ class NotebookFragment : Fragment() {
         notebookRecyclerView.adapter = notebookListAdapter
         notebookRecyclerView.layoutManager = LinearLayoutManager(context)
 
-        binding.createNotebookButton.setOnClickListener(){
-                view?.findNavController()
-                    ?.navigate(R.id.action_notebookFragment_to_createNotebookFragment)
-        }
+        binding.createNotebookButton.setOnClickListener{ createNotebook(it) }
+
+
 
         return binding.root
+    }
+
+    private fun createNotebook(view: View){
+        view?.findNavController()
+            ?.navigate(R.id.action_notebookFragment_to_createNotebookFragment)
+
     }
 }
