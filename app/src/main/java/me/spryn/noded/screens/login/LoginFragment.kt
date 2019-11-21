@@ -74,6 +74,12 @@ class LoginFragment : Fragment() {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (FirebaseAuth.getInstance().currentUser != null) {
+            view?.findNavController()?.navigate(R.id.action_loginActivity_to_notebookFragment)
+        }
+    }
 
     private fun login() {
         progressBar.isIndeterminate = true
