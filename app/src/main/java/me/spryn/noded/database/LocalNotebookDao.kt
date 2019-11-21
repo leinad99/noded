@@ -17,7 +17,7 @@ interface LocalNotebookDao{
     fun updateNotebook(notebook: NotebookModel)
 
     @Query("SELECT * FROM notebooks_table WHERE title = :title")
-    fun getNotebook(title: String): NotebookModel
+    fun getNotebook(title: String): NotebookModel?
 
     @Query("SELECT * FROM notebooks_table ORDER BY lastModified DESC")
     fun getAllNotebooks(): List<NotebookModel>
