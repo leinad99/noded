@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
@@ -20,14 +21,20 @@ import me.spryn.noded.screens.note.NoteFragmentArgs
 class CreateNoteFragment : Fragment() {
     lateinit var binding: FragmentCreateNoteBinding
 
-    private val args: NoteFragmentArgs by navArgs()
+    private val args: CreateNoteFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        var note: NoteModel = DataManager.loadNote(args.noteName, args.notebookName, context)
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_create_note, container, false)
+
+        if(note.title != "newNote1234") { //if not a new note, populate the fields
+            binding.titleInput.setText(note.title, TextView.BufferType.EDITABLE)
+            binding.noteInput.setText(note.text, TextView.BufferType.EDITABLE)
+        }
 
 
         binding.saveNoteButton.setOnClickListener { saveNoteInstance(it) }
@@ -38,7 +45,7 @@ class CreateNoteFragment : Fragment() {
     private fun saveNoteInstance(view: View){
         val action = CreateNoteFragmentDirections.actionCreateNoteFragmentToNoteFragment(args.notebookName)
         view.findNavController().navigate(action)
-        val noteInstance = NoteModel(title = binding.titleInput.text.toString(), text = binding.noteInput.text.toString(), lastModified = 1, notebookTitle = args.notebookName)
+        val noteInstance = NoteModel(title = binding.titleInput.text.toString(), text = binding.noteInput.text.toString(), notebookTitle = args.notebookName)
         DataManager.saveNote(noteInstance, context)
     }
 
