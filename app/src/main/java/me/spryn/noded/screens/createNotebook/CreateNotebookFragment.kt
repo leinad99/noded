@@ -23,6 +23,7 @@ import android.graphics.Color.parseColor
 import android.widget.Toast
 
 
+
 /**
  * A simple [Fragment] subclass.
  */
@@ -77,16 +78,12 @@ class CreateNotebookFragment : Fragment() {
 
 
     }
+    private fun saveThisNotebook(view: View){
+        val action = CreateNotebookFragmentDirections.actionCreateNotebookFragmentToNoteFragment(binding.titleInput.text.toString())
+        view.findNavController().navigate(action)
+        val notebookInstance = NotebookModel(title = binding.titleInput.text.toString(), color = notebookColor.toString(), lastModified = 1)
 
-    private fun saveThisNotebook(view: View) {
-        view.findNavController().navigate(R.id.action_createNotebookFragment_to_noteFragment)
-        val notebookInstance = NotebookModel(
-            title = binding.titleInput.text.toString(),
-            color = notebookColor.toString(),
-            lastModified = 1
-        )
-
-        //saveNotebook(notebookInstance, context)
+        saveNotebook(notebookInstance, context)
     }
 
 
