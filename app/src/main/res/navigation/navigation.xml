@@ -11,7 +11,11 @@
         android:label="Create Notebook" >
         <action
             android:id="@+id/action_createNotebookFragment_to_noteFragment"
-            app:destination="@id/noteFragment" />
+            app:destination="@id/noteFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
     </custom-fragment>
     <custom-fragment
         app:showToolbar="false"
@@ -21,22 +25,37 @@
         tools:layout="@layout/fragment_notebook" >
         <action
             android:id="@+id/action_notebookFragment_to_createNotebookFragment"
-            app:destination="@id/createNotebookFragment" />
+            app:destination="@id/createNotebookFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <action
             android:id="@+id/action_notebookFragment_to_noteFragment"
-            app:destination="@id/noteFragment" />
+            app:destination="@id/noteFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <action
             android:id="@+id/action_notebookFragment_to_loginActivity"
-            app:destination="@id/loginActivity" />
+            app:destination="@id/loginActivity"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
     </custom-fragment>
     <custom-fragment
         android:id="@+id/createNoteFragment"
-        app:showToolbar="false"
         android:name="me.spryn.noded.screens.createNote.CreateNoteFragment"
         android:label="Create Notebook" >
         <action
             android:id="@+id/action_createNoteFragment_to_noteFragment"
-            app:destination="@id/noteFragment" />
+            app:destination="@id/noteFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <argument
             android:name="notebookName"
             app:argType="string" />
@@ -55,12 +74,20 @@
         android:label="LoginActivity" >
         <action
             android:id="@+id/action_loginActivity_to_registerActivity"
-            app:destination="@id/registerActivity" />
+            app:destination="@id/registerActivity"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <action
             android:id="@+id/action_loginActivity_to_notebookFragment"
             app:popUpTo="@id/notebookFragment"
             app:popUpToInclusive="true"
-            app:destination="@id/notebookFragment" />
+            app:destination="@id/notebookFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
     </custom-fragment>
     <custom-fragment
         android:id="@+id/registerActivity"
@@ -69,10 +96,18 @@
         android:label="RegisterActivity" >
         <action
             android:id="@+id/action_registerActivity_to_loginActivity"
-            app:destination="@id/loginActivity" />
+            app:destination="@id/loginActivity"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_registerActivity_to_notebookFragment"
-            app:destination="@id/notebookFragment" />
+            app:destination="@id/notebookFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
     </custom-fragment>
     <custom-fragment
         android:id="@+id/noteFragment"
@@ -81,7 +116,11 @@
         tools:layout="@layout/fragment_note" >
         <action
             android:id="@+id/action_noteFragment_to_createNoteFragment"
-            app:destination="@id/createNoteFragment" />
+            app:destination="@id/createNoteFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <argument
             android:name="notebookName"
             app:argType="string" />
@@ -90,6 +129,10 @@
             android:defaultValue="37474F" />
         <action
             android:id="@+id/action_noteFragment_to_notebookFragment"
-            app:destination="@id/notebookFragment" />
+            app:destination="@id/notebookFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
     </custom-fragment>
 </navigation>

@@ -2,6 +2,7 @@ package me.spryn.noded.navigation
 
 import androidx.annotation.IdRes
 import androidx.navigation.NavController
+import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
 import me.spryn.noded.R
 

@@ -29,9 +29,10 @@ class CreateNoteFragment : Fragment() {
     ): View? {
         var note: NoteModel = DataManager.loadNote(args.noteName, args.notebookName, context)
         binding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_create_note, container, false)
+            inflater, R.layout.fragment_create_note, container, false
+        )
 
-        if(note.title != "newNote1234") { //if not a new note, populate the fields
+        if (note.title != "newNote1234") { //if not a new note, populate the fields
             binding.titleInput.setText(note.title, TextView.BufferType.EDITABLE)
             binding.noteInput.setText(note.text, TextView.BufferType.EDITABLE)
         }
@@ -42,10 +43,18 @@ class CreateNoteFragment : Fragment() {
         return binding.root
     }
 
-    private fun saveNoteInstance(view: View){
-        val action = CreateNoteFragmentDirections.actionCreateNoteFragmentToNoteFragment(notebookName = args.notebookName, notebookColor = args.notebookColor)
+    private fun saveNoteInstance(view: View) {
+        val action = CreateNoteFragmentDirections.actionCreateNoteFragmentToNoteFragment(
+            notebookName = args.notebookName,
+            notebookColor = args.notebookColor
+        )
         view.findNavController().navigate(action)
-        val noteInstance = NoteModel(title = binding.titleInput.text.toString(), text = binding.noteInput.text.toString(), notebookTitle = args.notebookName)
+//        view.findNavController().navigate(R.id.action_createNoteFragment_to_noteFragment)
+        val noteInstance = NoteModel(
+            title = binding.titleInput.text.toString(),
+            text = binding.noteInput.text.toString(),
+            notebookTitle = args.notebookName
+        )
         DataManager.saveNote(noteInstance, context)
     }
 
