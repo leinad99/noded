@@ -38,7 +38,7 @@ object DataManager {
         val requiredContext = context?: return
         val dao = LocalNotesDatabase.getInstance(requiredContext).localNotesDao
 
-        if (dao.getNote(note.title, note.notebookTitle) != null){
+        if (dao.getNote(note.title, note.notebookTitle) == null){
             dao.insertNote(note)
         }
         else {
@@ -54,5 +54,14 @@ object DataManager {
         val dao = LocalNotesDatabase.getInstance(requiredContext).localNotesDao
 
         return dao.getAllNotesFromNotebook(notebookTitle)
+    }
+
+    // Load a specific note
+    fun loadNote(noteTitle: String, notebookTitle: String, context: Context?): NoteModel {
+
+        val requiredContext = context?: return NoteModel(title = noteTitle, notebookTitle =  notebookTitle)
+        val dao = LocalNotesDatabase.getInstance(requiredContext).localNotesDao
+
+        return dao.getNote(noteTitle, notebookTitle)?: NoteModel(title = noteTitle, notebookTitle =  notebookTitle)
     }
 }
