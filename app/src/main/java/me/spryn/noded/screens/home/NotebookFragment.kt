@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import me.spryn.noded.R
+import me.spryn.noded.database.DataManager.loadNotebooks
 import me.spryn.noded.databinding.FragmentNotebookBinding
 import me.spryn.noded.models.NotebookModel
 import java.util.*
@@ -24,25 +25,24 @@ class NotebookFragment : Fragment() {
 
     lateinit var notebookRecyclerView: RecyclerView
     lateinit var notebookListAdapter: NotebookListAdapter
-    lateinit var notebookList: ArrayList<NotebookModel>
+    lateinit var notebookList: LinkedList<NotebookModel>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-//        context?.let {
-//
-//            val notebooks = loadNotebooks(it)
-//            notebookList = LinkedList()
-//            for(notebook in notebooks){
-//                notebookList.add(notebook)
-//            }
-//            notebookListAdapter = NotebookListAdapter(notebookList, context, inflater)
-//        }
-        notebookList = ArrayList()
-        notebookList.add(NotebookModel(title = "Skool", color = "#ff0000", lastModified = 1))
-        notebookList.add(NotebookModel(title = "Personal", color = "#00ff00", lastModified = 2))
-        notebookListAdapter = NotebookListAdapter(notebookList, context, inflater)
+        context?.let {
+
+            val notebooks = loadNotebooks(it)
+            notebookList = LinkedList()
+            for(notebook in notebooks){
+                notebookList.add(notebook)
+            }
+            // FOR TESTING
+            notebookList.add(NotebookModel(title = "Skool", color = "#ff0000", lastModified = 1))
+            notebookList.add(NotebookModel(title = "Personal", color = "#00ff00", lastModified = 2))
+            notebookListAdapter = NotebookListAdapter(notebookList, context, inflater)
+        }
 
         val binding: FragmentNotebookBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_notebook, container, false)
