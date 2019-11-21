@@ -2,6 +2,7 @@ package me.spryn.noded.screens.note
 
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -35,10 +36,11 @@ class NoteFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         val notes = DataManager.loadNotesInNotebookFromTitle(args.notebookName, context)
         noteList = LinkedList()
-        for(notebook in notes){
-            noteList.add(notebook)
+        for(note in notes){
+            noteList.add(note)
         }
         noteList.add(NoteModel(title = "Stack Overflow", text = "I've been reviewing the documentation and API for Laravel Collections, but don't seem to find what I am looking for:\n" +
                 "\n" +
