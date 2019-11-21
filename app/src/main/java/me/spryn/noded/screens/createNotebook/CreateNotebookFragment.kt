@@ -12,7 +12,6 @@ import androidx.navigation.findNavController
 import me.spryn.noded.R
 import me.spryn.noded.databinding.FragmentCreateNotebookBinding
 import me.spryn.noded.models.NotebookModel
-import me.spryn.noded.database.saveNotebook
 
 /**
  * A simple [Fragment] subclass.

@@ -10,7 +10,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 
 import me.spryn.noded.R
-import me.spryn.noded.database.saveNote
 import me.spryn.noded.databinding.FragmentCreateNoteBinding
 import me.spryn.noded.models.NoteModel
 
