@@ -18,4 +18,7 @@ interface LocalNotesDao{
     @Query("SELECT * FROM notes_table WHERE notebookTitle = :notebookTitle ORDER BY lastModified DESC")
     fun getAllNotesFromNotebook(notebookTitle: String): List<NoteModel>
 
+    @Query("SELECT * FROM notes_table WHERE title = :noteTitle AND notebookTitle = :notebookTitle ORDER BY lastModified DESC")
+    fun getNote(noteTitle: String, notebookTitle: String): NoteModel?
+
 }
