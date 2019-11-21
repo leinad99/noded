@@ -32,6 +32,9 @@
         <action
             android:id="@+id/action_createNoteFragment_to_noteFragment"
             app:destination="@id/noteFragment" />
+        <argument
+            android:name="noteName"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/loginActivity"
@@ -63,5 +66,8 @@
         <action
             android:id="@+id/action_noteFragment_to_createNoteFragment"
             app:destination="@id/createNoteFragment" />
+        <argument
+            android:name="notebookName"
+            app:argType="string" />
     </fragment>
 </navigation>
