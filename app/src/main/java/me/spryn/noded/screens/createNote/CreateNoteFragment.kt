@@ -11,6 +11,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 
 import me.spryn.noded.R
+import me.spryn.noded.database.DataManager
 import me.spryn.noded.databinding.FragmentCreateNoteBinding
 import me.spryn.noded.models.NoteModel
 import me.spryn.noded.screens.note.NoteFragmentArgs
@@ -40,7 +41,7 @@ class CreateNoteFragment : Fragment() {
         val action = CreateNoteFragmentDirections.actionCreateNoteFragmentToNoteFragment(args.notebookName)
         view.findNavController().navigate(action)
         val noteInstance = NoteModel(title = binding.titleInput.text.toString(), text = binding.noteInput.text.toString(), lastModified = 1, notebookTitle = args.notebookName)
-        //saveNote(noteInstance)
+        DataManager.saveNote(noteInstance, context)
     }
 
 
