@@ -61,8 +61,8 @@ class NotebookFragment : Fragment() {
     }
 
     private fun createNotebook(view: View){
-        view?.findNavController()
-            ?.navigate(R.id.action_notebookFragment_to_createNotebookFragment)
+        view.findNavController()
+            .navigate(R.id.action_notebookFragment_to_createNotebookFragment)
 
     }
 }
