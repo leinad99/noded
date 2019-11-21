@@ -48,11 +48,11 @@ object DataManager {
     }
 
     // Load all notes in a notebook
-    fun loadNotesInNotebook(notebook: NotebookModel, context: Context?): List<NoteModel>{
+    fun loadNotesInNotebookFromTitle(notebookTitle: String, context: Context?): List<NoteModel>{
 
         val requiredContext = context?: return emptyList<NoteModel>()
         val dao = LocalNotesDatabase.getInstance(requiredContext).localNotesDao
 
-        return dao.getAllNotesFromNotebook(notebook.title)
+        return dao.getAllNotesFromNotebook(notebookTitle)
     }
 }
