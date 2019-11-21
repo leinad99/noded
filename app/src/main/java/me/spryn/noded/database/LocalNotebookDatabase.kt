@@ -19,7 +19,7 @@ abstract class LocalNotebookDatabase : RoomDatabase() {
                 var instance = INSTANCE
                 if (instance == null) {
                     instance = Room.databaseBuilder(
-                        context.applicationContext,
+                        context,
                         LocalNotebookDatabase::class.java,
                         "notebooks_database"
                     )
