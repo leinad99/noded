@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import me.spryn.noded.R
-import me.spryn.noded.database.loadNotebooks
 import me.spryn.noded.databinding.FragmentNotebookBinding
 import me.spryn.noded.models.NotebookModel
 import java.util.*
