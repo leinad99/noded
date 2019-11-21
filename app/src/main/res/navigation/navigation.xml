@@ -10,8 +10,8 @@
         android:name="me.spryn.noded.screens.createNotebook.CreateNotebookFragment"
         android:label="CreateNotebookFragment" >
         <action
-            android:id="@+id/action_createNotebookFragment_to_createNoteFragment"
-            app:destination="@id/createNoteFragment" />
+            android:id="@+id/action_createNotebookFragment_to_noteFragment"
+            app:destination="@id/noteFragment" />
     </fragment>
     <fragment
         android:id="@+id/notebookFragment"
@@ -21,11 +21,21 @@
         <action
             android:id="@+id/action_notebookFragment_to_createNotebookFragment"
             app:destination="@id/createNotebookFragment" />
+        <action
+            android:id="@+id/action_notebookFragment_to_noteFragment"
+            app:destination="@id/noteFragment" />
     </fragment>
     <fragment
         android:id="@+id/createNoteFragment"
         android:name="me.spryn.noded.screens.createNote.CreateNoteFragment"
-        android:label="CreateNoteFragment" />
+        android:label="CreateNoteFragment" >
+        <action
+            android:id="@+id/action_createNoteFragment_to_noteFragment"
+            app:destination="@id/noteFragment" />
+        <argument
+            android:name="notebookName"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/loginActivity"
         android:name="me.spryn.noded.screens.login.LoginFragment"
@@ -49,5 +59,17 @@
         <action
             android:id="@+id/action_registerActivity_to_notebookFragment"
             app:destination="@id/notebookFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/noteFragment"
+        android:name="me.spryn.noded.screens.note.NoteFragment"
+        android:label="fragment_note"
+        tools:layout="@layout/fragment_note" >
+        <action
+            android:id="@+id/action_noteFragment_to_createNoteFragment"
+            app:destination="@id/createNoteFragment" />
+        <argument
+            android:name="notebookName"
+            app:argType="string" />
     </fragment>
 </navigation>

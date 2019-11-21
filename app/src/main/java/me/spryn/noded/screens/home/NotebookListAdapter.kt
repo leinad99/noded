@@ -22,13 +22,6 @@ class NotebookListAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotebookViewHolder {
         val view = inflater.inflate(R.layout.notebook_list_item_view, parent, false)
 
-        val binding: FragmentNotebookBinding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_notebook, parent, false)
-        binding.createNotebookButton.setOnClickListener {
-            view.findNavController()
-                .navigate(R.id.action_notebookFragment_to_createNotebookFragment)
-        }
-
         return NotebookViewHolder(view)
     }
 

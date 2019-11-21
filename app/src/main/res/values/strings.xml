@@ -21,4 +21,8 @@
     <string name="notebook_title">Notebook Title</string>
     <string name="title_hint">Title</string>
     <string name="color_hint">Color value in hex</string>
+    <string name="note_hint">Note</string>
+    <string name="your_notes">Your Notes</string>
+    <string name="create_note">Create Note</string>
+    <string name="create_new_note">Create New Note</string>
 </resources>
