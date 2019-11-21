@@ -1,6 +1,7 @@
 package me.spryn.noded.screens.createNotebook
 
 
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -33,7 +34,7 @@ class CreateNotebookFragment : Fragment() {
     lateinit var colorPicker: ColorPicker
     private lateinit var colorButton: Button
 
-    var notebookColor = 0
+    var notebookColor = -1 //default to white
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -60,7 +61,7 @@ class CreateNotebookFragment : Fragment() {
         colorPicker.setOnChooseColorListener(object : ColorPicker.OnChooseColorListener {
 
             override fun onChooseColor(position: Int, color: Int) {
-                Toast.makeText(context, color.toString(), Toast.LENGTH_SHORT).show()
+                //Toast.makeText(context, color.toString(), Toast.LENGTH_SHORT).show()
             }
 
             override fun onCancel() {
@@ -79,7 +80,7 @@ class CreateNotebookFragment : Fragment() {
 
     }
     private fun saveThisNotebook(view: View){
-        val action = CreateNotebookFragmentDirections.actionCreateNotebookFragmentToNoteFragment(binding.titleInput.text.toString())
+        val action = CreateNotebookFragmentDirections.actionCreateNotebookFragmentToNoteFragment(notebookColor = notebookColor.toString(), notebookName = binding.titleInput.text.toString())
         view.findNavController().navigate(action)
         val notebookInstance = NotebookModel(title = binding.titleInput.text.toString(), color = notebookColor.toString(), lastModified = 1)
 

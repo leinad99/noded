@@ -43,7 +43,7 @@ class CreateNoteFragment : Fragment() {
     }
 
     private fun saveNoteInstance(view: View){
-        val action = CreateNoteFragmentDirections.actionCreateNoteFragmentToNoteFragment(args.notebookName)
+        val action = CreateNoteFragmentDirections.actionCreateNoteFragmentToNoteFragment(notebookName = args.notebookName, notebookColor = args.notebookColor)
         view.findNavController().navigate(action)
         val noteInstance = NoteModel(title = binding.titleInput.text.toString(), text = binding.noteInput.text.toString(), notebookTitle = args.notebookName)
         DataManager.saveNote(noteInstance, context)

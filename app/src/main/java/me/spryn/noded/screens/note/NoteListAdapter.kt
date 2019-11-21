@@ -12,7 +12,8 @@ import me.spryn.noded.models.NoteModel
 class NoteListAdapter (
     private var notes: List<NoteModel>,
     context: Context?,
-    private val inflater: LayoutInflater = LayoutInflater.from(context)
+    private val inflater: LayoutInflater = LayoutInflater.from(context),
+    private val color: String
 ) : RecyclerView.Adapter<NoteViewHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
@@ -34,7 +35,7 @@ class NoteListAdapter (
         }
 
     private fun openNote(view: View, note: NoteModel){
-        val action = NoteFragmentDirections.actionNoteFragmentToCreateNoteFragment(note.notebookTitle, note.title)
+        val action = NoteFragmentDirections.actionNoteFragmentToCreateNoteFragment(notebookName = note.notebookTitle, noteName = note.title, notebookColor = color)
         view.findNavController().navigate(action)
     }
 }

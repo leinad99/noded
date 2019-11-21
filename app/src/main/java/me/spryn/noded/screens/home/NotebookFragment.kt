@@ -44,8 +44,8 @@ class NotebookFragment : Fragment() {
                 notebookList.add(notebook)
             }
             // FOR TESTING
-            notebookList.add(NotebookModel(title = "Skool", color = "#ff0000", lastModified = 1))
-            notebookList.add(NotebookModel(title = "Personal", color = "#00ff00", lastModified = 2))
+            notebookList.add(NotebookModel(title = "Skool", color = "-2277816", lastModified = 1))
+            notebookList.add(NotebookModel(title = "Personal", color = "-10965321", lastModified = 2))
             notebookListAdapter = NotebookListAdapter(notebookList, context, inflater)
         }
 

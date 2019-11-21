@@ -35,12 +35,12 @@ class NotebookListAdapter(
         holder.apply {
             bind(notebook)
         }
-
+        holder.itemView.setBackgroundColor(notebook.color.toInt())
         holder.itemView.setOnClickListener{openNotebook(it, notebook) }
     }
 
     private fun openNotebook(view: View, notebook: NotebookModel){
-        val action = NotebookFragmentDirections.actionNotebookFragmentToNoteFragment(notebook.title)
+        val action = NotebookFragmentDirections.actionNotebookFragmentToNoteFragment(notebookColor = notebook.color, notebookName = notebook.title)
         view.findNavController().navigate(action)
     }
 

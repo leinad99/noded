@@ -43,6 +43,10 @@
         <argument
             android:name="noteName"
             app:argType="string" />
+        <argument
+            android:name="notebookColor"
+            app:argType="string"
+            android:defaultValue="37474F" />
     </custom-fragment>
     <custom-fragment
         android:id="@+id/loginActivity"
@@ -81,5 +85,11 @@
         <argument
             android:name="notebookName"
             app:argType="string" />
+        <argument android:name="notebookColor"
+            app:argType="string"
+            android:defaultValue="37474F" />
+        <action
+            android:id="@+id/action_noteFragment_to_notebookFragment"
+            app:destination="@id/notebookFragment" />
     </custom-fragment>
 </navigation>

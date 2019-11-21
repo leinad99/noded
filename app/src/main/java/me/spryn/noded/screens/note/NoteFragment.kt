@@ -1,6 +1,7 @@
 package me.spryn.noded.screens.note
 
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -51,7 +52,7 @@ class NoteFragment : Fragment() {
                 "\n" +
                 "There does not seem to be a helper for this in Laravel? - How can I do this the easiest way?", lastModified = 100, notebookTitle = "Skool"))
         noteList.add(NoteModel(title = "thoughts", text = "Anger is bad and the bible is good", lastModified = 2, notebookTitle = "Personal"))
-        noteListAdapter = NoteListAdapter(noteList, context, inflater)
+        noteListAdapter = NoteListAdapter(noteList, context, inflater, args.notebookColor)
 
         val binding: FragmentNoteBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_note, container, false)
@@ -59,18 +60,25 @@ class NoteFragment : Fragment() {
 
         binding.notebookName.text = args.notebookName
 
+        binding.noteInfoLayout.setBackgroundColor(args.notebookColor.toInt())
+
         noteRecyclerView.adapter = noteListAdapter
         noteRecyclerView.layoutManager = LinearLayoutManager(context)
 
         binding.createNoteButton.setOnClickListener{createNote(it)}
+        binding.goToHome.setOnClickListener{goHome(it)}
         return binding.root
     }
 
     private fun createNote(view: View){
 
-        val action = NoteFragmentDirections.actionNoteFragmentToCreateNoteFragment(args.notebookName, "newNote1234")
+        val action = NoteFragmentDirections.actionNoteFragmentToCreateNoteFragment(notebookName =  args.notebookName, noteName = "newNote1234", notebookColor = args.notebookColor)
         view.findNavController().navigate(action)
 
+    }
+
+    private fun goHome(view: View){
+        view.findNavController().navigate(R.id.action_noteFragment_to_notebookFragment)
     }
 
 
