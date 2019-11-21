@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -26,11 +27,12 @@ class NoteFragment : Fragment() {
     lateinit var noteListAdapter: NoteListAdapter
     lateinit var noteList: ArrayList<NoteModel>
 
+    private val args: NoteFragmentArgs by navArgs()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         noteList = ArrayList()
         noteList.add(NoteModel(title = "Stack Overflow", text = "I've been reviewing the documentation and API for Laravel Collections, but don't seem to find what I am looking for:\n" +
                 "\n" +
@@ -46,14 +48,21 @@ class NoteFragment : Fragment() {
             inflater, R.layout.fragment_note, container, false)
         noteRecyclerView = binding.noteList
 
+        binding.notebookName.text = args.notebookName
+
         noteRecyclerView.adapter = noteListAdapter
         noteRecyclerView.layoutManager = LinearLayoutManager(context)
 
-        binding.createNoteButton.setOnClickListener(){
-            view?.findNavController()
-                ?.navigate(R.id.action_noteFragment_to_createNoteFragment)
-        }
+        binding.createNoteButton.setOnClickListener{createNote(it)}
         return binding.root
+    }
+
+    private fun createNote(view: View){
+
+        val action = NoteFragmentDirections.actionNoteFragmentToCreateNoteFragment(args.notebookName)
+        view?.findNavController()
+            ?.navigate(action)
+
     }
 
 

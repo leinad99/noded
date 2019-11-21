@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 
 import me.spryn.noded.R
+import me.spryn.noded.database.DataManager.saveNotebook
 import me.spryn.noded.databinding.FragmentCreateNotebookBinding
 import me.spryn.noded.models.NotebookModel
 
@@ -32,7 +33,8 @@ class CreateNotebookFragment : Fragment() {
     private fun saveThisNotebook(view: View){
         view.findNavController().navigate(R.id.action_createNotebookFragment_to_noteFragment)
         val notebookInstance = NotebookModel(title = binding.titleInput.text.toString(), color = binding.colorInput.text.toString(), lastModified = 1)
-        //saveNotebook(notebookInstance)
+
+        //saveNotebook(notebookInstance, context)
     }
 
 

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.forEach
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -52,11 +53,16 @@ class NotebookFragment : Fragment() {
         notebookRecyclerView.adapter = notebookListAdapter
         notebookRecyclerView.layoutManager = LinearLayoutManager(context)
 
-        binding.createNotebookButton.setOnClickListener(){
-                view?.findNavController()
-                    ?.navigate(R.id.action_notebookFragment_to_createNotebookFragment)
-        }
+        binding.createNotebookButton.setOnClickListener{ createNotebook(it) }
+
+
 
         return binding.root
+    }
+
+    private fun createNotebook(view: View){
+        view?.findNavController()
+            ?.navigate(R.id.action_notebookFragment_to_createNotebookFragment)
+
     }
 }

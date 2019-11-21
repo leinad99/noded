@@ -33,7 +33,7 @@
             android:id="@+id/action_createNoteFragment_to_noteFragment"
             app:destination="@id/noteFragment" />
         <argument
-            android:name="noteName"
+            android:name="notebookName"
             app:argType="string" />
     </fragment>
     <fragment
