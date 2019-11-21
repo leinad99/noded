@@ -38,6 +38,7 @@ class NoteFragment : Fragment() {
     ): View? {
 
         val notes = DataManager.loadNotesInNotebookFromTitle(args.notebookName, context)
+
         noteList = LinkedList()
         for(note in notes){
             noteList.add(note)
