@@ -23,6 +23,7 @@ abstract class LocalNotebookDatabase : RoomDatabase() {
                         LocalNotebookDatabase::class.java,
                         "notebooks_database"
                     )
+                        .allowMainThreadQueries()
                         .fallbackToDestructiveMigration()
                         .build()
                     INSTANCE = instance

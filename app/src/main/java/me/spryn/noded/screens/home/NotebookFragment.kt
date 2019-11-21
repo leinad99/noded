@@ -26,26 +26,24 @@ class NotebookFragment : Fragment() {
 
     lateinit var notebookRecyclerView: RecyclerView
     lateinit var notebookListAdapter: NotebookListAdapter
-    lateinit var notebookList: ArrayList<NotebookModel>
+    lateinit var notebookList: LinkedList<NotebookModel>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-//        context?.let {
-//
-//            val notebooks = loadNotebooks(it)
-//            notebookList = LinkedList()
-//            for(notebook in notebooks){
-//                notebookList.add(notebook)
-//            }
-//            notebookListAdapter = NotebookListAdapter(notebookList, context, inflater)
-//        }
-        //notebookList = loadNotebooks(context)
-        notebookList = ArrayList()
-        notebookList.add(NotebookModel(title = "Skool", color = "#ff0000", lastModified = 1))
-        notebookList.add(NotebookModel(title = "Personal", color = "#00ff00", lastModified = 2))
-        notebookListAdapter = NotebookListAdapter(notebookList, context, inflater)
+        context?.let {
+
+            val notebooks = loadNotebooks(it)
+            notebookList = LinkedList()
+            for(notebook in notebooks){
+                notebookList.add(notebook)
+            }
+            // FOR TESTING
+            notebookList.add(NotebookModel(title = "Skool", color = "#ff0000", lastModified = 1))
+            notebookList.add(NotebookModel(title = "Personal", color = "#00ff00", lastModified = 2))
+            notebookListAdapter = NotebookListAdapter(notebookList, context, inflater)
+        }
 
         val binding: FragmentNotebookBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_notebook, container, false)
