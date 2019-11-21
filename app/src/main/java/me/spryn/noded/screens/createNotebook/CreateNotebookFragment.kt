@@ -11,26 +11,29 @@ import androidx.navigation.findNavController
 
 import me.spryn.noded.R
 import me.spryn.noded.databinding.FragmentCreateNotebookBinding
+import me.spryn.noded.models.NotebookModel
+import me.spryn.noded.database.saveNotebook
 
 /**
  * A simple [Fragment] subclass.
  */
 class CreateNotebookFragment : Fragment() {
-
+    lateinit var binding: FragmentCreateNotebookBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        //return inflater.inflate(R.layout.fragment_create_notebook, container, false)
-        val binding: FragmentCreateNotebookBinding = DataBindingUtil.inflate(
+        binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_create_notebook, container, false)
 
-        binding.createNotebookButton.setOnClickListener { view: View ->
-            view.findNavController().navigate(R.id.action_createNotebookFragment_to_noteFragment)
-        }
+        binding.createNotebookButton.setOnClickListener { saveThisNotebook(it) }
 
         return binding.root
+    }
+    private fun saveThisNotebook(view: View){
+        view.findNavController().navigate(R.id.action_createNotebookFragment_to_noteFragment)
+        val notebookInstance = NotebookModel(title = binding.titleInput.text.toString(), color = binding.colorInput.text.toString(), lastModified = 1)
+        //saveNotebook(notebookInstance)
     }
 
 
