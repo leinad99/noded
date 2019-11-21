@@ -5,18 +5,19 @@
     android:id="@+id/navigation"
     app:startDestination="@id/loginActivity">
 
-    <fragment
+    <custom-fragment
         android:id="@+id/createNotebookFragment"
         android:name="me.spryn.noded.screens.createNotebook.CreateNotebookFragment"
-        android:label="CreateNotebookFragment" >
+        android:label="Create Notebook" >
         <action
             android:id="@+id/action_createNotebookFragment_to_noteFragment"
             app:destination="@id/noteFragment" />
-    </fragment>
-    <fragment
+    </custom-fragment>
+    <custom-fragment
+        app:showToolbar="false"
         android:id="@+id/notebookFragment"
         android:name="me.spryn.noded.screens.home.NotebookFragment"
-        android:label="Home"
+        android:label="Your Notebooks"
         tools:layout="@layout/fragment_notebook" >
         <action
             android:id="@+id/action_notebookFragment_to_createNotebookFragment"
@@ -24,20 +25,25 @@
         <action
             android:id="@+id/action_notebookFragment_to_noteFragment"
             app:destination="@id/noteFragment" />
-    </fragment>
-    <fragment
+        <action
+            android:id="@+id/action_notebookFragment_to_loginActivity"
+            app:destination="@id/loginActivity" />
+    </custom-fragment>
+    <custom-fragment
         android:id="@+id/createNoteFragment"
+        app:showToolbar="false"
         android:name="me.spryn.noded.screens.createNote.CreateNoteFragment"
-        android:label="CreateNoteFragment" >
+        android:label="Create Notebook" >
         <action
             android:id="@+id/action_createNoteFragment_to_noteFragment"
             app:destination="@id/noteFragment" />
         <argument
             android:name="notebookName"
             app:argType="string" />
-    </fragment>
-    <fragment
+    </custom-fragment>
+    <custom-fragment
         android:id="@+id/loginActivity"
+        app:showToolbar="false"
         android:name="me.spryn.noded.screens.login.LoginFragment"
         android:label="LoginActivity" >
         <action
@@ -48,9 +54,10 @@
             app:popUpTo="@id/notebookFragment"
             app:popUpToInclusive="true"
             app:destination="@id/notebookFragment" />
-    </fragment>
-    <fragment
+    </custom-fragment>
+    <custom-fragment
         android:id="@+id/registerActivity"
+        app:showToolbar="false"
         android:name="me.spryn.noded.screens.login.RegisterFragment"
         android:label="RegisterActivity" >
         <action
@@ -59,11 +66,11 @@
         <action
             android:id="@+id/action_registerActivity_to_notebookFragment"
             app:destination="@id/notebookFragment" />
-    </fragment>
-    <fragment
+    </custom-fragment>
+    <custom-fragment
         android:id="@+id/noteFragment"
         android:name="me.spryn.noded.screens.note.NoteFragment"
-        android:label="fragment_note"
+        android:label="Note"
         tools:layout="@layout/fragment_note" >
         <action
             android:id="@+id/action_noteFragment_to_createNoteFragment"
@@ -71,5 +78,5 @@
         <argument
             android:name="notebookName"
             app:argType="string" />
-    </fragment>
+    </custom-fragment>
 </navigation>

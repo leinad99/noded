@@ -25,4 +25,6 @@
     <string name="your_notes">Your Notes</string>
     <string name="create_note">Create Note</string>
     <string name="create_new_note">Create New Note</string>
+    <string name="color">Color</string>
+    <string name="logout">Logout</string>
 </resources>
