@@ -2,6 +2,7 @@ package me.spryn.noded.screens.home
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import me.spryn.noded.R
 import me.spryn.noded.databinding.FragmentNotebookBinding
 import me.spryn.noded.models.NotebookModel
+import me.spryn.noded.screens.createNotebook.CreateNotebookFragmentDirections
 
 
 class NotebookListAdapter(
@@ -33,6 +35,13 @@ class NotebookListAdapter(
         holder.apply {
             bind(notebook)
         }
+
+        holder.itemView.setOnClickListener{openNotebook(it, notebook) }
+    }
+
+    private fun openNotebook(view: View, notebook: NotebookModel){
+        val action = NotebookFragmentDirections.actionNotebookFragmentToNoteFragment(notebook.title)
+        view.findNavController().navigate(action)
     }
 
 }

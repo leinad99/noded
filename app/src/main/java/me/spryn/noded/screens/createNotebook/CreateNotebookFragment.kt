@@ -33,9 +33,9 @@ class CreateNotebookFragment : Fragment() {
     private fun saveThisNotebook(view: View){
         val action = CreateNotebookFragmentDirections.actionCreateNotebookFragmentToNoteFragment(binding.titleInput.text.toString())
         view.findNavController().navigate(action)
-        val notebookInstance = NotebookModel(title = binding.titleInput.text.toString(), color = binding.colorInput.text.toString(), lastModified = 1)
+        val notebookInstance = NotebookModel(title = binding.titleInput.text.toString(), color = "Red", lastModified = 1)
 
-        //saveNotebook(notebookInstance, context)
+        saveNotebook(notebookInstance, context)
     }
 
 
