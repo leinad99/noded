@@ -16,9 +16,7 @@ import me.spryn.noded.databinding.FragmentCreateNoteBinding
 import me.spryn.noded.models.NoteModel
 import me.spryn.noded.screens.note.NoteFragmentArgs
 
-/**
- * A simple [Fragment] subclass.
- */
+
 class CreateNoteFragment : Fragment() {
     lateinit var binding: FragmentCreateNoteBinding
 

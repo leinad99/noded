@@ -35,6 +35,9 @@
         <argument
             android:name="notebookName"
             app:argType="string" />
+        <argument
+            android:name="noteName"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/loginActivity"
