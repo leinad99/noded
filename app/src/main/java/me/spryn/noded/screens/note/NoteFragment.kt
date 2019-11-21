@@ -60,8 +60,7 @@ class NoteFragment : Fragment() {
     private fun createNote(view: View){
 
         val action = NoteFragmentDirections.actionNoteFragmentToCreateNoteFragment(args.notebookName)
-        view?.findNavController()
-            ?.navigate(action)
+        view.findNavController().navigate(action)
 
     }
 

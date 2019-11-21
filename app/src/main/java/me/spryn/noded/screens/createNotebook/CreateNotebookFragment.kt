@@ -32,7 +32,8 @@ class CreateNotebookFragment : Fragment() {
         return binding.root
     }
     private fun saveThisNotebook(view: View){
-        view.findNavController().navigate(R.id.action_createNotebookFragment_to_noteFragment)
+        val action = CreateNotebookFragmentDirections.actionCreateNotebookFragmentToNoteFragment(binding.titleInput.text.toString())
+        view.findNavController().navigate(action)
         val notebookInstance = NotebookModel(title = binding.titleInput.text.toString(), color = binding.colorInput.text.toString(), lastModified = 1)
 
         //saveNotebook(notebookInstance, context)

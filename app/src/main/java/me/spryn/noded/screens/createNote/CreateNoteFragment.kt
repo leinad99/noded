@@ -37,7 +37,8 @@ class CreateNoteFragment : Fragment() {
     }
 
     private fun saveNoteInstance(view: View){
-        view.findNavController().navigate(R.id.action_createNoteFragment_to_noteFragment)
+        val action = CreateNoteFragmentDirections.actionCreateNoteFragmentToNoteFragment(args.notebookName)
+        view.findNavController().navigate(action)
         val noteInstance = NoteModel(title = binding.titleInput.text.toString(), text = binding.noteInput.text.toString(), lastModified = 1, notebookTitle = args.notebookName)
         //saveNote(noteInstance)
     }
