@@ -8,5 +8,5 @@ data class NoteModel(
     @PrimaryKey val title: String,
     var text: String,
     var lastModified: Long,
-    var notebookTitle: String
+    @PrimaryKey var notebookTitle: String
     )

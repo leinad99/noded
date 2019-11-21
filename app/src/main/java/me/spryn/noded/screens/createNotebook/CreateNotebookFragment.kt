@@ -14,6 +14,7 @@ import me.spryn.noded.database.DataManager.saveNotebook
 import me.spryn.noded.databinding.FragmentCreateNotebookBinding
 import me.spryn.noded.models.NotebookModel
 
+
 /**
  * A simple [Fragment] subclass.
  */

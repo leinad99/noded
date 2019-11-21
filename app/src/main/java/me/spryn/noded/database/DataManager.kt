@@ -35,11 +35,14 @@ object DataManager {
     }
 
     // Pass a note to be added to or updated in the database
-//    fun saveNote(note: NoteModel, context: Context?) {
-//
-//        val requiredContext = context?: return
-//
-//        val dao = LocalNotebookDatabase.getInstance(requiredContext).localNotebookDao
-//
-//    }
+    fun saveNote(note: NoteModel, context: Context?) {
+
+        val requiredContext = context?: return
+
+        val dao = LocalNotesDatabase.getInstance(requiredContext).localNotesDao
+
+        if (dao.getNote(note.title, note.notebookTitle) != null){
+
+        }
+    }
 }
