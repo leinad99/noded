@@ -3,10 +3,10 @@ package me.spryn.noded.models
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "notes_table")
+@Entity(tableName = "notes_table", primaryKeys = arrayOf("title", "notebookTitle"))
 data class NoteModel(
-    @PrimaryKey val title: String,
+    val title: String,
     var text: String,
     var lastModified: Long,
-    @PrimaryKey var notebookTitle: String
+    var notebookTitle: String
     )

@@ -12,7 +12,6 @@ object DataManager {
     fun saveNotebook(notebook: NotebookModel, context: Context?) {
 
         val requiredContext = context?: return
-
         val dao = LocalNotebookDatabase.getInstance(requiredContext).localNotebookDao
 
         if (dao.getNotebook(notebook.title) == null) {
@@ -28,7 +27,6 @@ object DataManager {
     fun loadNotebooks(context: Context?): List<NotebookModel> {
 
         val requiredContext = context?: return emptyList<NotebookModel>()
-
         val dao = LocalNotebookDatabase.getInstance(requiredContext).localNotebookDao
 
         return dao.getAllNotebooks()
@@ -38,11 +36,23 @@ object DataManager {
     fun saveNote(note: NoteModel, context: Context?) {
 
         val requiredContext = context?: return
-
         val dao = LocalNotesDatabase.getInstance(requiredContext).localNotesDao
 
         if (dao.getNote(note.title, note.notebookTitle) != null){
-
+            dao.insertNote(note)
         }
+        else {
+            note.lastModified = System.currentTimeMillis()
+            dao.updateNote(note)
+        }
+    }
+
+    // Load all notes in a notebook
+    fun loadNotesInNotebook(notebook: NotebookModel, context: Context?): List<NoteModel>{
+
+        val requiredContext = context?: return emptyList<NoteModel>()
+        val dao = LocalNotesDatabase.getInstance(requiredContext).localNotesDao
+
+        return dao.getAllNotesFromNotebook(notebook.title)
     }
 }
