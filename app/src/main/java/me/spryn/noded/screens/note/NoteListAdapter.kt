@@ -2,11 +2,12 @@ package me.spryn.noded.screens.note
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import me.spryn.noded.R
 import me.spryn.noded.models.NoteModel
-
 
 class NoteListAdapter (
     private var notes: List<NoteModel>,
@@ -28,5 +29,12 @@ class NoteListAdapter (
             holder.apply {
                 bind(note)
             }
+
+            holder.itemView.setOnClickListener{openNote(it, note) }
         }
+
+    private fun openNote(view: View, note: NoteModel){
+        val action = NoteFragmentDirections.actionNoteFragmentToCreateNoteFragment(note.title)
+        view.findNavController().navigate(action)
+    }
 }
