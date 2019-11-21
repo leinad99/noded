@@ -13,9 +13,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import me.spryn.noded.R
+import me.spryn.noded.database.DataManager
 import me.spryn.noded.databinding.FragmentNoteBinding
 import me.spryn.noded.models.NoteModel
-
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 /**
@@ -25,7 +27,7 @@ class NoteFragment : Fragment() {
 
     lateinit var noteRecyclerView: RecyclerView
     lateinit var noteListAdapter: NoteListAdapter
-    lateinit var noteList: ArrayList<NoteModel>
+    lateinit var noteList: LinkedList<NoteModel>
 
     private val args: NoteFragmentArgs by navArgs()
 
@@ -33,7 +35,11 @@ class NoteFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        noteList = ArrayList()
+        val notes = DataManager.loadNotesInNotebookFromTitle(args.notebookName, context)
+        noteList = LinkedList()
+        for(notebook in notes){
+            noteList.add(notebook)
+        }
         noteList.add(NoteModel(title = "Stack Overflow", text = "I've been reviewing the documentation and API for Laravel Collections, but don't seem to find what I am looking for:\n" +
                 "\n" +
                 "I would like to retrieve an array with model data from a collection, but only get specified attributes.\n" +
