@@ -10,41 +10,12 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/notebook_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Notebook Name"
-            android:textSize="25sp"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/go_to_home"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:height="28dip"
-            android:background="@drawable/curved_button_dark"
-            android:minHeight="18dp"
-            android:padding="5dp"
-            android:text="@string/go_to_notebooks" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/note_list"
             android:layout_width="match_parent"
             android:layout_height="450dp"
             android:overScrollMode="ifContentScrolls" />
-
-        <Button
-            android:id="@+id/create_note_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/curved_button_white"
-            android:padding="10dp"
-            android:text="@string/create_new_note" />
-
     </LinearLayout>
 
 </layout>

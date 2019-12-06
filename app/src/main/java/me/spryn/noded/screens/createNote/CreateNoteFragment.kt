@@ -2,20 +2,25 @@ package me.spryn.noded.screens.createNote
 
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
+import me.spryn.noded.MainActivity
 
 import me.spryn.noded.R
 import me.spryn.noded.database.DataManager
 import me.spryn.noded.databinding.FragmentCreateNoteBinding
 import me.spryn.noded.models.NoteModel
-import me.spryn.noded.screens.note.NoteFragmentArgs
+import me.spryn.noded.ui.updateToolbar
 
 
 class CreateNoteFragment : Fragment() {
@@ -38,18 +43,19 @@ class CreateNoteFragment : Fragment() {
         }
 
 
-        binding.saveNoteButton.setOnClickListener { saveNoteInstance(it) }
-
         return binding.root
     }
 
-    private fun saveNoteInstance(view: View) {
+    private fun deleteNote() {
+        //TODO write this for when the user taps the delete icon
+    }
+
+    private fun saveNoteInstance() {
         val action = CreateNoteFragmentDirections.actionCreateNoteFragmentToNoteFragment(
             notebookName = args.notebookName,
             notebookColor = args.notebookColor
         )
-        view.findNavController().navigate(action)
-//        view.findNavController().navigate(R.id.action_createNoteFragment_to_noteFragment)
+        view?.findNavController()?.navigate(action)
         val noteInstance = NoteModel(
             title = binding.titleInput.text.toString(),
             text = binding.noteInput.text.toString(),
@@ -58,5 +64,19 @@ class CreateNoteFragment : Fragment() {
         DataManager.saveNote(noteInstance, context)
     }
 
-
+    override fun onResume() {
+        super.onResume()
+        Log.i("CreateNoteFragment", "onResume")
+        val mainActivity = activity as? MainActivity
+        mainActivity?.let {
+            val primaryColor = ContextCompat.getColor(it, R.color.colorPrimary)
+            updateToolbar(
+                mainActivity = it,
+                toolbarColor = primaryColor,
+                statusBarColor = primaryColor,
+                toolbarElevation = 0F,
+                checkButtonClick = ::saveNoteInstance
+            )
+        }
+    }
 }

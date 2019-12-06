@@ -20,12 +20,16 @@ class CustomFragmentNavigator(
     @NavDestination.ClassType(Fragment::class)
     class Destination(navigator: FragmentNavigator) : FragmentNavigator.Destination(navigator) {
         var showToolbar = true
-        var showCheckmark = false
+        var showAddButton = false
+        var showCheckButton = false
+        var showDeleteButton = false
         override fun onInflate(context: Context, attrs: AttributeSet) {
             super.onInflate(context, attrs)
             context.withStyledAttributes(attrs, R.styleable.CustomFragmentNavigator, 0, 0) {
                 showToolbar = getBoolean(R.styleable.CustomFragmentNavigator_showToolbar, true)
-                showCheckmark = getBoolean(R.styleable.CustomFragmentNavigator_showCheckmark, false)
+                showAddButton = getBoolean(R.styleable.CustomFragmentNavigator_showAdd, false)
+                showCheckButton = getBoolean(R.styleable.CustomFragmentNavigator_showCheck, false)
+                showDeleteButton = getBoolean(R.styleable.CustomFragmentNavigator_showDelete, false)
             }
         }
     }

@@ -15,7 +15,9 @@
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@+id/notebookFragment"
+            app:popUpToInclusive="true" />
     </custom-fragment>
     <custom-fragment
         app:showToolbar="false"
@@ -48,14 +50,16 @@
     <custom-fragment
         android:id="@+id/createNoteFragment"
         android:name="me.spryn.noded.screens.createNote.CreateNoteFragment"
-        android:label="Create Notebook" >
+        android:label="" >
         <action
             android:id="@+id/action_createNoteFragment_to_noteFragment"
             app:destination="@id/noteFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@+id/noteFragment"
+            app:popUpToInclusive="true" />
         <argument
             android:name="notebookName"
             app:argType="string" />

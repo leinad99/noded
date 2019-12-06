@@ -2,6 +2,8 @@ package me.spryn.noded
 
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageButton
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
@@ -38,15 +40,21 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
         findNavController(R.id.navHostFragment).removeOnDestinationChangedListener(this)
     }
 
-    // region NavController.OnDestinationChangedListener
     override fun onDestinationChanged(
         controller: NavController,
         destination: NavDestination,
         arguments: Bundle?
     ) {
         val customFragment = destination as? CustomFragmentNavigator.Destination ?: return
-            findViewById<Toolbar>(R.id.toolbar).visibility =
-                if (customFragment.showToolbar) View.VISIBLE else View.GONE
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        //toolbar title
+        findViewById<TextView>(R.id.toolbar_title).text = customFragment.label
+        toolbar.visibility = if (customFragment.showToolbar) View.VISIBLE else View.GONE
+        findViewById<ImageButton>(R.id.add_button).visibility =
+            if (customFragment.showAddButton) View.VISIBLE else View.GONE
+        findViewById<ImageButton>(R.id.check_button).visibility =
+            if (customFragment.showCheckButton) View.VISIBLE else View.GONE
+
     }
     // endregion
 
