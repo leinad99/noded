@@ -1,13 +1,16 @@
 package me.spryn.noded.screens.login
 
-import android.app.ProgressDialog
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -26,7 +29,6 @@ import me.spryn.noded.databinding.FragmentLoginBinding
 
 class LoginFragment : Fragment() {
 
-    private lateinit var progressBar: ProgressDialog
 
     private lateinit var emailField: EditText
     private lateinit var passwordField: EditText
@@ -37,6 +39,8 @@ class LoginFragment : Fragment() {
 
     private lateinit var email: String
     private lateinit var password: String
+
+    private lateinit var progressDialog: ConstraintLayout
 
     private var fAuth = FirebaseAuth.getInstance()
 
@@ -55,10 +59,10 @@ class LoginFragment : Fragment() {
 
         configureGoogleSignIn()
 
-        progressBar = ProgressDialog(context)
-
         emailField = binding.emailInput
         passwordField = binding.passwordInput
+
+        progressDialog = binding.progressDialogue
 
         loginButton = binding.login
         loginGoogleButton = binding.googleLogin
@@ -79,21 +83,23 @@ class LoginFragment : Fragment() {
         if (FirebaseAuth.getInstance().currentUser != null) {
             view?.findNavController()?.navigate(R.id.action_loginActivity_to_notebookFragment)
         }
+        val mainActivity = activity as? MainActivity
+        mainActivity?.let {
+            it.window.navigationBarColor =
+                ContextCompat.getColor(mainActivity, R.color.colorPrimaryDark)
+        }
     }
 
     private fun login() {
-        progressBar.isIndeterminate = true
-        progressBar.setMessage("Logging in")
-        progressBar.show()
+        progressDialog.visibility = View.VISIBLE
         loginButton.isEnabled = false
         fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
+            loginButton.isEnabled = true
             if (task.isSuccessful) {
-                loginButton.isEnabled = true
-                progressBar.hide()
+                progressDialog.visibility = View.GONE
                 view?.findNavController()?.navigate(R.id.action_loginActivity_to_notebookFragment)
             } else {
-                loginButton.isEnabled = true
-                progressBar.hide()
+                progressDialog.visibility = View.GONE
                 Toast.makeText(context, "ERROR: ${task.exception}", Toast.LENGTH_SHORT).show()
             }
         }

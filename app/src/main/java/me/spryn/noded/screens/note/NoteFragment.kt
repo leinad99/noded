@@ -112,7 +112,8 @@ class NoteFragment : Fragment() {
                 toolbarColor = args.notebookColor.toInt(),
                 statusBarColor = statusBarColorBlend(args.notebookColor.toInt()),
                 addButtonClick = ::createNote
-                )
+            )
+            it.window.navigationBarColor = statusBarColorBlend(args.notebookColor.toInt())
         }
     }
 }

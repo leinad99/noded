@@ -83,4 +83,7 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.2.0-beta02'
     implementation 'androidx.fragment:fragment-ktx:1.2.0-rc02'
 
+    //Material Progress Bar
+    implementation 'me.zhanghai.android.materialprogressbar:library:1.6.1'
+
 }

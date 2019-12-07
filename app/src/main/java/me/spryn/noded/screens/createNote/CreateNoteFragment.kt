@@ -77,6 +77,8 @@ class CreateNoteFragment : Fragment() {
                 toolbarElevation = 0F,
                 checkButtonClick = ::saveNoteInstance
             )
+            it.window.navigationBarColor =
+                ContextCompat.getColor(it, R.color.colorPrimaryDark)
         }
     }
 }

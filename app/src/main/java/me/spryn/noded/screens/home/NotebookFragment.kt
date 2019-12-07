@@ -83,7 +83,11 @@ class NotebookFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         val mainActivity = activity as? MainActivity
-        mainActivity?.let { updateToolbar(mainActivity) }
+        mainActivity?.let {
+            updateToolbar(mainActivity)
+            it.window.navigationBarColor =
+                ContextCompat.getColor(it, R.color.colorPrimaryDark)
+        }
     }
 
     private fun createNotebook(view: View) {
