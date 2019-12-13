@@ -24,7 +24,6 @@ import android.graphics.Color.parseColor
 import android.widget.Toast
 
 
-
 /**
  * A simple [Fragment] subclass.
  */
@@ -43,7 +42,6 @@ class CreateNotebookFragment : Fragment() {
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_create_notebook, container, false
         )
-
         colorPicker = ColorPicker(activity)
 
         colorButton = binding.colorButton
@@ -51,10 +49,7 @@ class CreateNotebookFragment : Fragment() {
 
         binding.createNotebookButton.setOnClickListener { saveThisNotebook(it) }
 
-
         return binding.root
-
-
     }
 
     private fun showColors() {
@@ -76,16 +71,20 @@ class CreateNotebookFragment : Fragment() {
             }
             .disableDefaultButtons(true)
             .show()
-
-
     }
-    private fun saveThisNotebook(view: View){
-        val action = CreateNotebookFragmentDirections.actionCreateNotebookFragmentToNoteFragment(notebookColor = notebookColor.toString(), notebookName = binding.titleInput.text.toString())
+
+    private fun saveThisNotebook(view: View) {
+        val action = CreateNotebookFragmentDirections.actionCreateNotebookFragmentToNoteFragment(
+            notebookColor = notebookColor.toString(),
+            notebookName = binding.titleInput.text.toString()
+        )
         view.findNavController().navigate(action)
-        val notebookInstance = NotebookModel(title = binding.titleInput.text.toString(), color = notebookColor.toString(), lastModified = 1)
+        val notebookInstance = NotebookModel(
+            title = binding.titleInput.text.toString(),
+            color = notebookColor.toString(),
+            lastModified = 1
+        )
 
         saveNotebook(notebookInstance, context)
     }
-
-
 }
