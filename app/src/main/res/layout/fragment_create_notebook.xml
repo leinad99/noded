@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/notebook_info_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -16,39 +17,31 @@
         <EditText
             android:id="@+id/title_input"
             style="@style/AccountInputField"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="150dp"
-            android:textAlignment="center"
-            android:layout_marginRight="20dp"
-            android:textSize="30dp"
+            android:layout_marginTop="?android:attr/actionBarSize"
+            android:gravity="center"
             android:hint="@string/title_hint"
-            android:textColorHint="@color/off_white"
             android:inputType="textShortMessage"
-            app:backgroundTint="@color/white" />
+            android:textColorHint="@color/off_white"
+            android:textSize="30sp"
+            app:backgroundTint="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/color_button"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="My amazing notebook" />
 
         <Button
             android:id="@+id/color_button"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="80dp"
             android:layout_marginBottom="30dp"
             android:background="@drawable/curved_button_white"
-            android:text="@string/color" />
+            android:text="@string/color"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/title_input" />
 
-        <Button
-            android:id="@+id/create_notebook_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="50dp"
-            android:background="@drawable/curved_button_white"
-            android:padding="15dp"
-            android:shadowColor="@color/light_blue"
-            android:text="@string/create_notebook" />
-
-
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

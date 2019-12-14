@@ -1,27 +1,26 @@
 package me.spryn.noded.screens.createNotebook
 
 
-import android.graphics.Color
-import android.os.Build
+import android.app.AlertDialog
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.Toolbar
-import androidx.annotation.RequiresApi
-import androidx.core.view.get
+import android.widget.GridLayout
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-
+import me.spryn.noded.MainActivity
 import me.spryn.noded.R
 import me.spryn.noded.database.DataManager.saveNotebook
 import me.spryn.noded.databinding.FragmentCreateNotebookBinding
 import me.spryn.noded.models.NotebookModel
-import petrov.kristiyan.colorpicker.ColorPicker
-import android.graphics.Color.parseColor
-import android.widget.Toast
+import me.spryn.noded.ui.statusBarColorBlend
+import me.spryn.noded.ui.statusBarColorBlendTwice
+import me.spryn.noded.ui.updateToolbar
 
 
 /**
@@ -30,10 +29,8 @@ import android.widget.Toast
 class CreateNotebookFragment : Fragment() {
 
     lateinit var binding: FragmentCreateNotebookBinding
-    lateinit var colorPicker: ColorPicker
-    private lateinit var colorButton: Button
 
-    var notebookColor = -1 //default to white
+    var notebookColor = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,49 +39,83 @@ class CreateNotebookFragment : Fragment() {
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_create_notebook, container, false
         )
-        colorPicker = ColorPicker(activity)
-
-        colorButton = binding.colorButton
-        colorButton.setOnClickListener { showColors() }
-
-        binding.createNotebookButton.setOnClickListener { saveThisNotebook(it) }
+        binding.colorButton.setOnClickListener { showColors() }
 
         return binding.root
     }
 
-    private fun showColors() {
-        colorPicker.setOnChooseColorListener(object : ColorPicker.OnChooseColorListener {
+    override fun onResume() {
+        super.onResume()
 
-            override fun onChooseColor(position: Int, color: Int) {
-                //Toast.makeText(context, color.toString(), Toast.LENGTH_SHORT).show()
-            }
+        val mainActivity = activity as? MainActivity
 
-            override fun onCancel() {
-                binding.notebookInfoLayout.setBackgroundColor(parseColor("37474F"))
-            }
-        })
-            .addListenerButton("Accept") { v, position, color ->
-                binding.notebookInfoLayout.setBackgroundColor(color)
-                Toast.makeText(context, color.toString(), Toast.LENGTH_SHORT).show()
-                notebookColor = color
-                colorPicker.dismissDialog()
-            }
-            .disableDefaultButtons(true)
-            .show()
+        mainActivity?.let {
+            val color = ContextCompat.getColor(it, R.color.colorPrimary)
+            notebookColor = color //default notebook color
+            val darkColor = statusBarColorBlend(color)
+            val darkerColor = statusBarColorBlendTwice(color)
+            updateToolbar(
+                mainActivity,
+                checkButtonClick = ::saveThisNotebook,
+                toolbarColor = darkColor,
+                statusBarColor = darkerColor
+            )
+        }
     }
 
-    private fun saveThisNotebook(view: View) {
+    private fun showColors() {
+        val colorsGrid = layoutInflater.inflate(R.layout.color_picker_grid, null)
+
+        val alertDialog = AlertDialog.Builder(context)
+        alertDialog.setView(colorsGrid)
+
+        val gridItems: GridLayout = colorsGrid.findViewById(R.id.color_picker_grid)
+
+        for (i in 0 until gridItems.childCount) {
+            val item = gridItems.getChildAt(i)
+            item?.setOnClickListener {
+                Log.i("Color Picker", "Picked item $i")
+                updateColor(item)
+            }
+        }
+
+        alertDialog.setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
+
+        // create alert dialog and show it
+        alertDialog.create().show()
+    }
+
+    private fun updateColor(item: View) {
+        val color = item.backgroundTintList!!.defaultColor
+        binding.notebookInfoLayout.setBackgroundColor(color)
+        notebookColor = color
+
+        //set the status bar and navbar colors
+        val mainActivity = activity as? MainActivity
+        val darkColor = statusBarColorBlend(color)
+        val darkerColor = statusBarColorBlendTwice(color)
+        mainActivity?.let {
+            updateToolbar(
+                mainActivity,
+                checkButtonClick = ::saveThisNotebook,
+                toolbarColor = darkColor,
+                statusBarColor = darkerColor
+            )
+            it.window.navigationBarColor = darkColor
+        }
+    }
+
+    private fun saveThisNotebook() {
         val action = CreateNotebookFragmentDirections.actionCreateNotebookFragmentToNoteFragment(
             notebookColor = notebookColor.toString(),
             notebookName = binding.titleInput.text.toString()
         )
-        view.findNavController().navigate(action)
+        view?.findNavController()?.navigate(action)
         val notebookInstance = NotebookModel(
             title = binding.titleInput.text.toString(),
             color = notebookColor.toString(),
             lastModified = 1
         )
-
         saveNotebook(notebookInstance, context)
     }
 }

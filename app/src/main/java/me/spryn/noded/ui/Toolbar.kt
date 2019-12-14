@@ -61,3 +61,5 @@ fun statusBarColorBlend(toolbarColor: Int): Int {
         blue.toInt()
     )
 }
+
+fun statusBarColorBlendTwice(toolbarColor: Int): Int = statusBarColorBlend(statusBarColorBlend(toolbarColor))
