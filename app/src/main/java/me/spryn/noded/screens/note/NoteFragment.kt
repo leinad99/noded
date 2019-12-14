@@ -6,10 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.TextView
-import androidx.appcompat.widget.Toolbar
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
@@ -18,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import me.spryn.noded.MainActivity
 
 import me.spryn.noded.R
-import me.spryn.noded.ui.statusBarColorBlend
+import me.spryn.noded.ui.colorBlendDark
 import me.spryn.noded.database.DataManager
 import me.spryn.noded.databinding.FragmentNoteBinding
 import me.spryn.noded.models.NoteModel
@@ -92,15 +89,6 @@ class NoteFragment : Fragment() {
         return binding.root
     }
 
-    private fun createNote() {
-        val action = NoteFragmentDirections.actionNoteFragmentToCreateNoteFragment(
-            notebookName = args.notebookName,
-            noteName = "newNote1234",
-            notebookColor = args.notebookColor
-        )
-        view?.findNavController()?.navigate(action)
-    }
-
     override fun onResume() {
         super.onResume()
         Log.i("NoteFragment", "onResume")
@@ -110,11 +98,20 @@ class NoteFragment : Fragment() {
             updateToolbar(
                 mainActivity = it,
                 toolbarColor = args.notebookColor.toInt(),
-                statusBarColor = statusBarColorBlend(args.notebookColor.toInt()),
+                statusBarColor = colorBlendDark(args.notebookColor.toInt()),
                 addButtonClick = ::createNote
             )
-            it.window.navigationBarColor = statusBarColorBlend(args.notebookColor.toInt())
+            it.window.navigationBarColor = colorBlendDark(args.notebookColor.toInt())
         }
+    }
+
+    private fun createNote() {
+        val action = NoteFragmentDirections.actionNoteFragmentToCreateNoteFragment(
+            notebookName = args.notebookName,
+            noteName = "newNote1234",
+            notebookColor = args.notebookColor
+        )
+        view?.findNavController()?.navigate(action)
     }
 }
 

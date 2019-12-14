@@ -2,7 +2,6 @@ package me.spryn.noded.screens.createNotebook
 
 
 import android.app.AlertDialog
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -18,8 +17,8 @@ import me.spryn.noded.R
 import me.spryn.noded.database.DataManager.saveNotebook
 import me.spryn.noded.databinding.FragmentCreateNotebookBinding
 import me.spryn.noded.models.NotebookModel
-import me.spryn.noded.ui.statusBarColorBlend
-import me.spryn.noded.ui.statusBarColorBlendTwice
+import me.spryn.noded.ui.colorBlendDark
+import me.spryn.noded.ui.colorBlendDarker
 import me.spryn.noded.ui.updateToolbar
 
 
@@ -52,8 +51,8 @@ class CreateNotebookFragment : Fragment() {
         mainActivity?.let {
             val color = ContextCompat.getColor(it, R.color.colorPrimary)
             notebookColor = color //default notebook color
-            val darkColor = statusBarColorBlend(color)
-            val darkerColor = statusBarColorBlendTwice(color)
+            val darkColor = colorBlendDark(color)
+            val darkerColor = colorBlendDarker(color)
             updateToolbar(
                 mainActivity,
                 checkButtonClick = ::saveThisNotebook,
@@ -92,8 +91,8 @@ class CreateNotebookFragment : Fragment() {
 
         //set the status bar and navbar colors
         val mainActivity = activity as? MainActivity
-        val darkColor = statusBarColorBlend(color)
-        val darkerColor = statusBarColorBlendTwice(color)
+        val darkColor = colorBlendDark(color)
+        val darkerColor = colorBlendDarker(color)
         mainActivity?.let {
             updateToolbar(
                 mainActivity,

@@ -49,7 +49,7 @@ private fun setImageButtonVisibility(button: ImageButton, onClick: (() -> Unit)?
     }
 }
 
-fun statusBarColorBlend(toolbarColor: Int): Int {
+fun colorBlendDark(toolbarColor: Int): Int {
     val opacity = 0.4f
     val red = (1.0f - opacity) * Color.red(toolbarColor)
     val green = (1.0f - opacity) * Color.green(toolbarColor)
@@ -62,4 +62,4 @@ fun statusBarColorBlend(toolbarColor: Int): Int {
     )
 }
 
-fun statusBarColorBlendTwice(toolbarColor: Int): Int = statusBarColorBlend(statusBarColorBlend(toolbarColor))
+fun colorBlendDarker(toolbarColor: Int): Int = colorBlendDark(colorBlendDark(toolbarColor))

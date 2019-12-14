@@ -84,6 +84,7 @@ class NotebookFragment : Fragment() {
         super.onResume()
         val mainActivity = activity as? MainActivity
         mainActivity?.let {
+            
             updateToolbar(mainActivity)
             it.window.navigationBarColor =
                 ContextCompat.getColor(it, R.color.colorPrimaryDark)
