@@ -3,19 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".screens.home.NotebookFragment">
 
-    <LinearLayout
-        android:id="@+id/note_info_layout"
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="?android:attr/actionBarSize"
+        android:id="@+id/note_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical">
-
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/note_list"
-            android:layout_width="match_parent"
-            android:layout_height="450dp"
-            android:overScrollMode="ifContentScrolls" />
-    </LinearLayout>
+        android:overScrollMode="ifContentScrolls" />
 
 </layout>
