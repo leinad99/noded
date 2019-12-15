@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.GridLayout
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -105,6 +106,10 @@ class CreateNotebookFragment : Fragment() {
     }
 
     private fun saveThisNotebook() {
+        if (binding.titleInput.text.toString().isEmpty()) {
+            Toast.makeText(context, "Please enter a title!", Toast.LENGTH_SHORT).show()
+            return
+        }
         val action = CreateNotebookFragmentDirections.actionCreateNotebookFragmentToNoteFragment(
             notebookColor = notebookColor.toString(),
             notebookName = binding.titleInput.text.toString()

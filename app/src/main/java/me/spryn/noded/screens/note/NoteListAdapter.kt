@@ -8,6 +8,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import me.spryn.noded.R
 import me.spryn.noded.models.NoteModel
+import me.spryn.noded.ui.colorBlendDark
 
 class NoteListAdapter (
     private var notes: List<NoteModel>,
@@ -18,7 +19,7 @@ class NoteListAdapter (
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
             val view = inflater.inflate(R.layout.note_list_item_view, parent, false)
-
+            view.setBackgroundColor(colorBlendDark(Integer.parseInt(color)))
             return NoteViewHolder(view)
         }
 
