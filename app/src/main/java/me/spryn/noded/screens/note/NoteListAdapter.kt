@@ -35,7 +35,7 @@ class NoteListAdapter (
         }
 
     private fun openNote(view: View, note: NoteModel){
-        val action = NoteFragmentDirections.actionNoteFragmentToCreateNoteFragment(notebookName = note.notebookTitle, noteName = note.title, notebookColor = color)
+        val action = NoteFragmentDirections.actionNoteFragmentToCreateNoteFragment(notebookID = note.notebookID, noteName = note.title, notebookColor = color)
         view.findNavController().navigate(action)
     }
 }

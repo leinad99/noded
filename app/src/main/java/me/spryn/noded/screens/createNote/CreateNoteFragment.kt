@@ -29,7 +29,7 @@ class CreateNoteFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val note: NoteModel = DataManager.loadNote(args.noteName, args.notebookName, context)
+        val note: NoteModel = DataManager.loadNote(args.noteName, args.notebookID, context)
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_create_note, container, false
         )
@@ -67,14 +67,14 @@ class CreateNoteFragment : Fragment() {
 
     private fun saveNoteInstance() {
         val action = CreateNoteFragmentDirections.actionCreateNoteFragmentToNoteFragment(
-            notebookName = args.notebookName,
+            notebookID = args.notebookID,
             notebookColor = args.notebookColor
         )
         view?.findNavController()?.navigate(action)
         val noteInstance = NoteModel(
             title = binding.titleInput.text.toString(),
             text = binding.noteInput.text.toString(),
-            notebookTitle = args.notebookName
+            notebookID = args.notebookID
         )
         DataManager.saveNote(noteInstance, context)
     }

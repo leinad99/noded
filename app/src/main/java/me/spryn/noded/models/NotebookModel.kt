@@ -5,7 +5,8 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "notebooks_table")
 data class NotebookModel(
-    @PrimaryKey val title: String,
+    @PrimaryKey val ID: String,
+    val title: String,
     val color: String,
     var lastModified: Long
 )

@@ -40,7 +40,7 @@ class NotebookListAdapter(
     }
 
     private fun openNotebook(view: View, notebook: NotebookModel){
-        val action = NotebookFragmentDirections.actionNotebookFragmentToNoteFragment(notebookColor = notebook.color, notebookName = notebook.title)
+        val action = NotebookFragmentDirections.actionNotebookFragmentToNoteFragment(notebookColor = notebook.color, notebookID = notebook.ID)
         view.findNavController().navigate(action)
     }
 

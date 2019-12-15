@@ -46,22 +46,7 @@ class NotebookFragment : Fragment() {
             for (notebook in notebooks) {
                 notebookList.add(notebook)
             }
-            // FOR TESTING
-            val red = ContextCompat.getColor(it, R.color.red_500)
-            notebookList.add(
-                NotebookModel(
-                    title = "Skool",
-                    color = red.toString(),
-                    lastModified = 1
-                )
-            )
-            notebookList.add(
-                NotebookModel(
-                    title = "Personal",
-                    color = "-10965321",
-                    lastModified = 2
-                )
-            )
+
             notebookListAdapter = NotebookListAdapter(notebookList, context, inflater)
         }
 

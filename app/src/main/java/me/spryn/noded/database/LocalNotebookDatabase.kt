@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import me.spryn.noded.models.NotebookModel
 
-@Database(entities = arrayOf(NotebookModel::class), version = 1)
+@Database(entities = arrayOf(NotebookModel::class), version = 2)
 abstract class LocalNotebookDatabase : RoomDatabase() {
 
     abstract val localNotebookDao: LocalNotebookDao

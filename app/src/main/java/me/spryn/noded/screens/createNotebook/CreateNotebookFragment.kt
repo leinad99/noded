@@ -20,6 +20,7 @@ import me.spryn.noded.models.NotebookModel
 import me.spryn.noded.ui.colorBlendDark
 import me.spryn.noded.ui.colorBlendDarker
 import me.spryn.noded.ui.updateToolbar
+import java.util.*
 
 
 /**
@@ -107,10 +108,11 @@ class CreateNotebookFragment : Fragment() {
     private fun saveThisNotebook() {
         val action = CreateNotebookFragmentDirections.actionCreateNotebookFragmentToNoteFragment(
             notebookColor = notebookColor.toString(),
-            notebookName = binding.titleInput.text.toString()
+            notebookID = binding.titleInput.text.toString()
         )
         view?.findNavController()?.navigate(action)
         val notebookInstance = NotebookModel(
+            ID = UUID.randomUUID().toString(),
             title = binding.titleInput.text.toString(),
             color = notebookColor.toString(),
             lastModified = 1

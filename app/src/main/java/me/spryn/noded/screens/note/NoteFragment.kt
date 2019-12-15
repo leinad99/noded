@@ -43,37 +43,16 @@ class NoteFragment : Fragment() {
 
         mainActivity?.let {
             val toolbarTitle: TextView? = it.findViewById(R.id.toolbar_title)
-            toolbarTitle?.text = args.notebookName
+            toolbarTitle?.text = args.notebookID
         }
 
-        val notes = DataManager.loadNotesInNotebookFromTitle(args.notebookName, context)
+        val notes = DataManager.loadNotesInNotebookFromTitle(args.notebookID, context)
 
         noteList = LinkedList()
         for (note in notes) {
             noteList.add(note)
         }
-        noteList.add(
-            NoteModel(
-                title = "Stack Overflow",
-                text = "I've been reviewing the documentation and API for Laravel Collections, but don't seem to find what I am looking for:\n" +
-                        "\n" +
-                        "I would like to retrieve an array with model data from a collection, but only get specified attributes.\n" +
-                        "\n" +
-                        "I.e. something like Users::toArray('id','name','email'), where the collection in fact holds all attributes for the users, because they are used elsewhere, but in this specific place I need an array with userdata, and only the specified attributes.\n" +
-                        "\n" +
-                        "There does not seem to be a helper for this in Laravel? - How can I do this the easiest way?",
-                lastModified = 100,
-                notebookTitle = "Skool"
-            )
-        )
-        noteList.add(
-            NoteModel(
-                title = "thoughts",
-                text = "Anger is bad and the bible is good",
-                lastModified = 2,
-                notebookTitle = "Personal"
-            )
-        )
+
         noteListAdapter = NoteListAdapter(noteList, context, inflater, args.notebookColor)
 
         val binding: FragmentNoteBinding = DataBindingUtil.inflate(
@@ -107,7 +86,7 @@ class NoteFragment : Fragment() {
 
     private fun createNote() {
         val action = NoteFragmentDirections.actionNoteFragmentToCreateNoteFragment(
-            notebookName = args.notebookName,
+            notebookID = args.notebookID,
             noteName = "newNote1234",
             notebookColor = args.notebookColor
         )
