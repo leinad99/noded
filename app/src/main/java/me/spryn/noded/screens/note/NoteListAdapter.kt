@@ -1,14 +1,17 @@
 package me.spryn.noded.screens.note
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import me.spryn.noded.R
 import me.spryn.noded.models.NoteModel
 import me.spryn.noded.ui.colorBlendDark
+import me.spryn.noded.ui.pickTextColorBasedOnBgColorSimple
 
 class NoteListAdapter (
     private var notes: List<NoteModel>,
@@ -19,7 +22,6 @@ class NoteListAdapter (
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
             val view = inflater.inflate(R.layout.note_list_item_view, parent, false)
-            view.setBackgroundColor(colorBlendDark(Integer.parseInt(color)))
             return NoteViewHolder(view)
         }
 
@@ -31,6 +33,12 @@ class NoteListAdapter (
             holder.apply {
                 bind(note)
             }
+
+            val button = holder.itemView as Button
+            val hex = String.format("#%06X", 0xFFFFFF and color.toInt())
+            button.setTextColor(Color.parseColor(pickTextColorBasedOnBgColorSimple(hex)))
+
+            holder.itemView.setBackgroundColor(colorBlendDark(color.toInt()))
 
             holder.itemView.setOnClickListener{openNote(it, note) }
         }

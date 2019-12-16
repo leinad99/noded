@@ -5,14 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.Toast
-import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import me.spryn.noded.R
-import me.spryn.noded.databinding.FragmentNotebookBinding
 import me.spryn.noded.models.NotebookModel
-import me.spryn.noded.screens.createNotebook.CreateNotebookFragmentDirections
+import me.spryn.noded.ui.pickTextColorBasedOnBgColorSimple
+import android.graphics.Color
 
 
 class NotebookListAdapter(
@@ -23,7 +21,6 @@ class NotebookListAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotebookViewHolder {
         val view = inflater.inflate(R.layout.notebook_list_item_view, parent, false)
-
         return NotebookViewHolder(view)
     }
 
@@ -35,6 +32,10 @@ class NotebookListAdapter(
         holder.apply {
             bind(notebook)
         }
+        val button = holder.itemView as Button
+        val hex = String.format("#%06X", 0xFFFFFF and notebook.color.toInt())
+        button.setTextColor(Color.parseColor(pickTextColorBasedOnBgColorSimple(hex)))
+
         holder.itemView.setBackgroundColor(notebook.color.toInt())
         holder.itemView.setOnClickListener{openNotebook(it, notebook) }
     }
