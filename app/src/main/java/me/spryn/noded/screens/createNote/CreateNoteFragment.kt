@@ -40,24 +40,12 @@ class CreateNoteFragment : Fragment() {
             binding.titleInput.setText(note.title, TextView.BufferType.EDITABLE)
             binding.noteInput.setText(note.text, TextView.BufferType.EDITABLE)
         }
-        loadWiki()
-        binding.titleInput.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable) {}
 
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                loadWiki()
-            }
-        })
+        binding.wikiBtn.setOnClickListener {view: View ->
+            openWikipediaPage()
+        }
 
         return binding.root
-    }
-
-    private fun loadWiki(){
-        var title = binding.titleInput.text.toString()
-        title = title.replace(" ", "_")
-        binding.webviewWikipedia.loadUrl("https://en.wikipedia.org/wiki/${title}")
     }
 
     override fun onResume() {
@@ -95,5 +83,12 @@ class CreateNoteFragment : Fragment() {
             notebookTitle = args.notebookName
         )
         DataManager.saveNote(noteInstance, context)
+    }
+
+    private fun openWikipediaPage() {
+        val action = CreateNoteFragmentDirections.actionCreateNoteFragmentToWikipediaFragment(
+            title = binding.titleInput.text.toString()
+        )
+        view?.findNavController()?.navigate(action)
     }
 }
