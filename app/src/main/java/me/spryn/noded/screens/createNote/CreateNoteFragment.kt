@@ -2,6 +2,8 @@ package me.spryn.noded.screens.createNote
 
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -38,8 +40,24 @@ class CreateNoteFragment : Fragment() {
             binding.titleInput.setText(note.title, TextView.BufferType.EDITABLE)
             binding.noteInput.setText(note.text, TextView.BufferType.EDITABLE)
         }
+        loadWiki()
+        binding.titleInput.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {}
+
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                loadWiki()
+            }
+        })
 
         return binding.root
+    }
+
+    private fun loadWiki(){
+        var title = binding.titleInput.text.toString()
+        title = title.replace(" ", "_")
+        binding.webviewWikipedia.loadUrl("https://en.wikipedia.org/wiki/${title}")
     }
 
     override fun onResume() {
