@@ -83,5 +83,4 @@ dependencies {
 
     //Material Progress Bar
     implementation 'me.zhanghai.android.materialprogressbar:library:1.6.1'
-
 }

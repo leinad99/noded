@@ -1,11 +1,10 @@
 package me.spryn.noded.screens.createNote
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
@@ -18,6 +17,7 @@ import me.spryn.noded.R
 import me.spryn.noded.database.DataManager
 import me.spryn.noded.databinding.FragmentCreateNoteBinding
 import me.spryn.noded.models.NoteModel
+import me.spryn.noded.screens.wikipedia.WikipediaActivity
 import me.spryn.noded.ui.updateToolbar
 
 
@@ -25,6 +25,7 @@ class CreateNoteFragment : Fragment() {
     lateinit var binding: FragmentCreateNoteBinding
 
     private val args: CreateNoteFragmentArgs by navArgs()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,6 +40,8 @@ class CreateNoteFragment : Fragment() {
             binding.titleInput.setText(note.title, TextView.BufferType.EDITABLE)
             binding.noteInput.setText(note.text, TextView.BufferType.EDITABLE)
         }
+
+        binding.wikiBtn.setOnClickListener { openWikipediaPage() }
 
         return binding.root
     }
@@ -79,4 +82,15 @@ class CreateNoteFragment : Fragment() {
         )
         DataManager.saveNote(noteInstance, context)
     }
+
+    private fun openWikipediaPage() {
+        val intent = Intent(context, WikipediaActivity::class.java)
+        intent.putExtra("title", binding.titleInput.text.toString())
+        startActivity(intent)
+//        val action = CreateNoteFragmentDirections.actionCreateNoteFragmentToWikipediaFragment(
+//            title = binding.titleInput.text.toString()
+//        )
+//        view?.findNavController()?.navigate(action)
+    }
+
 }
