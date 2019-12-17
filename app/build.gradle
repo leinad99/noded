@@ -83,4 +83,8 @@ dependencies {
 
     //Material Progress Bar
     implementation 'me.zhanghai.android.materialprogressbar:library:1.6.1'
+
+    //Rich text editor
+    implementation 'net.dankito.richtexteditor:richtexteditor-android:2.0.8'
+
 }

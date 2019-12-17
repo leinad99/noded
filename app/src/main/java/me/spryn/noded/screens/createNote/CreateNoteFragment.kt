@@ -3,6 +3,7 @@ package me.spryn.noded.screens.createNote
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -22,6 +23,8 @@ import me.spryn.noded.databinding.FragmentCreateNoteBinding
 import me.spryn.noded.models.NoteModel
 import me.spryn.noded.screens.wikipedia.WikipediaActivity
 import me.spryn.noded.ui.updateToolbar
+import net.dankito.richtexteditor.callback.GetCurrentHtmlCallback
+import net.dankito.utils.android.permissions.PermissionsService
 
 
 class CreateNoteFragment : Fragment() {
@@ -39,9 +42,11 @@ class CreateNoteFragment : Fragment() {
             inflater, R.layout.fragment_create_note, container, false
         )
 
+        configureEditor()
+
         if (note.title != "newNote1234") { //if not a new note, populate the fields
             binding.titleInput.setText(note.title, TextView.BufferType.EDITABLE)
-            binding.noteInput.setText(note.text, TextView.BufferType.EDITABLE)
+//            binding.editor.setHtml(note.text)
         }
 
         binding.wikiBtn.setOnClickListener { openWikipediaPage() }
@@ -85,7 +90,7 @@ class CreateNoteFragment : Fragment() {
         view?.findNavController()?.navigate(action)
         val noteInstance = NoteModel(
             title = binding.titleInput.text.toString(),
-            text = binding.noteInput.text.toString(),
+            text = getBodyText(),
             notebookTitle = args.notebookName
         )
         DataManager.saveNote(noteInstance, context)
@@ -95,6 +100,49 @@ class CreateNoteFragment : Fragment() {
         val intent = Intent(context, WikipediaActivity::class.java)
         intent.putExtra("title", binding.titleInput.text.toString())
         startActivity(intent)
+    }
+
+    private fun configureEditor() {
+        val mainActivity = activity as? MainActivity
+
+        mainActivity?.let { binding.editor.permissionsService = PermissionsService(mainActivity) }
+        binding.editorToolbar.editor = binding.editor
+        context?.let {
+            binding.editor.setEditorBackgroundColor(
+                ContextCompat.getColor(it, R.color.colorPrimary)
+            )
+        }
+        binding.editor.setEditorFontColor(Color.WHITE)
+        binding.editor.setEditorFontFamily("Roboto")
+    }
+
+
+    // only needed if you like to insert images from local device so the user gets asked for permission to access external storage if needed
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        val mainActivity = activity as? MainActivity
+        mainActivity?.let {
+            PermissionsService(it).onRequestPermissionsResult(
+                requestCode,
+                permissions,
+                grantResults
+            )
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+
+    // then when you want to do something with edited html
+    private fun getBodyText(): String {
+        var htmlText = ""
+        binding.editor.getCurrentHtmlAsync(object : GetCurrentHtmlCallback {
+            override fun htmlRetrieved(html: String) {
+                htmlText = html
+            }
+        })
+        return htmlText
     }
     
     private fun hideKeyboard(view: View) {
