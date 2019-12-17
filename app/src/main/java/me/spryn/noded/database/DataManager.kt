@@ -2,11 +2,14 @@ package me.spryn.noded.database
 
 import android.content.Context
 import android.util.Log
+import android.view.LayoutInflater
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.SetOptions
 import me.spryn.noded.models.NoteModel
 import me.spryn.noded.models.NotebookModel
+import me.spryn.noded.screens.home.NotebookListAdapter
+import java.util.*
 
 // Controls both public and local databases, is the interface for UI
 
@@ -15,7 +18,7 @@ object DataManager {
     // Gives a notebook for the database to update or create
     fun saveNotebook(notebook: NotebookModel, context: Context?) {
 
-        /* OLD
+        /* OLD SQL
         val requiredContext = context?: return
         val dao = LocalNotebookDatabase.getInstance(requiredContext).localNotebookDao
 
@@ -27,19 +30,9 @@ object DataManager {
         }
         */
 
+        // NEW Firebase
+
         val db = FirebaseFirestore.getInstance()
-        FirebaseFirestore.setLoggingEnabled(true)
-
-        /* WORKING CODE
-
-        db.collection("users").add(hashMapOf(
-            "name" to "Tokyo",
-            "country" to "Japan"))
-            .addOnSuccessListener { Log.i("avideobobuae", "DocumentSnapshot successfully written!") }
-            .addOnFailureListener { e -> Log.i("avideobobuae", "Error writing document", e) }
-        */
-
-        // NEEDS TO BE WORKING CODE
 
         db.document("users/" + FirebaseAuth.getInstance().uid!! + "/notebooks/" + notebook.ID).set(
             hashMapOf(
@@ -47,17 +40,15 @@ object DataManager {
                 "color" to notebook.color,
                 "lastModified" to System.currentTimeMillis()
             )
-        ).addOnSuccessListener { Log.i("avideobobuae", "DocumentSnapshot successfully written!") }
-            .addOnFailureListener { e -> Log.i("avideobobuae", "Error writing document", e) }
-
-        Log.i("avideobobuae",FirebaseAuth.getInstance().uid)
+        ).addOnSuccessListener { Log.i("FirebaseListener", "DocumentSnapshot successfully written!") }
+            .addOnFailureListener { e -> Log.i("FirebaseListener", "Error writing document", e) }
 
     }
 
     // Get a list of all the notebooks, sorta by the most recently modified first
-    fun loadNotebooks(context: Context?): List<NotebookModel> {
+    fun addNotebooksToRecyclerView(context: Context?, view: RecyclerView, inflater: LayoutInflater){
 
-        /*
+        /* OLD SQL
         val requiredContext = context?: return emptyList<NotebookModel>()
         val dao = LocalNotebookDatabase.getInstance(requiredContext).localNotebookDao
 
@@ -65,7 +56,29 @@ object DataManager {
 
          */
 
-        return emptyList()
+        // NEW Firebase
+
+        val db = FirebaseFirestore.getInstance()
+        val notebooks = LinkedList<NotebookModel>()
+
+        db.collection("users/" + FirebaseAuth.getInstance().uid!! + "/notebooks")
+            .get().addOnSuccessListener { result ->
+                for (document in result) {
+
+                    val modified = document.getString("ur mom") ?: "1" //TODO
+                    val DUM: String = "lastModified"
+                    Log.i("FirebaseListener", "Eh?: " + document.getString(DUM)) //TODO
+
+                    notebooks.add(NotebookModel(ID = document.id,
+                        title = document.getString("title") ?: "error",
+                        color = document.getString("color") ?: "000000", //TODO: Better default color
+                        lastModified = modified.toLong()))
+                }
+
+                view.adapter = NotebookListAdapter(notebooks, context, inflater)
+                view.adapter!!.notifyDataSetChanged()
+            } .addOnFailureListener { e -> Log.i("FirebaseListener", "Error writing document", e) }
+
     }
 
     // TODO: do it

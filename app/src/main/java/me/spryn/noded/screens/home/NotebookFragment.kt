@@ -2,6 +2,7 @@ package me.spryn.noded.screens.home
 
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -17,7 +18,7 @@ import com.google.firebase.auth.FirebaseAuth
 import me.spryn.noded.MainActivity
 
 import me.spryn.noded.R
-import me.spryn.noded.database.DataManager.loadNotebooks
+import me.spryn.noded.database.DataManager.addNotebooksToRecyclerView
 import me.spryn.noded.databinding.FragmentNotebookBinding
 import me.spryn.noded.models.NotebookModel
 import me.spryn.noded.navigation.clearBackStackAndNavigateTo
@@ -31,7 +32,6 @@ import kotlin.collections.ArrayList
 class NotebookFragment : Fragment() {
 
     lateinit var notebookRecyclerView: RecyclerView
-    lateinit var notebookListAdapter: NotebookListAdapter
     lateinit var notebookList: LinkedList<NotebookModel>
 
 
@@ -39,16 +39,6 @@ class NotebookFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        context?.let {
-
-            val notebooks = loadNotebooks(it)
-            notebookList = LinkedList()
-            for (notebook in notebooks) {
-                notebookList.add(notebook)
-            }
-
-            notebookListAdapter = NotebookListAdapter(notebookList, context, inflater)
-        }
 
         val binding: FragmentNotebookBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_notebook, container, false
@@ -56,11 +46,14 @@ class NotebookFragment : Fragment() {
 
         notebookRecyclerView = binding.notebookList
 
-        notebookRecyclerView.adapter = notebookListAdapter
         notebookRecyclerView.layoutManager = LinearLayoutManager(context)
 
         binding.createNotebookButton.setOnClickListener { createNotebook(it) }
         binding.logoutButton.setOnClickListener { logout() }
+
+        context?.let {
+            addNotebooksToRecyclerView(context, notebookRecyclerView, inflater)
+        }
 
         return binding.root
     }
