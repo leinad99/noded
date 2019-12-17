@@ -1,11 +1,13 @@
 package me.spryn.noded.screens.createNote
 
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
@@ -62,6 +64,11 @@ class CreateNoteFragment : Fragment() {
         }
     }
 
+    override fun onPause() {
+        view?.let { hideKeyboard(it) }
+        super.onPause()
+    }
+
     private fun deleteNote() {
         //TODO @Mitchell write this for when the user taps the delete icon
     }
@@ -79,4 +86,10 @@ class CreateNoteFragment : Fragment() {
         )
         DataManager.saveNote(noteInstance, context)
     }
+
+    private fun hideKeyboard(view: View) {
+        val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
 }

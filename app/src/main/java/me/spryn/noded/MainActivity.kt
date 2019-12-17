@@ -1,16 +1,18 @@
 package me.spryn.noded
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
-import androidx.navigation.ui.setupWithNavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import me.spryn.noded.navigation.CustomFragmentNavigator
 
 
@@ -56,6 +58,4 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
             if (customFragment.showCheckButton) View.VISIBLE else View.GONE
 
     }
-    // endregion
-
 }

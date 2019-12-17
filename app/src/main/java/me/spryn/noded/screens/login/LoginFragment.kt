@@ -1,11 +1,13 @@
 package me.spryn.noded.screens.login
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -81,6 +83,11 @@ class LoginFragment : Fragment() {
         }
     }
 
+    override fun onPause() {
+        view?.let { hideKeyboard(it) }
+        super.onPause()
+    }
+
     private fun login() {
         progressDialog.visibility = View.VISIBLE
         binding.login.isEnabled = false
@@ -118,10 +125,10 @@ class LoginFragment : Fragment() {
         return isValid
     }
 
+
     private fun strongPassword(): Boolean {
         return true //TODO Implement API to check
     }
-
 
     private fun googleLogin() {
         val signInIntent: Intent = googleSignInClient.signInIntent
@@ -168,5 +175,10 @@ class LoginFragment : Fragment() {
 
     private fun register() {
         view?.findNavController()?.navigate(R.id.action_loginActivity_to_registerActivity)
+    }
+
+    private fun hideKeyboard(view: View) {
+        val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 }
