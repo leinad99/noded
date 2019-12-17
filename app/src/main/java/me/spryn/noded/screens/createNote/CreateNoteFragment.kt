@@ -1,16 +1,21 @@
 package me.spryn.noded.screens.createNote
 
-
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.annotation.SuppressLint
+import android.content.Intent
+import android.hardware.SensorEvent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -28,12 +33,13 @@ import net.dankito.richtexteditor.callback.GetCurrentHtmlCallback
 import net.dankito.utils.android.permissions.PermissionsService
 
 
+
 class CreateNoteFragment : Fragment() {
     lateinit var binding: FragmentCreateNoteBinding
 
     private val args: CreateNoteFragmentArgs by navArgs()
 
-
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
