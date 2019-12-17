@@ -20,6 +20,7 @@ import me.spryn.noded.ui.colorBlendDark
 import me.spryn.noded.database.DataManager
 import me.spryn.noded.databinding.FragmentNoteBinding
 import me.spryn.noded.models.NoteModel
+import me.spryn.noded.ui.colorBlendDarker
 import me.spryn.noded.ui.updateToolbar
 import java.util.*
 
@@ -95,11 +96,12 @@ class NoteFragment : Fragment() {
         Log.i("NoteFragment", "onResume")
 
         val mainActivity = activity as? MainActivity
+        val color = args.notebookColor.toInt()
         mainActivity?.let {
             updateToolbar(
                 mainActivity = it,
-                toolbarColor = args.notebookColor.toInt(),
-                statusBarColor = colorBlendDark(args.notebookColor.toInt()),
+                toolbarColor = colorBlendDark(color),
+                statusBarColor = colorBlendDarker(color),
                 addButtonClick = ::createNote
             )
             it.window.navigationBarColor = colorBlendDark(args.notebookColor.toInt())

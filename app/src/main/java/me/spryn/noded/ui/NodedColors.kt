@@ -16,7 +16,7 @@ fun colorBlendDark(toolbarColor: Int, opacity: Float = 0.4f): Int {
 }
 
 fun colorBlendDarker(toolbarColor: Int): Int =
-    colorBlendDark(toolbarColor, 0.16f)
+    colorBlendDark(toolbarColor, 0.6f)
 
 fun pickTextColorBasedOnBgColorSimple(bgColor: String): String {
     val color = if (bgColor[0] == '#') bgColor.substring(1, 7) else bgColor

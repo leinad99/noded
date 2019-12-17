@@ -51,7 +51,7 @@ class CreateNotebookFragment : Fragment() {
 
         mainActivity?.let {
             val color = ContextCompat.getColor(it, R.color.colorPrimary)
-            notebookColor = color //default notebook color
+            notebookColor = color //set default notebook color in case user doesn't select one
             val darkColor = colorBlendDark(color)
             val darkerColor = colorBlendDarker(color)
             updateToolbar(

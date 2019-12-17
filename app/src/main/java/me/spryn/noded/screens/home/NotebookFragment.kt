@@ -21,6 +21,7 @@ import me.spryn.noded.R
 import me.spryn.noded.database.DataManager.loadNotebooks
 import me.spryn.noded.databinding.FragmentNotebookBinding
 import me.spryn.noded.models.NotebookModel
+import me.spryn.noded.navigation.clearBackStackAndNavigateTo
 import me.spryn.noded.screens.settings.SettingsActivity
 import me.spryn.noded.ui.updateToolbar
 import java.util.*
