@@ -1,6 +1,7 @@
 package me.spryn.noded.screens.home
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +21,8 @@ class NotebookListAdapter(
 ) : RecyclerView.Adapter<NotebookViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotebookViewHolder {
-        val view = inflater.inflate(R.layout.notebook_list_item_view, parent, false)
+        val view = inflater.inflate(R.layout.note_item_list_view, parent, false)
+
         return NotebookViewHolder(view)
     }
 
@@ -36,7 +38,7 @@ class NotebookListAdapter(
         val hex = String.format("#%06X", 0xFFFFFF and notebook.color.toInt())
         button.setTextColor(Color.parseColor(pickTextColorBasedOnBgColorSimple(hex)))
 
-        holder.itemView.setBackgroundColor(notebook.color.toInt())
+        holder.itemView.backgroundTintList = ColorStateList.valueOf(notebook.color.toInt())
         holder.itemView.setOnClickListener{openNotebook(it, notebook) }
     }
 

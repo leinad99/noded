@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import me.spryn.noded.MainActivity
@@ -84,7 +85,7 @@ class NoteFragment : Fragment() {
         binding.noteList.setBackgroundColor(args.notebookColor.toInt())
 
         noteRecyclerView.adapter = noteListAdapter
-        noteRecyclerView.layoutManager = LinearLayoutManager(context)
+        noteRecyclerView.layoutManager = GridLayoutManager(context, 2)
 
         return binding.root
     }

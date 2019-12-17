@@ -78,7 +78,6 @@ class CreateNotebookFragment : Fragment() {
                 updateColor(item)
             }
         }
-
         alertDialog.setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
 
         // create alert dialog and show it

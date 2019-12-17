@@ -8,7 +8,7 @@ import me.spryn.noded.R
 import me.spryn.noded.models.NotebookModel
 
 class NotebookViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
-    private val notebook: Button = itemView.findViewById(R.id.notebook_name)
+    private val notebook: Button = itemView.findViewById(R.id.note_name)
 
     fun bind(notebook: NotebookModel) {
         this.notebook.text = notebook.title
