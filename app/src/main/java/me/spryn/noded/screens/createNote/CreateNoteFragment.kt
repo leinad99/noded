@@ -135,15 +135,15 @@ class CreateNoteFragment : Fragment() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
-    // then when you want to do something with edited html
-    private fun getBodyText(): String {
-        var htmlText = ""
-        binding.editor.getCurrentHtmlAsync(object : GetCurrentHtmlCallback {
-            override fun htmlRetrieved(html: String) {
-                htmlText = html
-            }
-        })
-        return htmlText
+    private fun getBodyText(): String { //TODO change back?
+//        var htmlText = ""
+//        binding.editor.getCurrentHtmlAsync (object : GetCurrentHtmlCallback {
+//            override fun htmlRetrieved(html: String) {
+//                htmlText = html
+//            }
+//        })
+//        return htmlText
+        return binding.editor.getCachedHtml()
     }
     
     private fun hideKeyboard(view: View) {
