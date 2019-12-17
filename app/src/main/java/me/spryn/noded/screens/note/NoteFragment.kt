@@ -29,8 +29,6 @@ import java.util.*
 class NoteFragment : Fragment() {
 
     lateinit var noteRecyclerView: RecyclerView
-    lateinit var noteListAdapter: NoteListAdapter
-    lateinit var noteList: LinkedList<NoteModel>
 
     private val args: NoteFragmentArgs by navArgs()
 
@@ -41,20 +39,6 @@ class NoteFragment : Fragment() {
 
         val mainActivity = activity as? MainActivity
 
-        mainActivity?.let {
-            val toolbarTitle: TextView? = it.findViewById(R.id.toolbar_title)
-            toolbarTitle?.text = args.notebookID
-        }
-
-        val notes = DataManager.loadNotesInNotebookFromTitle(args.notebookID, context)
-
-        noteList = LinkedList()
-        for (note in notes) {
-            noteList.add(note)
-        }
-
-        noteListAdapter = NoteListAdapter(noteList, context, inflater, args.notebookColor)
-
         val binding: FragmentNoteBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_note, container, false
         )
@@ -62,8 +46,13 @@ class NoteFragment : Fragment() {
 
         binding.noteList.setBackgroundColor(args.notebookColor.toInt())
 
-        noteRecyclerView.adapter = noteListAdapter
         noteRecyclerView.layoutManager = LinearLayoutManager(context)
+
+        mainActivity?.let {
+            val toolbarTitle: TextView? = it.findViewById(R.id.toolbar_title)
+            toolbarTitle?.text = args.notebookID // TODO: Eh
+            DataManager.addNotesToRecyclerViewFromNotebook(args.notebookID, args.notebookColor, context, noteRecyclerView, inflater)
+        }
 
         return binding.root
     }

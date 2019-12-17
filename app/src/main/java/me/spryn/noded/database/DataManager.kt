@@ -9,6 +9,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import me.spryn.noded.models.NoteModel
 import me.spryn.noded.models.NotebookModel
 import me.spryn.noded.screens.home.NotebookListAdapter
+import me.spryn.noded.screens.note.NoteListAdapter
 import java.util.*
 
 // Controls both public and local databases, is the interface for UI
@@ -38,7 +39,7 @@ object DataManager {
             hashMapOf(
                 "title" to notebook.title,
                 "color" to notebook.color,
-                "lastmodified" to System.currentTimeMillis()
+                "modified" to System.currentTimeMillis()
             )
         ).addOnSuccessListener { Log.i("FirebaseListener", "DocumentSnapshot successfully written!") }
             .addOnFailureListener { e -> Log.i("FirebaseListener", "Error writing document", e) }
@@ -65,7 +66,7 @@ object DataManager {
             .get().addOnSuccessListener { result ->
                 for (document in result) {
 
-                    val modified = document.getString("lastmodified") ?: "1"
+                    val modified = document.getString("modified") ?: "1"
 
                     notebooks.add(NotebookModel(ID = document.id,
                         title = document.getString("title") ?: "error",
@@ -109,14 +110,14 @@ object DataManager {
             hashMapOf(
                 "title" to note.title,
                 "text" to note.text,
-                "lastmodified" to System.currentTimeMillis()
+                "modified" to System.currentTimeMillis()
             )
         ).addOnSuccessListener { Log.i("FirebaseListener", "DocumentSnapshot successfully written!") }
             .addOnFailureListener { e -> Log.i("FirebaseListener", "Error writing document", e) }
     }
 
     // Load all notes in a notebook
-    fun loadNotesInNotebookFromTitle(notebookTitle: String, context: Context?): List<NoteModel>{
+    fun addNotesToRecyclerViewFromNotebook(notebookID: String, notebookColor: String, context: Context?, view: RecyclerView, inflater: LayoutInflater){
 
         /*
         val requiredContext = context?: return emptyList<NoteModel>()
@@ -126,7 +127,27 @@ object DataManager {
 
          */
 
-        return emptyList()
+        // NEW Firebase
+
+        val db = FirebaseFirestore.getInstance()
+        val notes = LinkedList<NoteModel>()
+
+        db.collection("users/" + FirebaseAuth.getInstance().uid!! + "/notebooks/" + notebookID + "/notes")
+            .get().addOnSuccessListener { result ->
+                for (document in result) {
+
+                    val modified = document.getString("modified") ?: "1"
+
+                    notes.add(NoteModel(ID = document.id,
+                        title = document.getString("title") ?: "error",
+                        text = document.getString("text") ?: "000000", //TODO: Better default color
+                        lastModified = modified.toLong(),
+                        notebookID = document.getString("notebookID") ?: notebookID))
+                }
+
+                view.adapter = NoteListAdapter(notes, context, inflater, notebookColor)
+                view.adapter!!.notifyDataSetChanged()
+            } .addOnFailureListener { e -> Log.i("FirebaseListener", "Error writing document", e) }
     }
 
     // Load a specific note

@@ -18,6 +18,7 @@ import me.spryn.noded.database.DataManager
 import me.spryn.noded.databinding.FragmentCreateNoteBinding
 import me.spryn.noded.models.NoteModel
 import me.spryn.noded.ui.updateToolbar
+import java.util.*
 
 
 class CreateNoteFragment : Fragment() {
@@ -72,7 +73,8 @@ class CreateNoteFragment : Fragment() {
         )
         view?.findNavController()?.navigate(action)
         val noteInstance = NoteModel(
-            ID = binding.titleInput.text.toString(),
+            ID = UUID.randomUUID().toString(),
+            title = binding.titleInput.text.toString(),
             text = binding.noteInput.text.toString(),
             notebookID = args.notebookID
         )
