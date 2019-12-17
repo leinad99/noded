@@ -31,7 +31,7 @@ class RegisterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Initialize Firebase Auth
-        FirebaseAuth.getInstance()
+        mAuth = FirebaseAuth.getInstance()
 
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_register, container, false
