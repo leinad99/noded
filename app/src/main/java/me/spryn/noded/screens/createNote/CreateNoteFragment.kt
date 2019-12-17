@@ -35,10 +35,8 @@ class CreateNoteFragment : Fragment() {
             inflater, R.layout.fragment_create_note, container, false
         )
 
-        if (note.title != "newNote1234") { //if not a new note, populate the fields
-            binding.titleInput.setText(note.ID, TextView.BufferType.EDITABLE) // TODO: This is not a title, it's actually the ID
-            binding.noteInput.setText(note.text, TextView.BufferType.EDITABLE)
-        }
+        binding.titleInput.setText(note.ID, TextView.BufferType.EDITABLE) // TODO: This is not a title, it's actually the ID
+        binding.noteInput.setText(note.text, TextView.BufferType.EDITABLE)
 
         return binding.root
     }

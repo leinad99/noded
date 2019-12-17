@@ -39,7 +39,7 @@ object DataManager {
             hashMapOf(
                 "title" to notebook.title,
                 "color" to notebook.color,
-                "modified" to System.currentTimeMillis()
+                "lastModified" to System.currentTimeMillis()
             )
         ).addOnSuccessListener { Log.i("FirebaseListener", "DocumentSnapshot successfully written!") }
             .addOnFailureListener { e -> Log.i("FirebaseListener", "Error writing document", e) }
@@ -66,12 +66,13 @@ object DataManager {
             .get().addOnSuccessListener { result ->
                 for (document in result) {
 
-                    val modified = document.getString("modified") ?: "1"
+                    val modified = document.getLong("lastModified") ?: 1
 
                     notebooks.add(NotebookModel(ID = document.id,
                         title = document.getString("title") ?: "error",
                         color = document.getString("color") ?: "000000", //TODO: Better default color
-                        lastModified = modified.toLong()))
+                        lastModified = modified
+                    ))
                 }
 
                 view.adapter = NotebookListAdapter(notebooks, context, inflater)
@@ -110,7 +111,7 @@ object DataManager {
             hashMapOf(
                 "title" to note.title,
                 "text" to note.text,
-                "modified" to System.currentTimeMillis()
+                "lastModified" to System.currentTimeMillis()
             )
         ).addOnSuccessListener { Log.i("FirebaseListener", "DocumentSnapshot successfully written!") }
             .addOnFailureListener { e -> Log.i("FirebaseListener", "Error writing document", e) }
@@ -136,7 +137,7 @@ object DataManager {
             .get().addOnSuccessListener { result ->
                 for (document in result) {
 
-                    val modified = document.getString("modified") ?: "1"
+                    val modified = document.getLong("lastModified") ?: 1
 
                     notes.add(NoteModel(ID = document.id,
                         title = document.getString("title") ?: "error",

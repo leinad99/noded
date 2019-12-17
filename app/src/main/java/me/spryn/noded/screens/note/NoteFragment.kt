@@ -76,7 +76,7 @@ class NoteFragment : Fragment() {
     private fun createNote() {
         val action = NoteFragmentDirections.actionNoteFragmentToCreateNoteFragment(
             notebookID = args.notebookID,
-            noteID = "newNote1234",
+            noteID = "",
             notebookColor = args.notebookColor
         )
         view?.findNavController()?.navigate(action)
