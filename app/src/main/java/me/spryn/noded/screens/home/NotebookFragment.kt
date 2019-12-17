@@ -12,6 +12,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import me.spryn.noded.MainActivity
 import me.spryn.noded.R
@@ -96,5 +99,29 @@ class NotebookFragment : Fragment() {
         view.findNavController()
             .navigate(R.id.action_notebookFragment_to_createNotebookFragment)
 
+    }
+
+    private fun logout() {
+        var fAuth = FirebaseAuth.getInstance()
+
+        //Google Sign in
+        if (GoogleSignIn.getLastSignedInAccount(context) != null) {
+            lateinit var googleSignInClient: GoogleSignInClient
+            val googleSignInOptions: GoogleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build()
+
+            context?.let {
+                googleSignInClient = GoogleSignIn.getClient(it, googleSignInOptions)
+            }
+
+            googleSignInClient.revokeAccess()
+        }
+
+        fAuth.signOut()
+
+        view?.findNavController()
+            ?.clearBackStackAndNavigateTo(R.id.action_notebookFragment_to_loginActivity)
     }
 }
