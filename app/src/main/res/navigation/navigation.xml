@@ -75,9 +75,6 @@
         <argument
             android:name="notebookName"
             app:argType="string" />
-        <action
-            android:id="@+id/action_createNoteFragment_to_connectedNotesFragment"
-            app:destination="@id/connectedNotesFragment" />
     </custom-fragment>
     <custom-fragment
         android:id="@+id/loginActivity"
@@ -155,9 +152,19 @@
     <custom-fragment
         android:id="@+id/connectedNotesFragment"
         android:name="me.spryn.noded.screens.connectedNotes.ConnectedNotesFragment"
-        android:label="ConnectedNotesFragment" >
-        <action
-            android:id="@+id/action_connectedNotesFragment_to_createNoteFragment"
-            app:destination="@id/createNoteFragment" />
+        android:label="Connected Notes" >
+        <argument
+            android:name="notebookID"
+            app:argType="string" />
+        <argument
+            android:name="noteID"
+            app:argType="string" />
+        <argument
+            android:name="notebookColor"
+            app:argType="string"
+            android:defaultValue="37474F" />
+        <argument
+            android:name="notebookName"
+            app:argType="string" />
     </custom-fragment>
 </navigation>

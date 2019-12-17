@@ -7,7 +7,12 @@ import android.widget.Button
 import com.google.firebase.auth.FirebaseAuth
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.navigation.findNavController
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import me.spryn.noded.R
+import me.spryn.noded.navigation.clearBackStackAndNavigateTo
 
 
 class SettingsActivity : AppCompatActivity() {
@@ -37,9 +42,26 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     private fun logout() {
-        FirebaseAuth.getInstance().signOut()
+        var fAuth = FirebaseAuth.getInstance()
+
+        //Google Sign in
+        if (GoogleSignIn.getLastSignedInAccount(this) != null) {
+            lateinit var googleSignInClient: GoogleSignInClient
+            val googleSignInOptions: GoogleSignInOptions =
+                GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestIdToken(getString(R.string.default_web_client_id))
+                    .requestEmail()
+                    .build()
+
+            googleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions)
+
+            googleSignInClient.revokeAccess()
+        }
+        fAuth.signOut()
+
         onBackPressed()
     }
+
 
     private fun confirmDeleteAccount() {
 

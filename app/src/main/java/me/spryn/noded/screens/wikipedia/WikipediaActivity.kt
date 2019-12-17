@@ -5,6 +5,7 @@ import android.view.MenuItem
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import me.spryn.noded.R
 
 class WikipediaActivity : AppCompatActivity() {
@@ -19,6 +20,11 @@ class WikipediaActivity : AppCompatActivity() {
 
         supportActionBar?.title = title
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        this.window.navigationBarColor = ContextCompat.getColor(this, R.color.colorPrimaryDark)
     }
 
     private fun loadWiki() {

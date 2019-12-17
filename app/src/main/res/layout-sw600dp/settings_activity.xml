@@ -140,13 +140,13 @@
             android:text="@string/logout"
             android:textColor="@color/white" />
 
-        <Button
-            android:id="@+id/delete_account_button"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="400dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/transparent_with_ripple"
-            android:text="@string/delete_account"
-            android:textColor="@color/red_500" />
+<!--        <Button-->
+<!--            android:id="@+id/delete_account_button"-->
+<!--            style="?android:attr/borderlessButtonStyle"-->
+<!--            android:layout_width="400dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@drawable/transparent_with_ripple"-->
+<!--            android:text="@string/delete_account"-->
+<!--            android:textColor="@color/red_500" />-->
     </LinearLayout>
 </ScrollView>
