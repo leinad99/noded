@@ -41,9 +41,7 @@ class CreateNoteFragment : Fragment() {
             binding.noteInput.setText(note.text, TextView.BufferType.EDITABLE)
         }
 
-        binding.wikiBtn.setOnClickListener {view: View ->
-            openWikipediaPage()
-        }
+        binding.wikiBtn.setOnClickListener { openWikipediaPage() }
 
         return binding.root
     }

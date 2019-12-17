@@ -2,11 +2,9 @@ package me.spryn.noded.screens.wikipedia
 
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -21,9 +19,9 @@ import me.spryn.noded.ui.updateToolbar
 /**
  * A simple [Fragment] subclass.
  */
-class wikipediaFragment : Fragment() {
+class WikipediaFragment : Fragment() {
     lateinit var binding: FragmentWikipediaBinding
-    private val args: wikipediaFragmentArgs by navArgs()
+    private val args: WikipediaFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,9 +55,7 @@ class wikipediaFragment : Fragment() {
             updateToolbar(
                 mainActivity = it,
                 toolbarColor = primaryColor,
-                statusBarColor = primaryColor,
-                toolbarElevation = 0F
-
+                statusBarColor = primaryColor
             )
         }
     }
