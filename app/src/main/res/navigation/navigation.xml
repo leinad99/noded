@@ -72,6 +72,9 @@
             android:name="notebookColor"
             app:argType="string"
             android:defaultValue="37474F" />
+        <argument
+            android:name="notebookName"
+            app:argType="string" />
     </custom-fragment>
     <custom-fragment
         android:id="@+id/loginActivity"
@@ -142,5 +145,8 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+        <argument
+            android:name="notebookName"
+            app:argType="string" />
     </custom-fragment>
 </navigation>

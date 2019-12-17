@@ -113,17 +113,20 @@ class CreateNotebookFragment : Fragment() {
     }
 
     private fun saveThisNotebook() {
+        val id = UUID.randomUUID().toString()
+
         if (binding.titleInput.text.toString().isEmpty()) {
             Toast.makeText(context, "Please enter a title!", Toast.LENGTH_SHORT).show()
             return
         }
         val action = CreateNotebookFragmentDirections.actionCreateNotebookFragmentToNoteFragment(
             notebookColor = notebookColor.toString(),
-            notebookID = binding.titleInput.text.toString()
+            notebookName = binding.titleInput.text.toString(),
+            notebookID = id
         )
         view?.findNavController()?.navigate(action)
         val notebookInstance = NotebookModel(
-            ID = UUID.randomUUID().toString(),
+            ID = id,
             title = binding.titleInput.text.toString(),
             color = notebookColor.toString(),
             lastModified = 1

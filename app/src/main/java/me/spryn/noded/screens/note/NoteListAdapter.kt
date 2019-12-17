@@ -18,7 +18,8 @@ class NoteListAdapter (
     private var notes: List<NoteModel>,
     context: Context?,
     private val inflater: LayoutInflater = LayoutInflater.from(context),
-    private val color: String
+    private val color: String,
+    private val notebookTitle: String
 ) : RecyclerView.Adapter<NoteViewHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
@@ -46,7 +47,7 @@ class NoteListAdapter (
         }
 
     private fun openNote(view: View, note: NoteModel){
-        val action = NoteFragmentDirections.actionNoteFragmentToCreateNoteFragment(notebookID = note.notebookID, noteID = note.ID, notebookColor = color)
+        val action = NoteFragmentDirections.actionNoteFragmentToCreateNoteFragment(notebookID = note.notebookID, noteID = note.ID, notebookColor = color, notebookName = notebookTitle)
         view.findNavController().navigate(action)
     }
 }

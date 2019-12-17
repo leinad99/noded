@@ -118,7 +118,7 @@ object DataManager {
     }
 
     // Load all notes in a notebook
-    fun addNotesToRecyclerViewFromNotebook(notebookID: String, notebookColor: String, context: Context?, view: RecyclerView, inflater: LayoutInflater){
+    fun addNotesToRecyclerViewFromNotebook(notebookID: String, notebookColor: String, notebookTitle: String, context: Context?, view: RecyclerView, inflater: LayoutInflater){
 
         /*
         val requiredContext = context?: return emptyList<NoteModel>()
@@ -146,7 +146,7 @@ object DataManager {
                         notebookID = document.getString("notebookID") ?: notebookID))
                 }
 
-                view.adapter = NoteListAdapter(notes, context, inflater, notebookColor)
+                view.adapter = NoteListAdapter(notes, context, inflater, notebookColor, notebookTitle)
                 view.adapter!!.notifyDataSetChanged()
             } .addOnFailureListener { e -> Log.i("FirebaseListener", "Error writing document", e) }
     }

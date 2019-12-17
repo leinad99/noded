@@ -52,8 +52,8 @@ class NoteFragment : Fragment() {
 
         mainActivity?.let {
             val toolbarTitle: TextView? = it.findViewById(R.id.toolbar_title)
-            toolbarTitle?.text = args.notebookID // TODO: Eh
-            DataManager.addNotesToRecyclerViewFromNotebook(args.notebookID, args.notebookColor, context, noteRecyclerView, inflater)
+            toolbarTitle?.text = args.notebookName // TODO: Eh
+            DataManager.addNotesToRecyclerViewFromNotebook(args.notebookID, args.notebookColor, args.notebookName, context, noteRecyclerView, inflater)
         }
 
         return binding.root
@@ -80,7 +80,8 @@ class NoteFragment : Fragment() {
         val action = NoteFragmentDirections.actionNoteFragmentToCreateNoteFragment(
             notebookID = args.notebookID,
             noteID = "",
-            notebookColor = args.notebookColor
+            notebookColor = args.notebookColor,
+            notebookName = args.notebookName
         )
         view?.findNavController()?.navigate(action)
     }
