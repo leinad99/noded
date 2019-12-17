@@ -24,7 +24,6 @@ import me.spryn.noded.screens.wikipedia.WikipediaActivity
 import me.spryn.noded.ui.updateToolbar
 import net.dankito.utils.android.permissions.PermissionsService
 
-
 class CreateNoteFragment : Fragment() {
     lateinit var binding: FragmentCreateNoteBinding
 
