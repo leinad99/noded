@@ -213,7 +213,7 @@ object DataManager {
             .get().addOnSuccessListener { document ->
                 if (document != null) {
                     binding.titleInput.setText(
-                        document.getString("title") ?: "untitled",
+                        document.getString("title") ?: "",
                         TextView.BufferType.EDITABLE
                     ) // TODO: This is not a title, it's actually the ID
                     binding.editor.setHtml(document.getString("text") ?: "")

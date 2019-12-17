@@ -21,10 +21,10 @@ class SettingsActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val logoutButton = findViewById<Button>(R.id.logout_button)
-        val deleteAccountButton = findViewById<Button>(R.id.delete_account_button)
+//        val deleteAccountButton = findViewById<Button>(R.id.delete_account_button)
 
         logoutButton.setOnClickListener { logout() }
-        deleteAccountButton.setOnClickListener { confirmDeleteAccount() }
+//        deleteAccountButton.setOnClickListener { confirmDeleteAccount() }
 
     }
 
