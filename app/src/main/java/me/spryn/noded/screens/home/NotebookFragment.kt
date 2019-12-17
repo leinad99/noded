@@ -35,12 +35,13 @@ class NotebookFragment : Fragment() {
     lateinit var notebookListAdapter: NotebookListAdapter
     lateinit var notebookList: LinkedList<NotebookModel>
 
+    private lateinit var binding: FragmentNotebookBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding: FragmentNotebookBinding = DataBindingUtil.inflate(
+        binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_notebook, container, false
         )
         context?.let {
@@ -75,7 +76,10 @@ class NotebookFragment : Fragment() {
         notebookRecyclerView.adapter = notebookListAdapter
         notebookRecyclerView.layoutManager = GridLayoutManager(context, 2)
 
-        binding.settingsButton.setOnClickListener { startActivity(Intent(context, SettingsActivity::class.java)) }
+        binding.settingsButton.setOnClickListener {
+            it.isEnabled = false
+            startActivity(Intent(context, SettingsActivity::class.java))
+        }
         binding.createNotebookFab.setOnClickListener { createNotebook(it) }
 
         return binding.root
@@ -83,6 +87,8 @@ class NotebookFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+
+        binding.settingsButton.isEnabled = true
 
         if (FirebaseAuth.getInstance().currentUser == null) {
             view?.findNavController()?.navigate(R.id.action_notebookFragment_to_loginActivity)
@@ -108,10 +114,11 @@ class NotebookFragment : Fragment() {
         //Google Sign in
         if (GoogleSignIn.getLastSignedInAccount(context) != null) {
             lateinit var googleSignInClient: GoogleSignInClient
-            val googleSignInOptions: GoogleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build()
+            val googleSignInOptions: GoogleSignInOptions =
+                GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestIdToken(getString(R.string.default_web_client_id))
+                    .requestEmail()
+                    .build()
 
             context?.let {
                 googleSignInClient = GoogleSignIn.getClient(it, googleSignInOptions)
