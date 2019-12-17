@@ -21,7 +21,6 @@
             <EditText
                 android:id="@+id/title_input"
                 style="@style/AccountInputField"
-
                 android:layout_height="wrap_content"
                 android:layout_weight=".2"
                 android:background="@android:color/transparent"
@@ -44,23 +43,18 @@
                 android:textColor="@color/white" />
         </LinearLayout>
 
-        <EditText
-            android:id="@+id/note_input"
-            style="@style/AccountInputField"
+        <net.dankito.richtexteditor.android.RichTextEditor
+            android:id="@+id/editor"
             android:layout_width="match_parent"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:gravity="top"
-            android:hint="@string/note_hint"
-            android:inputType="textMultiLine"
-            android:overScrollMode="always"
-            android:scrollbarStyle="insideInset"
-            android:scrollbars="vertical"
-            android:singleLine="false"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            app:backgroundTint="@color/white"
-            tools:text="I've lost count how many times I've questioned my existence this semester" />
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:backgroundTint="@color/colorPrimary" />
 
+        <net.dankito.richtexteditor.android.toolbar.GroupedCommandsEditorToolbar
+            android:id="@+id/editorToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:background="@color/colorPrimary" />
 
     </LinearLayout>
 </layout>
