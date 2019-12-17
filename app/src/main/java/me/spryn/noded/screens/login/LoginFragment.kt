@@ -25,7 +25,6 @@ import com.google.firebase.auth.GoogleAuthProvider
 import me.spryn.noded.MainActivity
 import me.spryn.noded.R
 import me.spryn.noded.databinding.FragmentLoginBinding
-import java.util.regex.Pattern
 
 class LoginFragment : Fragment() {
 
@@ -116,7 +115,6 @@ class LoginFragment : Fragment() {
 
         return isValid
     }
-
 
 
     private fun googleLogin() {

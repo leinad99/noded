@@ -12,9 +12,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import me.spryn.noded.MainActivity
 import me.spryn.noded.R
@@ -65,7 +62,8 @@ class NotebookFragment : Fragment() {
         binding.settingsButton.isEnabled = true
 
         if (FirebaseAuth.getInstance().currentUser == null) {
-            view?.findNavController()?.navigate(R.id.action_notebookFragment_to_loginActivity)
+            view?.findNavController()
+                ?.clearBackStackAndNavigateTo(R.id.action_notebookFragment_to_loginActivity)
         }
 
         val mainActivity = activity as? MainActivity

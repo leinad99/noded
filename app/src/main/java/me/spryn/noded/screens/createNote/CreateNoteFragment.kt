@@ -1,21 +1,15 @@
 package me.spryn.noded.screens.createNote
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
-import android.annotation.SuppressLint
-import android.content.Intent
-import android.hardware.SensorEvent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-
-import android.widget.TextView
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -29,8 +23,6 @@ import me.spryn.noded.models.NoteModel
 import me.spryn.noded.screens.wikipedia.WikipediaActivity
 import me.spryn.noded.ui.updateToolbar
 import net.dankito.utils.android.permissions.PermissionsService
-import java.util.*
-
 
 
 class CreateNoteFragment : Fragment() {
@@ -47,7 +39,8 @@ class CreateNoteFragment : Fragment() {
             inflater, R.layout.fragment_create_note, container, false
         )
 
-        binding.wikiBtn.isEnabled = false // So then the user can't search wikipedia with an empty string
+        binding.wikiBtn.isEnabled =
+            false // So then the user can't search wikipedia with an empty string
         DataManager.loadNoteIntoBinding(binding, args.noteID, args.notebookID)
 
         configureEditor()
@@ -161,7 +154,7 @@ class CreateNoteFragment : Fragment() {
 //        return htmlText
         return binding.editor.getCachedHtml()
     }
-    
+
     private fun hideKeyboard(view: View) {
         val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(view.windowToken, 0)

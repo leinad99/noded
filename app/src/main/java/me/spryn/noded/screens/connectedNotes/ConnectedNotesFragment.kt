@@ -3,15 +3,13 @@ package me.spryn.noded.screens.connectedNotes
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.findNavController
+import androidx.fragment.app.Fragment
 import me.spryn.noded.MainActivity
-
 import me.spryn.noded.R
 import me.spryn.noded.databinding.FragmentConnectedNotesBinding
 import me.spryn.noded.ui.updateToolbar

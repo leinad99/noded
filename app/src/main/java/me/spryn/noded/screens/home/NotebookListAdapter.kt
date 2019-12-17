@@ -2,6 +2,7 @@ package me.spryn.noded.screens.home
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import me.spryn.noded.R
 import me.spryn.noded.models.NotebookModel
 import me.spryn.noded.ui.pickTextColorBasedOnBgColorSimple
-import android.graphics.Color
 
 
 class NotebookListAdapter(
@@ -39,11 +39,15 @@ class NotebookListAdapter(
         button.setTextColor(Color.parseColor(pickTextColorBasedOnBgColorSimple(hex)))
 
         holder.itemView.backgroundTintList = ColorStateList.valueOf(notebook.color.toInt())
-        holder.itemView.setOnClickListener{openNotebook(it, notebook) }
+        holder.itemView.setOnClickListener { openNotebook(it, notebook) }
     }
 
-    private fun openNotebook(view: View, notebook: NotebookModel){
-        val action = NotebookFragmentDirections.actionNotebookFragmentToNoteFragment(notebookColor = notebook.color, notebookID = notebook.ID, notebookName = notebook.title)
+    private fun openNotebook(view: View, notebook: NotebookModel) {
+        val action = NotebookFragmentDirections.actionNotebookFragmentToNoteFragment(
+            notebookColor = notebook.color,
+            notebookID = notebook.ID,
+            notebookName = notebook.title
+        )
         view.findNavController().navigate(action)
     }
 

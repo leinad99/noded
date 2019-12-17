@@ -14,7 +14,7 @@ import me.spryn.noded.models.NoteModel
 import me.spryn.noded.ui.colorBlendDark
 import me.spryn.noded.ui.pickTextColorBasedOnBgColorSimple
 
-class NoteListAdapter (
+class NoteListAdapter(
     private var notes: List<NoteModel>,
     context: Context?,
     private val inflater: LayoutInflater = LayoutInflater.from(context),
@@ -22,32 +22,37 @@ class NoteListAdapter (
     private val notebookTitle: String
 ) : RecyclerView.Adapter<NoteViewHolder>() {
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
-            val view = inflater.inflate(R.layout.note_item_list_view, parent, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
+        val view = inflater.inflate(R.layout.note_item_list_view, parent, false)
 
-            return NoteViewHolder(view)
+        return NoteViewHolder(view)
+    }
+
+    override fun getItemCount() = notes.size
+
+    override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
+        val note = notes[position]
+
+        holder.apply {
+            bind(note)
         }
 
-        override fun getItemCount() = notes.size
+        val button = holder.itemView as Button
+        val hex = String.format("#%06X", 0xFFFFFF and color.toInt())
+        button.setTextColor(Color.parseColor(pickTextColorBasedOnBgColorSimple(hex)))
 
-        override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
-            val note = notes[position]
+        holder.itemView.backgroundTintList = ColorStateList.valueOf(colorBlendDark(color.toInt()))
 
-            holder.apply {
-                bind(note)
-            }
+        holder.itemView.setOnClickListener { openNote(it, note) }
+    }
 
-            val button = holder.itemView as Button
-            val hex = String.format("#%06X", 0xFFFFFF and color.toInt())
-            button.setTextColor(Color.parseColor(pickTextColorBasedOnBgColorSimple(hex)))
-
-            holder.itemView.backgroundTintList = ColorStateList.valueOf(colorBlendDark(color.toInt()))
-
-            holder.itemView.setOnClickListener{openNote(it, note) }
-        }
-
-    private fun openNote(view: View, note: NoteModel){
-        val action = NoteFragmentDirections.actionNoteFragmentToCreateNoteFragment(notebookID = note.notebookID, noteID = note.ID, notebookColor = color, notebookName = notebookTitle)
+    private fun openNote(view: View, note: NoteModel) {
+        val action = NoteFragmentDirections.actionNoteFragmentToCreateNoteFragment(
+            notebookID = note.notebookID,
+            noteID = note.ID,
+            notebookColor = color,
+            notebookName = notebookTitle
+        )
         view.findNavController().navigate(action)
     }
 }

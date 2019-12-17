@@ -8,7 +8,6 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -19,12 +18,10 @@ import me.spryn.noded.MainActivity
 import me.spryn.noded.R
 import me.spryn.noded.database.DataManager
 import me.spryn.noded.databinding.FragmentNoteBinding
-import me.spryn.noded.models.NoteModel
 import me.spryn.noded.ui.colorBlendDark
 import me.spryn.noded.ui.colorBlendDarker
 import me.spryn.noded.ui.updateToolbar
 import java.util.*
-import kotlin.math.abs
 
 
 /**
@@ -56,7 +53,14 @@ class NoteFragment : Fragment() {
         mainActivity?.let {
             val toolbarTitle: TextView? = it.findViewById(R.id.toolbar_title)
             toolbarTitle?.text = args.notebookName // TODO: Eh
-            DataManager.addNotesToRecyclerViewFromNotebook(args.notebookID, args.notebookColor, args.notebookName, context, noteRecyclerView, inflater)
+            DataManager.addNotesToRecyclerViewFromNotebook(
+                args.notebookID,
+                args.notebookColor,
+                args.notebookName,
+                context,
+                noteRecyclerView,
+                inflater
+            )
         }
 
         //calculate swipe 
@@ -66,7 +70,7 @@ class NoteFragment : Fragment() {
 
         binding.noteList.setOnTouchListener(View.OnTouchListener { view, event: MotionEvent ->
             when (event.action) {
-                MotionEvent.ACTION_DOWN-> {
+                MotionEvent.ACTION_DOWN -> {
 
                     x1 = event.x
                 }

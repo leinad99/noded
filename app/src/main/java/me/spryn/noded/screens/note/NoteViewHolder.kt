@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import me.spryn.noded.R
 import me.spryn.noded.models.NoteModel
 
-class NoteViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView){
+class NoteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val note: Button = itemView.findViewById(R.id.note_name)
 
     fun bind(note: NoteModel) {

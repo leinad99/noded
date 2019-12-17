@@ -120,7 +120,7 @@ class RegisterFragment : Fragment() {
         val regex = "^(?=.*?\\p{Lu})(?=.*?\\p{Ll})(?=.*?\\d)" +
                 "(?=.*?[`~!@#$%^&*()\\-_=+\\\\|\\[{\\]};:'\",<.>/?]).*$"
         //return if it follows the regex expression and contains no spaces
-        return(Pattern.compile(regex).matcher(password).matches() && !password.contains(" "))
+        return (Pattern.compile(regex).matcher(password).matches() && !password.contains(" "))
     }
 
     private fun hideKeyboard(view: View) {

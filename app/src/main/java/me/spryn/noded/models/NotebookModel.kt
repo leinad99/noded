@@ -1,8 +1,5 @@
 package me.spryn.noded.models
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-
 // @Entity(tableName = "notebooks_table")
 data class NotebookModel(
     val ID: String,

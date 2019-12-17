@@ -1,18 +1,16 @@
 package me.spryn.noded.screens.settings
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import android.view.MenuItem
 import android.widget.Button
-import com.google.firebase.auth.FirebaseAuth
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.navigation.findNavController
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.firebase.auth.FirebaseAuth
 import me.spryn.noded.R
-import me.spryn.noded.navigation.clearBackStackAndNavigateTo
 
 
 class SettingsActivity : AppCompatActivity() {

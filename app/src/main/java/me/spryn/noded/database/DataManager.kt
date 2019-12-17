@@ -13,7 +13,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import me.spryn.noded.databinding.FragmentCreateNoteBinding
 import me.spryn.noded.models.NoteModel
 import me.spryn.noded.models.NotebookModel
-import me.spryn.noded.screens.createNote.CreateNoteFragmentDirections
 import me.spryn.noded.screens.home.NotebookListAdapter
 import me.spryn.noded.screens.note.NoteListAdapter
 import java.util.*
@@ -47,13 +46,22 @@ object DataManager {
                 "color" to notebook.color,
                 "lastModified" to System.currentTimeMillis()
             )
-        ).addOnSuccessListener { Log.i("FirebaseListener", "DocumentSnapshot successfully written!") }
+        ).addOnSuccessListener {
+            Log.i(
+                "FirebaseListener",
+                "DocumentSnapshot successfully written!"
+            )
+        }
             .addOnFailureListener { e -> Log.i("FirebaseListener", "Error writing document", e) }
 
     }
 
     // Get a list of all the notebooks, sorta by the most recently modified first
-    fun addNotebooksToRecyclerView(context: Context?, view: RecyclerView, inflater: LayoutInflater){
+    fun addNotebooksToRecyclerView(
+        context: Context?,
+        view: RecyclerView,
+        inflater: LayoutInflater
+    ) {
 
         /* OLD SQL
         val requiredContext = context?: return emptyList<NotebookModel>()
@@ -74,21 +82,25 @@ object DataManager {
 
                     val modified = document.getLong("lastModified") ?: 1
 
-                    notebooks.add(NotebookModel(ID = document.id,
-                        title = document.getString("title") ?: "error",
-                        color = document.getString("color") ?: "000000", //TODO: Better default color
-                        lastModified = modified
-                    ))
+                    notebooks.add(
+                        NotebookModel(
+                            ID = document.id,
+                            title = document.getString("title") ?: "error",
+                            color = document.getString("color")
+                                ?: "000000", //TODO: Better default color
+                            lastModified = modified
+                        )
+                    )
                 }
 
                 view.adapter = NotebookListAdapter(notebooks, context, inflater)
                 view.adapter!!.notifyDataSetChanged()
-            } .addOnFailureListener { e -> Log.i("FirebaseListener", "Error writing document", e) }
+            }.addOnFailureListener { e -> Log.i("FirebaseListener", "Error writing document", e) }
 
     }
 
     // TODO: do it
-    fun loadNotebookTitleFromID(ID: String): String{
+    fun loadNotebookTitleFromID(ID: String): String {
         return ID
     }
 
@@ -113,18 +125,31 @@ object DataManager {
 
         val db = FirebaseFirestore.getInstance()
 
-        db.document("users/" + FirebaseAuth.getInstance().uid!! + "/notebooks/" + note.notebookID + "/notes/" + note.ID).set(
-            hashMapOf(
-                "title" to note.title,
-                "text" to note.text,
-                "lastModified" to System.currentTimeMillis()
+        db.document("users/" + FirebaseAuth.getInstance().uid!! + "/notebooks/" + note.notebookID + "/notes/" + note.ID)
+            .set(
+                hashMapOf(
+                    "title" to note.title,
+                    "text" to note.text,
+                    "lastModified" to System.currentTimeMillis()
+                )
+            ).addOnSuccessListener {
+            Log.i(
+                "FirebaseListener",
+                "DocumentSnapshot successfully written!"
             )
-        ).addOnSuccessListener { Log.i("FirebaseListener", "DocumentSnapshot successfully written!") }
+        }
             .addOnFailureListener { e -> Log.i("FirebaseListener", "Error writing document", e) }
     }
 
     // Load all notes in a notebook
-    fun addNotesToRecyclerViewFromNotebook(notebookID: String, notebookColor: String, notebookTitle: String, context: Context?, view: RecyclerView, inflater: LayoutInflater){
+    fun addNotesToRecyclerViewFromNotebook(
+        notebookID: String,
+        notebookColor: String,
+        notebookTitle: String,
+        context: Context?,
+        view: RecyclerView,
+        inflater: LayoutInflater
+    ) {
 
         /*
         val requiredContext = context?: return emptyList<NoteModel>()
@@ -145,20 +170,30 @@ object DataManager {
 
                     val modified = document.getLong("lastModified") ?: 1
 
-                    notes.add(NoteModel(ID = document.id,
-                        title = document.getString("title") ?: "error",
-                        text = document.getString("text") ?: "000000", //TODO: Better default color
-                        lastModified = modified,
-                        notebookID = document.getString("notebookID") ?: notebookID))
+                    notes.add(
+                        NoteModel(
+                            ID = document.id,
+                            title = document.getString("title") ?: "error",
+                            text = document.getString("text")
+                                ?: "000000", //TODO: Better default color
+                            lastModified = modified,
+                            notebookID = document.getString("notebookID") ?: notebookID
+                        )
+                    )
                 }
 
-                view.adapter = NoteListAdapter(notes, context, inflater, notebookColor, notebookTitle)
+                view.adapter =
+                    NoteListAdapter(notes, context, inflater, notebookColor, notebookTitle)
                 view.adapter!!.notifyDataSetChanged()
-            } .addOnFailureListener { e -> Log.i("FirebaseListener", "Error writing document", e) }
+            }.addOnFailureListener { e -> Log.i("FirebaseListener", "Error writing document", e) }
     }
 
     // Load a specific note
-    fun loadNoteIntoBinding(binding: FragmentCreateNoteBinding, noteID: String, notebookID: String): NoteModel {
+    fun loadNoteIntoBinding(
+        binding: FragmentCreateNoteBinding,
+        noteID: String,
+        notebookID: String
+    ): NoteModel {
 
         /* OLD SQL
         val requiredContext = context?: return NoteModel(title = noteTitle, notebookTitle =  notebookTitle)
@@ -177,7 +212,10 @@ object DataManager {
         db.document("users/" + FirebaseAuth.getInstance().uid!! + "/notebooks/" + notebookID + "/notes/" + noteID)
             .get().addOnSuccessListener { document ->
                 if (document != null) {
-                    binding.titleInput.setText(document.getString("title") ?: "untitled", TextView.BufferType.EDITABLE) // TODO: This is not a title, it's actually the ID
+                    binding.titleInput.setText(
+                        document.getString("title") ?: "untitled",
+                        TextView.BufferType.EDITABLE
+                    ) // TODO: This is not a title, it's actually the ID
                     binding.editor.setHtml(document.getString("text") ?: "")
                     binding.wikiBtn.isEnabled = false
                 }
@@ -186,11 +224,15 @@ object DataManager {
         return note // TODO: Could be this
     }
 
-    fun deleteNoteAndExit(view: View?, noteID: String, notebookID: String, action: NavDirections){
+    fun deleteNoteAndExit(view: View?, noteID: String, notebookID: String, action: NavDirections) {
         val db = FirebaseFirestore.getInstance()
-        db.document("users/" + FirebaseAuth.getInstance().uid!! + "/notebooks/" + notebookID + "/notes/" + noteID).delete()
+        db.document("users/" + FirebaseAuth.getInstance().uid!! + "/notebooks/" + notebookID + "/notes/" + noteID)
+            .delete()
             .addOnSuccessListener {
-                Log.i("FirebaseListener", "Successfully deleted users/" + FirebaseAuth.getInstance().uid!! + "/notebooks/" + notebookID + "/notes/" + noteID)
+                Log.i(
+                    "FirebaseListener",
+                    "Successfully deleted users/" + FirebaseAuth.getInstance().uid!! + "/notebooks/" + notebookID + "/notes/" + noteID
+                )
                 view?.findNavController()?.navigate(action)
             }
             .addOnFailureListener { e -> Log.i("FirebaseListener", "Error writing document", e) }
