@@ -48,7 +48,6 @@ class NoteFragment : Fragment() {
 
         binding.noteList.setBackgroundColor(args.notebookColor.toInt())
 
-        noteRecyclerView.adapter = noteListAdapter
         noteRecyclerView.layoutManager = GridLayoutManager(context, 2)
 
         mainActivity?.let {

@@ -3,8 +3,6 @@ package me.spryn.noded.screens.home
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,11 +20,9 @@ import me.spryn.noded.MainActivity
 import me.spryn.noded.R
 import me.spryn.noded.database.DataManager.addNotebooksToRecyclerView
 import me.spryn.noded.databinding.FragmentNotebookBinding
-import me.spryn.noded.models.NotebookModel
 import me.spryn.noded.navigation.clearBackStackAndNavigateTo
 import me.spryn.noded.screens.settings.SettingsActivity
 import me.spryn.noded.ui.updateToolbar
-import java.util.*
 
 /**
  * A simple [Fragment] subclass.
@@ -48,7 +44,6 @@ class NotebookFragment : Fragment() {
 
         notebookRecyclerView = binding.notebookList
 
-        notebookRecyclerView.adapter = notebookListAdapter
         notebookRecyclerView.layoutManager = GridLayoutManager(context, 2)
 
         binding.settingsButton.setOnClickListener {

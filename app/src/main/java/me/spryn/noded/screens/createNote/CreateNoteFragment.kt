@@ -91,7 +91,6 @@ class CreateNoteFragment : Fragment() {
             ID = UUID.randomUUID().toString(),
             title = binding.titleInput.text.toString(),
             notebookID = args.notebookID,
-            notebookTitle = args.notebookName,
             text = getBodyText()
         )
         DataManager.saveNote(noteInstance, context)
