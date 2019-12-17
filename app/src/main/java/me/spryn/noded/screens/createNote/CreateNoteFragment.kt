@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -38,7 +39,6 @@ class CreateNoteFragment : Fragment() {
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_create_note, container, false
         )
-        binding.wikiBtn.isEnabled = false // Prevent searching wikipedia with an empty string
 
         DataManager.loadNoteIntoBinding(binding, args.noteID, args.notebookID)
 
@@ -106,6 +106,7 @@ class CreateNoteFragment : Fragment() {
     }
 
     private fun openWikipediaPage() {
+        Toast.makeText(context, "pressed", Toast.LENGTH_SHORT).show()
         val intent = Intent(context, WikipediaActivity::class.java)
         intent.putExtra("title", binding.titleInput.text.toString())
         startActivity(intent)

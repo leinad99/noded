@@ -217,7 +217,6 @@ object DataManager {
                         TextView.BufferType.EDITABLE
                     ) // TODO: This is not a title, it's actually the ID
                     binding.editor.setHtml(document.getString("text") ?: "")
-                    binding.wikiBtn.isEnabled = false
                 }
             }
 
