@@ -32,7 +32,6 @@ import kotlin.collections.ArrayList
 class NotebookFragment : Fragment() {
 
     lateinit var notebookRecyclerView: RecyclerView
-    lateinit var notebookList: LinkedList<NotebookModel>
 
 
     override fun onCreateView(
