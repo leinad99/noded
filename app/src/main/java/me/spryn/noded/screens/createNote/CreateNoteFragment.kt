@@ -106,7 +106,6 @@ class CreateNoteFragment : Fragment() {
     }
 
     private fun openWikipediaPage() {
-        Toast.makeText(context, "pressed", Toast.LENGTH_SHORT).show()
         val intent = Intent(context, WikipediaActivity::class.java)
         intent.putExtra("title", binding.titleInput.text.toString())
         startActivity(intent)
