@@ -1,13 +1,17 @@
 package me.spryn.noded.screens.createNote
 
-
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.hardware.SensorEvent
 import android.os.Bundle
 import android.util.Log
-import android.view.*
+import android.view.LayoutInflater
+import android.view.MotionEvent
+import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -21,12 +25,13 @@ import me.spryn.noded.screens.wikipedia.WikipediaActivity
 import me.spryn.noded.ui.updateToolbar
 
 
+
 class CreateNoteFragment : Fragment() {
     lateinit var binding: FragmentCreateNoteBinding
 
     private val args: CreateNoteFragmentArgs by navArgs()
 
-
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
