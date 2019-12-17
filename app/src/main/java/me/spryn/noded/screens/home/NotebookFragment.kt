@@ -81,29 +81,4 @@ class NotebookFragment : Fragment() {
             .navigate(R.id.action_notebookFragment_to_createNotebookFragment)
 
     }
-
-    private fun logout() {
-        var fAuth = FirebaseAuth.getInstance()
-
-        //Google Sign in
-        if (GoogleSignIn.getLastSignedInAccount(context) != null) {
-            lateinit var googleSignInClient: GoogleSignInClient
-            val googleSignInOptions: GoogleSignInOptions =
-                GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                    .requestIdToken(getString(R.string.default_web_client_id))
-                    .requestEmail()
-                    .build()
-
-            context?.let {
-                googleSignInClient = GoogleSignIn.getClient(it, googleSignInOptions)
-            }
-
-            googleSignInClient.revokeAccess()
-        }
-
-        fAuth.signOut()
-
-        view?.findNavController()
-            ?.clearBackStackAndNavigateTo(R.id.action_notebookFragment_to_loginActivity)
-    }
 }

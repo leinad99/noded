@@ -25,6 +25,7 @@ import com.google.firebase.auth.GoogleAuthProvider
 import me.spryn.noded.MainActivity
 import me.spryn.noded.R
 import me.spryn.noded.databinding.FragmentLoginBinding
+import java.util.regex.Pattern
 
 class LoginFragment : Fragment() {
 
@@ -113,22 +114,10 @@ class LoginFragment : Fragment() {
             binding.emailInput.error = null
         }
 
-        //password
-        if (password.isEmpty() || password.length < 6 || !strongPassword()) {
-            binding.passwordInput.error =
-                "password must at least 6 characters long, and contain the following: a capital, a lowercase, a number, a special character, and no spaces."
-            isValid = false
-        } else {
-            binding.passwordInput.error = null
-        }
-
         return isValid
     }
 
 
-    private fun strongPassword(): Boolean {
-        return true //TODO Implement API to check
-    }
 
     private fun googleLogin() {
         val signInIntent: Intent = googleSignInClient.signInIntent
@@ -162,13 +151,15 @@ class LoginFragment : Fragment() {
     private fun firebaseAuthWithGoogle(acct: GoogleSignInAccount) {
         Log.d("Google Login", "firebaseAuthWithGoogle:" + acct.id!!)
         val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
-        mAuth.signInWithCredential(credential).addOnCompleteListener {task ->
+        mAuth.signInWithCredential(credential).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 Log.d("Google Login", "signInWithCredential:success")
                 view?.findNavController()?.navigate(R.id.action_loginActivity_to_notebookFragment)
             } else {
                 Log.w("Google Login", "signInWithCredential:failure", task.exception)
-                view?.let { Snackbar.make(it, "Authentication Failed.", Snackbar.LENGTH_SHORT).show() }
+                view?.let {
+                    Snackbar.make(it, "Authentication Failed.", Snackbar.LENGTH_SHORT).show()
+                }
             }
         }
     }

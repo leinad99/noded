@@ -23,9 +23,8 @@ import me.spryn.noded.databinding.FragmentCreateNoteBinding
 import me.spryn.noded.models.NoteModel
 import me.spryn.noded.screens.wikipedia.WikipediaActivity
 import me.spryn.noded.ui.updateToolbar
-import java.util.*
-import net.dankito.richtexteditor.callback.GetCurrentHtmlCallback
 import net.dankito.utils.android.permissions.PermissionsService
+import java.util.*
 
 
 class CreateNoteFragment : Fragment() {
@@ -66,6 +65,7 @@ class CreateNoteFragment : Fragment() {
                 toolbarElevation = 0F,
                 checkButtonClick = ::saveNoteInstance,
                 deleteButtonClick = ::deleteNote
+//                nodeButtonClick =  ::connectedNotes
             )
             it.window.navigationBarColor =
                 ContextCompat.getColor(it, R.color.colorPrimaryDark)
@@ -76,6 +76,12 @@ class CreateNoteFragment : Fragment() {
         view?.let { hideKeyboard(it) }
         super.onPause()
     }
+
+//    private fun connectedNotes() {
+//        view?.findNavController()
+//            ?.navigate(R.id.action_createNoteFragment_to_connectedNotesFragment)
+//    }
+
 
     private fun deleteNote() {
         //TODO @Mitchell write this for when the user taps the delete icon
