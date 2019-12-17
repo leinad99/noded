@@ -3,11 +3,17 @@ package me.spryn.noded.database
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
+import android.widget.TextView
+import androidx.navigation.NavDirections
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import me.spryn.noded.databinding.FragmentCreateNoteBinding
 import me.spryn.noded.models.NoteModel
 import me.spryn.noded.models.NotebookModel
+import me.spryn.noded.screens.createNote.CreateNoteFragmentDirections
 import me.spryn.noded.screens.home.NotebookListAdapter
 import me.spryn.noded.screens.note.NoteListAdapter
 import java.util.*
@@ -142,7 +148,7 @@ object DataManager {
                     notes.add(NoteModel(ID = document.id,
                         title = document.getString("title") ?: "error",
                         text = document.getString("text") ?: "000000", //TODO: Better default color
-                        lastModified = modified.toLong(),
+                        lastModified = modified,
                         notebookID = document.getString("notebookID") ?: notebookID))
                 }
 
@@ -152,9 +158,9 @@ object DataManager {
     }
 
     // Load a specific note
-    fun loadNote(noteID: String, notebookID: String, context: Context?): NoteModel {
+    fun loadNoteIntoBinding(binding: FragmentCreateNoteBinding, noteID: String, notebookID: String): NoteModel {
 
-        /*
+        /* OLD SQL
         val requiredContext = context?: return NoteModel(title = noteTitle, notebookTitle =  notebookTitle)
         val dao = LocalNotesDatabase.getInstance(requiredContext).localNotesDao
 
@@ -162,6 +168,31 @@ object DataManager {
 
          */
 
-        return NoteModel(noteID, notebookID = notebookID) // TODO: Could be this
+        // New Firebase
+
+        val db = FirebaseFirestore.getInstance()
+
+        val note = NoteModel(noteID, notebookID = notebookID)
+
+        db.document("users/" + FirebaseAuth.getInstance().uid!! + "/notebooks/" + notebookID + "/notes/" + noteID)
+            .get().addOnSuccessListener { document ->
+                if (document != null) {
+                    binding.titleInput.setText(document.getString("title") ?: "untitled", TextView.BufferType.EDITABLE) // TODO: This is not a title, it's actually the ID
+                    binding.editor.setHtml(document.getString("text") ?: "")
+                    binding.wikiBtn.isEnabled = false
+                }
+            }
+
+        return note // TODO: Could be this
+    }
+
+    fun deleteNoteAndExit(view: View?, noteID: String, notebookID: String, action: NavDirections){
+        val db = FirebaseFirestore.getInstance()
+        db.document("users/" + FirebaseAuth.getInstance().uid!! + "/notebooks/" + notebookID + "/notes/" + noteID).delete()
+            .addOnSuccessListener {
+                Log.i("FirebaseListener", "Successfully deleted users/" + FirebaseAuth.getInstance().uid!! + "/notebooks/" + notebookID + "/notes/" + noteID)
+                view?.findNavController()?.navigate(action)
+            }
+            .addOnFailureListener { e -> Log.i("FirebaseListener", "Error writing document", e) }
     }
 }
