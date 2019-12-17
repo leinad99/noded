@@ -3,9 +3,11 @@ package me.spryn.noded.database
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import me.spryn.noded.databinding.FragmentCreateNoteBinding
 import me.spryn.noded.models.NoteModel
 import me.spryn.noded.models.NotebookModel
 import me.spryn.noded.screens.home.NotebookListAdapter
@@ -152,9 +154,9 @@ object DataManager {
     }
 
     // Load a specific note
-    fun loadNote(noteID: String, notebookID: String, context: Context?): NoteModel {
+    fun loadNoteIntoBinding(binding: FragmentCreateNoteBinding, noteID: String, notebookID: String): NoteModel {
 
-        /*
+        /* OLD SQL
         val requiredContext = context?: return NoteModel(title = noteTitle, notebookTitle =  notebookTitle)
         val dao = LocalNotesDatabase.getInstance(requiredContext).localNotesDao
 
@@ -162,6 +164,21 @@ object DataManager {
 
          */
 
-        return NoteModel(noteID, notebookID = notebookID) // TODO: Could be this
+        // New Firebase
+
+        val db = FirebaseFirestore.getInstance()
+
+        val note = NoteModel(noteID, notebookID = notebookID)
+
+        db.document("users/" + FirebaseAuth.getInstance().uid!! + "/notebooks/" + notebookID + "/notes/" + noteID)
+            .get().addOnSuccessListener { document ->
+                if (document != null) {
+                    binding.titleInput.setText(document.getString("title") ?: "untitled", TextView.BufferType.EDITABLE) // TODO: This is not a title, it's actually the ID
+                    binding.editor.setHtml(document.getString("text") ?: "")
+                    binding.wikiBtn.isEnabled = false
+                }
+            }
+
+        return note // TODO: Could be this
     }
 }

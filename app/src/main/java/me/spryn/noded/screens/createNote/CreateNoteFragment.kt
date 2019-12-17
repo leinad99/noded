@@ -38,13 +38,12 @@ class CreateNoteFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val note: NoteModel = DataManager.loadNote(args.noteID, args.notebookID, context)
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_create_note, container, false
         )
 
-        binding.titleInput.setText(note.ID, TextView.BufferType.EDITABLE) // TODO: This is not a title, it's actually the ID
-        binding.editor.setHtml(note.text)
+        binding.wikiBtn.isEnabled = false // So then the user can't search wikipedia with an empty string
+        DataManager.loadNoteIntoBinding(binding, args.noteID, args.notebookID)
 
         configureEditor()
 
@@ -89,7 +88,7 @@ class CreateNoteFragment : Fragment() {
         )
         view?.findNavController()?.navigate(action)
         val noteInstance = NoteModel(
-            ID = UUID.randomUUID().toString(),
+            ID = args.noteID,
             title = binding.titleInput.text.toString(),
             notebookID = args.notebookID,
             text = getBodyText()

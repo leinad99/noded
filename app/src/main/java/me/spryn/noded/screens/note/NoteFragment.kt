@@ -79,7 +79,7 @@ class NoteFragment : Fragment() {
     private fun createNote() {
         val action = NoteFragmentDirections.actionNoteFragmentToCreateNoteFragment(
             notebookID = args.notebookID,
-            noteID = "",
+            noteID = UUID.randomUUID().toString(),
             notebookColor = args.notebookColor,
             notebookName = args.notebookName
         )
