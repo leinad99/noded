@@ -1,16 +1,21 @@
 package me.spryn.noded.screens.createNote
 
-
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.annotation.SuppressLint
+import android.content.Intent
+import android.hardware.SensorEvent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -27,23 +32,23 @@ import net.dankito.utils.android.permissions.PermissionsService
 import java.util.*
 
 
+
 class CreateNoteFragment : Fragment() {
     lateinit var binding: FragmentCreateNoteBinding
 
     private val args: CreateNoteFragmentArgs by navArgs()
 
-
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val note: NoteModel = DataManager.loadNote(args.noteID, args.notebookID, context)
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_create_note, container, false
         )
 
-        binding.titleInput.setText(note.ID, TextView.BufferType.EDITABLE) // TODO: This is not a title, it's actually the ID
-        binding.editor.setHtml(note.text)
+        binding.wikiBtn.isEnabled = false // So then the user can't search wikipedia with an empty string
+        DataManager.loadNoteIntoBinding(binding, args.noteID, args.notebookID)
 
         configureEditor()
 
@@ -84,7 +89,12 @@ class CreateNoteFragment : Fragment() {
 
 
     private fun deleteNote() {
-        //TODO @Mitchell write this for when the user taps the delete icon
+        val action = CreateNoteFragmentDirections.actionCreateNoteFragmentToNoteFragment(
+            notebookID = args.notebookID,
+            notebookColor = args.notebookColor,
+            notebookName = args.notebookName
+        )
+        DataManager.deleteNoteAndExit(view, args.noteID, args.notebookID, action)
     }
 
     private fun saveNoteInstance() {
@@ -95,7 +105,7 @@ class CreateNoteFragment : Fragment() {
         )
         view?.findNavController()?.navigate(action)
         val noteInstance = NoteModel(
-            ID = UUID.randomUUID().toString(),
+            ID = args.noteID,
             title = binding.titleInput.text.toString(),
             notebookID = args.notebookID,
             text = getBodyText()
