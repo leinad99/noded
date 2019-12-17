@@ -70,9 +70,6 @@
             android:name="notebookColor"
             app:argType="string"
             android:defaultValue="37474F" />
-        <action
-            android:id="@+id/action_createNoteFragment_to_wikipediaFragment"
-            app:destination="@id/wikipediaFragment" />
     </custom-fragment>
     <custom-fragment
         android:id="@+id/loginActivity"
@@ -144,18 +141,4 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
     </custom-fragment>
-    <fragment
-        android:id="@+id/wikipediaFragment"
-        android:name="me.spryn.noded.screens.wikipedia.WikipediaFragment"
-        android:label="fragment_wikipedia"
-        tools:layout="@layout/fragment_wikipedia" >
-        <action
-            android:id="@+id/action_wikipediaFragment_to_createNoteFragment"
-            app:destination="@id/createNoteFragment"
-            app:popUpTo="@+id/createNoteFragment" />
-        <argument
-            android:name="title"
-            app:argType="string"
-            android:defaultValue="Wikipedia" />
-    </fragment>
 </navigation>

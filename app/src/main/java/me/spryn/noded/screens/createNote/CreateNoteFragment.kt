@@ -1,6 +1,7 @@
 package me.spryn.noded.screens.createNote
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -19,6 +20,7 @@ import me.spryn.noded.R
 import me.spryn.noded.database.DataManager
 import me.spryn.noded.databinding.FragmentCreateNoteBinding
 import me.spryn.noded.models.NoteModel
+import me.spryn.noded.screens.wikipedia.WikipediaActivity
 import me.spryn.noded.ui.updateToolbar
 
 
@@ -84,9 +86,12 @@ class CreateNoteFragment : Fragment() {
     }
 
     private fun openWikipediaPage() {
-        val action = CreateNoteFragmentDirections.actionCreateNoteFragmentToWikipediaFragment(
-            title = binding.titleInput.text.toString()
-        )
-        view?.findNavController()?.navigate(action)
+        val intent = Intent(context, WikipediaActivity::class.java)
+        intent.putExtra("title", binding.titleInput.text.toString())
+        startActivity(intent)
+//        val action = CreateNoteFragmentDirections.actionCreateNoteFragmentToWikipediaFragment(
+//            title = binding.titleInput.text.toString()
+//        )
+//        view?.findNavController()?.navigate(action)
     }
 }
