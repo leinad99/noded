@@ -14,6 +14,7 @@ import androidx.navigation.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import me.spryn.noded.R
 import me.spryn.noded.databinding.FragmentRegisterBinding
+import java.util.regex.Pattern
 
 
 class RegisterFragment : Fragment() {
@@ -103,7 +104,7 @@ class RegisterFragment : Fragment() {
         }
 
         //password
-        if (password.isEmpty() || password.length < 6 || !strongPassword()) {
+        if (password.isEmpty() || password.length < 6 || !strongPassword(password)) {
             binding.passwordInput.error =
                 "password must be at least 6 characters long, and contain the following: a capital, a lowercase, a number, a special character, and no spaces."
             isValid = false
@@ -114,8 +115,12 @@ class RegisterFragment : Fragment() {
         return isValid
     }
 
-    private fun strongPassword(): Boolean {
-        return true //TODO Implement API to check
+    private fun strongPassword(password: String): Boolean {
+        //regex expression to find if password has at least one uppercase, lowercase, and special character
+        val regex = "^(?=.*?\\p{Lu})(?=.*?\\p{Ll})(?=.*?\\d)" +
+                "(?=.*?[`~!@#$%^&*()\\-_=+\\\\|\\[{\\]};:'\",<.>/?]).*$"
+        //return if it follows the regex expression and contains no spaces
+        return(Pattern.compile(regex).matcher(password).matches() && !password.contains(" "))
     }
 
     private fun hideKeyboard(view: View) {
