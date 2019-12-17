@@ -77,7 +77,12 @@ class CreateNoteFragment : Fragment() {
     }
 
     private fun deleteNote() {
-        //TODO @Mitchell write this for when the user taps the delete icon
+        val action = CreateNoteFragmentDirections.actionCreateNoteFragmentToNoteFragment(
+            notebookID = args.notebookID,
+            notebookColor = args.notebookColor,
+            notebookName = args.notebookName
+        )
+        DataManager.deleteNoteAndExit(view, args.noteID, args.notebookID, action)
     }
 
     private fun saveNoteInstance() {
