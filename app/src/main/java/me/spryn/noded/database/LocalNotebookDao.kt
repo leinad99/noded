@@ -1,3 +1,5 @@
+/* OLD SQL
+
 package me.spryn.noded.database
 
 import androidx.room.Dao
@@ -23,3 +25,5 @@ interface LocalNotebookDao{
     fun getAllNotebooks(): List<NotebookModel>
 
 }
+
+ */

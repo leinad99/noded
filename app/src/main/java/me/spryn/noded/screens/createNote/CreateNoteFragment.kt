@@ -23,6 +23,7 @@ import me.spryn.noded.databinding.FragmentCreateNoteBinding
 import me.spryn.noded.models.NoteModel
 import me.spryn.noded.screens.wikipedia.WikipediaActivity
 import me.spryn.noded.ui.updateToolbar
+import java.util.*
 import net.dankito.richtexteditor.callback.GetCurrentHtmlCallback
 import net.dankito.utils.android.permissions.PermissionsService
 
@@ -37,17 +38,15 @@ class CreateNoteFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val note: NoteModel = DataManager.loadNote(args.noteName, args.notebookName, context)
+        val note: NoteModel = DataManager.loadNote(args.noteID, args.notebookID, context)
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_create_note, container, false
         )
 
-        configureEditor()
+        binding.titleInput.setText(note.ID, TextView.BufferType.EDITABLE) // TODO: This is not a title, it's actually the ID
+        binding.editor.setHtml(note.text)
 
-        if (note.title != "newNote1234") { //if not a new note, populate the fields
-            binding.titleInput.setText(note.title, TextView.BufferType.EDITABLE)
-//            binding.editor.setHtml(note.text)
-        }
+        configureEditor()
 
         binding.wikiBtn.setOnClickListener { openWikipediaPage() }
 
@@ -84,14 +83,16 @@ class CreateNoteFragment : Fragment() {
 
     private fun saveNoteInstance() {
         val action = CreateNoteFragmentDirections.actionCreateNoteFragmentToNoteFragment(
-            notebookName = args.notebookName,
-            notebookColor = args.notebookColor
+            notebookID = args.notebookID,
+            notebookColor = args.notebookColor,
+            notebookName = args.notebookName
         )
         view?.findNavController()?.navigate(action)
         val noteInstance = NoteModel(
+            ID = UUID.randomUUID().toString(),
             title = binding.titleInput.text.toString(),
-            text = getBodyText(),
-            notebookTitle = args.notebookName
+            notebookID = args.notebookID,
+            text = getBodyText()
         )
         DataManager.saveNote(noteInstance, context)
     }
@@ -134,15 +135,15 @@ class CreateNoteFragment : Fragment() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
-    // then when you want to do something with edited html
-    private fun getBodyText(): String {
-        var htmlText = ""
-        binding.editor.getCurrentHtmlAsync(object : GetCurrentHtmlCallback {
-            override fun htmlRetrieved(html: String) {
-                htmlText = html
-            }
-        })
-        return htmlText
+    private fun getBodyText(): String { //TODO change back?
+//        var htmlText = ""
+//        binding.editor.getCurrentHtmlAsync (object : GetCurrentHtmlCallback {
+//            override fun htmlRetrieved(html: String) {
+//                htmlText = html
+//            }
+//        })
+//        return htmlText
+        return binding.editor.getCachedHtml()
     }
     
     private fun hideKeyboard(view: View) {

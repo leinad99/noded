@@ -1,3 +1,5 @@
+/* OLD SQL
+
 package me.spryn.noded.database
 
 import android.content.Context
@@ -6,7 +8,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import me.spryn.noded.models.NotebookModel
 
-@Database(entities = arrayOf(NotebookModel::class), version = 1)
+@Database(entities = arrayOf(NotebookModel::class), version = 3)
 abstract class LocalNotebookDatabase : RoomDatabase() {
 
     abstract val localNotebookDao: LocalNotebookDao
@@ -33,3 +35,5 @@ abstract class LocalNotebookDatabase : RoomDatabase() {
         }
     }
 }
+
+ */

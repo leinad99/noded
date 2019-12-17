@@ -18,13 +18,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import me.spryn.noded.MainActivity
 import me.spryn.noded.R
-import me.spryn.noded.database.DataManager.loadNotebooks
+import me.spryn.noded.database.DataManager.addNotebooksToRecyclerView
 import me.spryn.noded.databinding.FragmentNotebookBinding
-import me.spryn.noded.models.NotebookModel
 import me.spryn.noded.navigation.clearBackStackAndNavigateTo
 import me.spryn.noded.screens.settings.SettingsActivity
 import me.spryn.noded.ui.updateToolbar
-import java.util.*
 
 /**
  * A simple [Fragment] subclass.
@@ -32,8 +30,6 @@ import java.util.*
 class NotebookFragment : Fragment() {
 
     lateinit var notebookRecyclerView: RecyclerView
-    lateinit var notebookListAdapter: NotebookListAdapter
-    lateinit var notebookList: LinkedList<NotebookModel>
 
     private lateinit var binding: FragmentNotebookBinding
 
@@ -41,39 +37,13 @@ class NotebookFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_notebook, container, false
         )
-        context?.let {
-
-            val notebooks = loadNotebooks(it)
-            notebookList = LinkedList()
-            for (notebook in notebooks) {
-                notebookList.add(notebook)
-            }
-            // FOR TESTING
-            val red = ContextCompat.getColor(it, R.color.red_500)
-            notebookList.add(
-                NotebookModel(
-                    title = "Skool",
-                    color = red.toString(),
-                    lastModified = 1
-                )
-            )
-            notebookList.add(
-                NotebookModel(
-                    title = "Personal",
-                    color = "-10965321",
-                    lastModified = 2
-                )
-            )
-            notebookListAdapter = NotebookListAdapter(notebookList, context, inflater)
-        }
-
 
         notebookRecyclerView = binding.notebookList
 
-        notebookRecyclerView.adapter = notebookListAdapter
         notebookRecyclerView.layoutManager = GridLayoutManager(context, 2)
 
         binding.settingsButton.setOnClickListener {
@@ -81,6 +51,10 @@ class NotebookFragment : Fragment() {
             startActivity(Intent(context, SettingsActivity::class.java))
         }
         binding.createNotebookFab.setOnClickListener { createNotebook(it) }
+
+        context?.let {
+            addNotebooksToRecyclerView(context, notebookRecyclerView, inflater)
+        }
 
         return binding.root
     }
