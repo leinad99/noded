@@ -2,12 +2,8 @@ package me.spryn.noded.screens.createNote
 
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -27,6 +23,7 @@ class CreateNoteFragment : Fragment() {
 
     private val args: CreateNoteFragmentArgs by navArgs()
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,7 +38,7 @@ class CreateNoteFragment : Fragment() {
             binding.noteInput.setText(note.text, TextView.BufferType.EDITABLE)
         }
 
-        binding.wikiBtn.setOnClickListener {view: View ->
+        binding.wikiBtn.setOnClickListener { view: View ->
             openWikipediaPage()
         }
 
@@ -91,4 +88,5 @@ class CreateNoteFragment : Fragment() {
         )
         view?.findNavController()?.navigate(action)
     }
+
 }
