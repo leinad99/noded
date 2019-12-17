@@ -2,11 +2,13 @@ package me.spryn.noded.screens.createNotebook
 
 
 import android.app.AlertDialog
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.GridLayout
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -61,6 +63,11 @@ class CreateNotebookFragment : Fragment() {
                 statusBarColor = darkerColor
             )
         }
+    }
+
+    override fun onPause() {
+        view?.let { hideKeyboard(it) }
+        super.onPause()
     }
 
     private fun showColors() {
@@ -120,5 +127,10 @@ class CreateNotebookFragment : Fragment() {
             lastModified = 1
         )
         saveNotebook(notebookInstance, context)
+    }
+
+    private fun hideKeyboard(view: View) {
+        val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 }

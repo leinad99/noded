@@ -1,13 +1,16 @@
 package me.spryn.noded.screens.createNote
 
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -65,6 +68,11 @@ class CreateNoteFragment : Fragment() {
         }
     }
 
+    override fun onPause() {
+        view?.let { hideKeyboard(it) }
+        super.onPause()
+    }
+
     private fun deleteNote() {
         //TODO @Mitchell write this for when the user taps the delete icon
     }
@@ -87,10 +95,11 @@ class CreateNoteFragment : Fragment() {
         val intent = Intent(context, WikipediaActivity::class.java)
         intent.putExtra("title", binding.titleInput.text.toString())
         startActivity(intent)
-//        val action = CreateNoteFragmentDirections.actionCreateNoteFragmentToWikipediaFragment(
-//            title = binding.titleInput.text.toString()
-//        )
-//        view?.findNavController()?.navigate(action)
+    }
+    
+    private fun hideKeyboard(view: View) {
+        val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
 }
