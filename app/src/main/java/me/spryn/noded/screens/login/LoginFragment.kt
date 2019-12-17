@@ -69,6 +69,10 @@ class LoginFragment : Fragment() {
         if (fAuth.currentUser != null) {
             view?.findNavController()?.navigate(R.id.action_loginActivity_to_notebookFragment)
         }
+        val mainActivity = activity as? MainActivity
+        mainActivity?.let {
+            it.window.navigationBarColor = ContextCompat.getColor(it, R.color.colorPrimaryDark)
+        }
     }
 
     private fun login() {
