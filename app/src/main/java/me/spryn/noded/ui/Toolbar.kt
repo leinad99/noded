@@ -14,7 +14,8 @@ fun updateToolbar(
     statusBarColor: Int = ContextCompat.getColor(mainActivity, R.color.colorPrimaryDark),
     addButtonClick: (() -> Unit)? = null,
     checkButtonClick: (() -> Unit)? = null,
-    deleteButtonClick: (() -> Unit)? = null
+    deleteButtonClick: (() -> Unit)? = null,
+    nodeButtonClick: (() -> Unit)? = null
 ) {
     //toolbar color
     val toolbar: Toolbar? = mainActivity.findViewById(R.id.toolbar)
@@ -28,7 +29,7 @@ fun updateToolbar(
         mainActivity.findViewById(R.id.add_button),
         addButtonClick
     )
-    //set check button
+    //set check button visibility
     setImageButtonVisibility(
         mainActivity.findViewById(R.id.check_button),
         checkButtonClick
@@ -37,6 +38,11 @@ fun updateToolbar(
     setImageButtonVisibility(
         mainActivity.findViewById(R.id.delete_button),
         deleteButtonClick
+    )
+    //set node button visibility
+    setImageButtonVisibility(
+        mainActivity.findViewById(R.id.node_button),
+        nodeButtonClick
     )
 }
 

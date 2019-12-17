@@ -23,6 +23,7 @@ class CustomFragmentNavigator(
         var showAddButton = false
         var showCheckButton = false
         var showDeleteButton = false
+        var showNodeButton = false
         override fun onInflate(context: Context, attrs: AttributeSet) {
             super.onInflate(context, attrs)
             context.withStyledAttributes(attrs, R.styleable.CustomFragmentNavigator, 0, 0) {
@@ -30,6 +31,8 @@ class CustomFragmentNavigator(
                 showAddButton = getBoolean(R.styleable.CustomFragmentNavigator_showAdd, false)
                 showCheckButton = getBoolean(R.styleable.CustomFragmentNavigator_showCheck, false)
                 showDeleteButton = getBoolean(R.styleable.CustomFragmentNavigator_showDelete, false)
+                showNodeButton = getBoolean(R.styleable.CustomFragmentNavigator_showNode, false)
+
             }
         }
     }

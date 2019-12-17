@@ -56,6 +56,8 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
             if (customFragment.showAddButton) View.VISIBLE else View.GONE
         findViewById<ImageButton>(R.id.check_button).visibility =
             if (customFragment.showCheckButton) View.VISIBLE else View.GONE
+        findViewById<ImageButton>(R.id.node_button).visibility =
+            if (customFragment.showNodeButton) View.VISIBLE else View.GONE
 
     }
 }

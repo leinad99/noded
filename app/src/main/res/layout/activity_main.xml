@@ -37,6 +37,15 @@
                     tools:text="A wonderful title" />
 
                 <ImageButton
+                    android:id="@+id/node_button"
+                    style="@style/status_bar_image_buttons"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_delete"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/delete_button"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageButton
                     android:id="@+id/delete_button"
                     style="@style/status_bar_image_buttons"
                     android:importantForAccessibility="no"
