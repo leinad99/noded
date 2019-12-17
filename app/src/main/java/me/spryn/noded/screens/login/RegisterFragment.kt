@@ -1,108 +1,84 @@
 package me.spryn.noded.screens.login
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
-import me.spryn.noded.MainActivity
 import me.spryn.noded.R
 import me.spryn.noded.databinding.FragmentRegisterBinding
 
+
 class RegisterFragment : Fragment() {
 
-    private lateinit var registerButton: Button
-
-    private var fAuth = FirebaseAuth.getInstance()
-    private var fUsersDatabase = FirebaseDatabase.getInstance().reference.child("Users")
-
-
-    private lateinit var nameField: EditText
-    private lateinit var emailField: EditText
-    private lateinit var passwordField: EditText
-
-    private lateinit var login: TextView
+    private lateinit var mAuth: FirebaseAuth
 
     private lateinit var name: String
     private lateinit var email: String
     private lateinit var password: String
 
-    private lateinit var progressDialog: ConstraintLayout
-
+    private lateinit var binding: FragmentRegisterBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding: FragmentRegisterBinding = DataBindingUtil.inflate(
+        // Initialize Firebase Auth
+        FirebaseAuth.getInstance()
+
+        binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_register, container, false
         )
 
-        nameField = binding.nameInput
-        emailField = binding.emailInput
-        passwordField = binding.passwordInput
+        binding.loginText.setOnClickListener { navigateToLogin() }
 
-        progressDialog = binding.progressDialogue
-
-        login = binding.loginText
-        login.setOnClickListener { login() }
-
-        registerButton = binding.register
-        registerButton.setOnClickListener {
-            name = nameField.text.toString().trim()
-            email = emailField.text.toString().trim()
-            password = passwordField.text.toString()
+        binding.register.setOnClickListener {
+            name = binding.nameInput.text.toString().trim()
+            email = binding.emailInput.text.toString().trim()
+            password = binding.passwordInput.text.toString()
             registerUser()
         }
 
         return binding.root
     }
 
-    override fun onResume() {
-        super.onResume()
-        val mainActivity = activity as? MainActivity
-        mainActivity?.let {
-            it.window.navigationBarColor =
-                ContextCompat.getColor(mainActivity, R.color.colorPrimaryDark)
-        }
+
+    override fun onPause() {
+        view?.let { hideKeyboard(it) }
+        super.onPause()
     }
 
-    private fun login() {
+    private fun navigateToLogin() {
         view?.findNavController()?.navigate((R.id.action_registerActivity_to_loginActivity))
     }
 
     private fun registerUser() {
-        registerButton.isEnabled = false
-
         if (!validate()) {
-            registerButton.isEnabled = true
             return
         }
 
-        progressDialog.visibility = View.VISIBLE
+        binding.progressDialogue.visibility = View.VISIBLE
 
-        fAuth.createUserWithEmailAndPassword(email, password)
+        mAuth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
-                progressDialog.visibility = View.GONE
+                binding.progressDialogue.visibility = View.GONE
                 if (task.isSuccessful) {
-                    registerButton.isEnabled = true
-                    val userID = fAuth.currentUser!!.uid
-                    val currentUserDb = fUsersDatabase.child(userID)
-                    Toast.makeText(context, "Success creating account!", Toast.LENGTH_SHORT).show()
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d("Register", "createUserWithEmail:success")
                     view?.findNavController()
                         ?.navigate(R.id.action_registerActivity_to_notebookFragment)
                 } else {
-                    registerButton.isEnabled = true
-                    Toast.makeText(context, "ERROR: ${task.exception}", Toast.LENGTH_SHORT).show()
+                    // If sign in fails, display a message to the user.
+                    Log.w("Register", "createUserWithEmail:failure", task.exception)
+                    Toast.makeText(
+                        context, "Authentication failed.", Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
     }
@@ -110,31 +86,29 @@ class RegisterFragment : Fragment() {
     private fun validate(): Boolean {
         var isValid = true
 
-        registerButton.isEnabled = false
-
         //name
         if (name.isEmpty() || name.length < 3) {
-            nameField.error = "at least 3 characters"
+            binding.nameInput.error = "at least 3 characters"
             isValid = false
         } else {
-            nameField.error = null
+            binding.nameInput.error = null
         }
 
         //email
         if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            emailField.error = "enter a valid email address"
+            binding.emailInput.error = "enter a valid email address"
             isValid = false
         } else {
-            emailField.error = null
+            binding.emailInput.error = null
         }
 
         //password
         if (password.isEmpty() || password.length < 6 || !strongPassword()) {
-            passwordField.error =
-                "Password Must be at least 6 characters long, and contain the following: a capital, a lowercase, a number, a special character, and no spaces."
+            binding.passwordInput.error =
+                "password must be at least 6 characters long, and contain the following: a capital, a lowercase, a number, a special character, and no spaces."
             isValid = false
         } else {
-            passwordField.error = null
+            binding.passwordInput.error = null
         }
 
         return isValid
@@ -142,5 +116,10 @@ class RegisterFragment : Fragment() {
 
     private fun strongPassword(): Boolean {
         return true //TODO Implement API to check
+    }
+
+    private fun hideKeyboard(view: View) {
+        val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 }

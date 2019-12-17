@@ -39,21 +39,38 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.55">
 
-                    <EditText
-                        android:id="@+id/email_input"
-                        style="@style/AccountInputField"
-                        android:autofillHints="emailAddress"
-                        android:hint="@string/email"
-                        android:inputType="textEmailAddress"
-                        app:backgroundTint="@color/white" />
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="@color/dark_blue">
 
-                    <EditText
-                        android:id="@+id/password_input"
-                        style="@style/AccountInputField"
-                        android:autofillHints="password"
-                        android:hint="@string/password"
-                        android:inputType="textPassword"
-                        app:backgroundTint="@color/white" />
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/email_input"
+                            style="@style/AccountInputField"
+                            android:autofillHints="emailAddress"
+                            android:hint="@string/email"
+                            android:inputType="textEmailAddress"
+                            app:backgroundTint="@color/white" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="@color/dark_blue"
+                        app:passwordToggleDrawable="@drawable/ic_visibility"
+                        app:passwordToggleEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/password_input"
+                            style="@style/AccountInputField"
+                            android:autofillHints="password"
+
+                            android:hint="@string/password"
+                            android:inputType="textPassword"
+                            app:backgroundTint="@color/white" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
 
                     <Button
                         android:id="@+id/login"

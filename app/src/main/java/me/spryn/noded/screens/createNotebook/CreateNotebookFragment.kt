@@ -2,12 +2,15 @@ package me.spryn.noded.screens.createNotebook
 
 
 import android.app.AlertDialog
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.GridLayout
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -51,7 +54,7 @@ class CreateNotebookFragment : Fragment() {
 
         mainActivity?.let {
             val color = ContextCompat.getColor(it, R.color.colorPrimary)
-            notebookColor = color //default notebook color
+            notebookColor = color //set default notebook color in case user doesn't select one
             val darkColor = colorBlendDark(color)
             val darkerColor = colorBlendDarker(color)
             updateToolbar(
@@ -61,6 +64,11 @@ class CreateNotebookFragment : Fragment() {
                 statusBarColor = darkerColor
             )
         }
+    }
+
+    override fun onPause() {
+        view?.let { hideKeyboard(it) }
+        super.onPause()
     }
 
     private fun showColors() {
@@ -78,7 +86,6 @@ class CreateNotebookFragment : Fragment() {
                 updateColor(item)
             }
         }
-
         alertDialog.setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
 
         // create alert dialog and show it
@@ -106,6 +113,10 @@ class CreateNotebookFragment : Fragment() {
     }
 
     private fun saveThisNotebook() {
+        if (binding.titleInput.text.toString().isEmpty()) {
+            Toast.makeText(context, "Please enter a title!", Toast.LENGTH_SHORT).show()
+            return
+        }
         val action = CreateNotebookFragmentDirections.actionCreateNotebookFragmentToNoteFragment(
             notebookColor = notebookColor.toString(),
             notebookID = binding.titleInput.text.toString()
@@ -118,5 +129,10 @@ class CreateNotebookFragment : Fragment() {
             lastModified = 1
         )
         saveNotebook(notebookInstance, context)
+    }
+
+    private fun hideKeyboard(view: View) {
+        val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 }

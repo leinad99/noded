@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import me.spryn.noded.MainActivity
@@ -19,6 +20,7 @@ import me.spryn.noded.ui.colorBlendDark
 import me.spryn.noded.database.DataManager
 import me.spryn.noded.databinding.FragmentNoteBinding
 import me.spryn.noded.models.NoteModel
+import me.spryn.noded.ui.colorBlendDarker
 import me.spryn.noded.ui.updateToolbar
 import java.util.*
 
@@ -46,7 +48,8 @@ class NoteFragment : Fragment() {
 
         binding.noteList.setBackgroundColor(args.notebookColor.toInt())
 
-        noteRecyclerView.layoutManager = LinearLayoutManager(context)
+        noteRecyclerView.adapter = noteListAdapter
+        noteRecyclerView.layoutManager = GridLayoutManager(context, 2)
 
         mainActivity?.let {
             val toolbarTitle: TextView? = it.findViewById(R.id.toolbar_title)
@@ -62,11 +65,12 @@ class NoteFragment : Fragment() {
         Log.i("NoteFragment", "onResume")
 
         val mainActivity = activity as? MainActivity
+        val color = args.notebookColor.toInt()
         mainActivity?.let {
             updateToolbar(
                 mainActivity = it,
-                toolbarColor = args.notebookColor.toInt(),
-                statusBarColor = colorBlendDark(args.notebookColor.toInt()),
+                toolbarColor = colorBlendDark(color),
+                statusBarColor = colorBlendDarker(color),
                 addButtonClick = ::createNote
             )
             it.window.navigationBarColor = colorBlendDark(args.notebookColor.toInt())

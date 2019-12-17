@@ -1,6 +1,5 @@
 package me.spryn.noded.ui
 
-import android.graphics.Color
 import android.view.View
 import android.widget.ImageButton
 import androidx.appcompat.widget.Toolbar
@@ -48,18 +47,3 @@ private fun setImageButtonVisibility(button: ImageButton, onClick: (() -> Unit)?
         button.setOnClickListener { onClick() }
     }
 }
-
-fun colorBlendDark(toolbarColor: Int): Int {
-    val opacity = 0.4f
-    val red = (1.0f - opacity) * Color.red(toolbarColor)
-    val green = (1.0f - opacity) * Color.green(toolbarColor)
-    val blue = (1.0f - opacity) * Color.blue(toolbarColor)
-    return Color.argb(
-        255,
-        red.toInt(),
-        green.toInt(),
-        blue.toInt()
-    )
-}
-
-fun colorBlendDarker(toolbarColor: Int): Int = colorBlendDark(colorBlendDark(toolbarColor))
