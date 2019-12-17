@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import me.spryn.noded.MainActivity
 import me.spryn.noded.R
@@ -32,6 +33,7 @@ import java.util.*
 class CreateNotebookFragment : Fragment() {
 
     lateinit var binding: FragmentCreateNotebookBinding
+    private lateinit var viewModel: CreateNotebookViewModel
 
     var notebookColor = 0
 
@@ -44,16 +46,19 @@ class CreateNotebookFragment : Fragment() {
         )
         binding.colorButton.setOnClickListener { showColors() }
 
+        viewModel = ViewModelProviders.of(this).get(CreateNotebookViewModel::class.java)
+
+        binding.notebookInfoLayout.setBackgroundColor(viewModel.color)
+
         return binding.root
     }
 
     override fun onResume() {
         super.onResume()
-
         val mainActivity = activity as? MainActivity
 
         mainActivity?.let {
-            val color = ContextCompat.getColor(it, R.color.colorPrimary)
+            val color = viewModel.color
             notebookColor = color //set default notebook color in case user doesn't select one
             val darkColor = colorBlendDark(color)
             val darkerColor = colorBlendDarker(color)
@@ -94,6 +99,7 @@ class CreateNotebookFragment : Fragment() {
 
     private fun updateColor(item: View) {
         val color = item.backgroundTintList!!.defaultColor
+        viewModel.color = color
         binding.notebookInfoLayout.setBackgroundColor(color)
         notebookColor = color
 

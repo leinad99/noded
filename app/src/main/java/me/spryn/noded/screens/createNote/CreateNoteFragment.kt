@@ -27,6 +27,7 @@ import net.dankito.utils.android.permissions.PermissionsService
 class CreateNoteFragment : Fragment() {
     lateinit var binding: FragmentCreateNoteBinding
 
+
     private val args: CreateNoteFragmentArgs by navArgs()
 
     @SuppressLint("ClickableViewAccessibility")
@@ -37,9 +38,8 @@ class CreateNoteFragment : Fragment() {
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_create_note, container, false
         )
+        binding.wikiBtn.isEnabled = false // Prevent searching wikipedia with an empty string
 
-        binding.wikiBtn.isEnabled =
-            false // So then the user can't search wikipedia with an empty string
         DataManager.loadNoteIntoBinding(binding, args.noteID, args.notebookID)
 
         configureEditor()
