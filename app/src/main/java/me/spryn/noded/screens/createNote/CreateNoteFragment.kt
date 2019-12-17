@@ -29,13 +29,13 @@ class CreateNoteFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val note: NoteModel = DataManager.loadNote(args.noteName, args.notebookID, context)
+        val note: NoteModel = DataManager.loadNote(args.noteID, args.notebookID, context)
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_create_note, container, false
         )
 
         if (note.title != "newNote1234") { //if not a new note, populate the fields
-            binding.titleInput.setText(note.title, TextView.BufferType.EDITABLE)
+            binding.titleInput.setText(note.ID, TextView.BufferType.EDITABLE) // TODO: This is not a title, it's actually the ID
             binding.noteInput.setText(note.text, TextView.BufferType.EDITABLE)
         }
 
@@ -72,7 +72,7 @@ class CreateNoteFragment : Fragment() {
         )
         view?.findNavController()?.navigate(action)
         val noteInstance = NoteModel(
-            title = binding.titleInput.text.toString(),
+            ID = binding.titleInput.text.toString(),
             text = binding.noteInput.text.toString(),
             notebookID = args.notebookID
         )

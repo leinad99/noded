@@ -64,7 +64,7 @@
             android:name="notebookID"
             app:argType="string" />
         <argument
-            android:name="noteName"
+            android:name="noteID"
             app:argType="string" />
         <argument
             android:name="notebookColor"

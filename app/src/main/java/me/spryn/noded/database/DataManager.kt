@@ -38,7 +38,7 @@ object DataManager {
             hashMapOf(
                 "title" to notebook.title,
                 "color" to notebook.color,
-                "lastModified" to System.currentTimeMillis()
+                "lastmodified" to System.currentTimeMillis()
             )
         ).addOnSuccessListener { Log.i("FirebaseListener", "DocumentSnapshot successfully written!") }
             .addOnFailureListener { e -> Log.i("FirebaseListener", "Error writing document", e) }
@@ -65,9 +65,7 @@ object DataManager {
             .get().addOnSuccessListener { result ->
                 for (document in result) {
 
-                    val modified = document.getString("ur mom") ?: "1" //TODO
-                    val DUM: String = "lastModified"
-                    Log.i("FirebaseListener", "Eh?: " + document.getString(DUM)) //TODO
+                    val modified = document.getString("lastmodified") ?: "1"
 
                     notebooks.add(NotebookModel(ID = document.id,
                         title = document.getString("title") ?: "error",
@@ -89,7 +87,7 @@ object DataManager {
     // Pass a note to be added to or updated in the database
     fun saveNote(note: NoteModel, context: Context?) {
 
-        /*
+        /* OLD SQL
         val requiredContext = context?: return
         val dao = LocalNotesDatabase.getInstance(requiredContext).localNotesDao
 
@@ -102,6 +100,19 @@ object DataManager {
         }
 
          */
+
+        // NEW Firebase
+
+        val db = FirebaseFirestore.getInstance()
+
+        db.document("users/" + FirebaseAuth.getInstance().uid!! + "/notebooks/" + note.notebookID + "/notes/" + note.ID).set(
+            hashMapOf(
+                "title" to note.title,
+                "text" to note.text,
+                "lastmodified" to System.currentTimeMillis()
+            )
+        ).addOnSuccessListener { Log.i("FirebaseListener", "DocumentSnapshot successfully written!") }
+            .addOnFailureListener { e -> Log.i("FirebaseListener", "Error writing document", e) }
     }
 
     // Load all notes in a notebook
@@ -119,7 +130,7 @@ object DataManager {
     }
 
     // Load a specific note
-    fun loadNote(noteTitle: String, notebookTitle: String, context: Context?): NoteModel {
+    fun loadNote(noteID: String, notebookID: String, context: Context?): NoteModel {
 
         /*
         val requiredContext = context?: return NoteModel(title = noteTitle, notebookTitle =  notebookTitle)
@@ -129,6 +140,6 @@ object DataManager {
 
          */
 
-        return NoteModel("no", notebookID = "no")
+        return NoteModel(noteID, notebookID = notebookID) // TODO: Could be this
     }
 }
